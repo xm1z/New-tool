@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <meta name="apple-mobile-web-app-title" content="Orthopedic Angle"/>
+  <meta name="theme-color" content="#050a0e"/>
+  <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTIgMTkyIiB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiI+CiAgPHJlY3Qgd2lkdGg9IjE5MiIgaGVpZ2h0PSIxOTIiIHJ4PSIzOCIgZmlsbD0iIzBhMTYyOCIvPgogIDwhLS0gQm9uZSBzaGFwZSAtLT4KICA8ZyBmaWxsPSIjYzhkOGU4Ij4KICAgIDwhLS0gQm9uZSBzaGFmdCAtLT4KICAgIDxyZWN0IHg9Ijg4IiB5PSI1NSIgd2lkdGg9IjE2IiBoZWlnaHQ9IjgyIiByeD0iNiIvPgogICAgPCEtLSBUb3AgbGVmdCBiYWxsIC0tPgogICAgPGNpcmNsZSBjeD0iNzgiIGN5PSI1OCIgcj0iMTYiLz4KICAgIDwhLS0gVG9wIHJpZ2h0IGJhbGwgLS0+CiAgICA8Y2lyY2xlIGN4PSIxMTQiIGN5PSI1OCIgcj0iMTYiLz4KICAgIDwhLS0gQm90dG9tIGxlZnQgYmFsbCAtLT4KICAgIDxjaXJjbGUgY3g9Ijc4IiBjeT0iMTM0IiByPSIxNiIvPgogICAgPCEtLSBCb3R0b20gcmlnaHQgYmFsbCAtLT4KICAgIDxjaXJjbGUgY3g9IjExNCIgY3k9IjEzNCIgcj0iMTYiLz4KICAgIDwhLS0gU2hhZnQgb3ZlcmxheSB0byBtYWtlIGl0IGxvb2sgbGlrZSBvbmUgcGllY2UgLS0+CiAgICA8cmVjdCB4PSI3MCIgeT0iNTUiIHdpZHRoPSI1MiIgaGVpZ2h0PSI4MiIgcng9IjAiLz4KICAgIDwhLS0gSW5uZXIgY3V0b3V0IHRvIHNoYXBlIGJvbmUgLS0+CiAgICA8cmVjdCB4PSI3OCIgeT0iNjQiIHdpZHRoPSIzNiIgaGVpZ2h0PSI2NCIgcng9IjQiIGZpbGw9IiMwYTE2MjgiLz4KICA8L2c+CiAgPCEtLSBBbmdsZSBsaW5lcyBpbiB5ZWxsb3cgLS0+CiAgPGcgc3Ryb2tlPSIjZmZkZDAwIiBzdHJva2Utd2lkdGg9IjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgZmlsbD0ibm9uZSI+CiAgICA8bGluZSB4MT0iNTIiIHkxPSIxNTAiIHgyPSI5NiIgeTI9Ijk2Ii8+CiAgICA8bGluZSB4MT0iOTYiIHkxPSI5NiIgeDI9IjE1MiIgeTI9IjExMCIvPgogICAgPCEtLSBBcmMgLS0+CiAgICA8cGF0aCBkPSJNIDcyIDExOCBBIDM0IDM0IDAgMCAxIDExMiAxMDQiLz4KICA8L2c+CiAgPCEtLSBBbmdsZSBkb3QgLS0+CiAgPGNpcmNsZSBjeD0iOTYiIGN5PSI5NiIgcj0iNSIgZmlsbD0iI2ZmNjAzMCIvPgogIDwhLS0gRGVncmVlIHN5bWJvbCAtLT4KICA8dGV4dCB4PSIxMTgiIHk9Ijg4IiBmb250LWZhbWlseT0iQ291cmllciBOZXciIGZvbnQtd2VpZ2h0PSJib2xkIiBmb250LXNpemU9IjIyIiBmaWxsPSIjZmZkZDAwIj7CsDwvdGV4dD4KPC9zdmc+"/>
+  <title>Orthopedic Angle Tool</title>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html,body{width:100%;height:100%;overflow:hidden;background:#050a0e;color:#c8d8e8;font-family:'Courier New',monospace}
+    #app{display:flex;flex-direction:column;width:100%;height:100%;overflow:hidden}
+
+```
+/* HEADER */
+#header{flex-shrink:0;background:linear-gradient(135deg,#0a1628,#0d1f3c,#0a1628);border-bottom:2px solid #1a3a5c}
+#title-bar{padding:7px 14px;display:flex;align-items:center;gap:10px}
+#title-icon{width:26px;height:26px;background:radial-gradient(circle,#00a8ff,#003c6e);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:0 0 12px #00a8ff55;flex-shrink:0}
+.t-main{font-size:12px;font-weight:700;color:#e0f0ff;letter-spacing:2px}
+.t-sub{font-size:8px;color:#5a8aaa;letter-spacing:2px;margin-top:1px}
+
+/* BODY */
+#body{display:flex;flex:1;min-height:0;overflow:hidden}
+
+/* LEFT */
+#left{width:185px;flex-shrink:0;background:#070d14;border-right:1px solid #1a2a3a;display:flex;flex-direction:column;padding:10px 9px;gap:7px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.slabel{font-size:9px;color:#3a6a8a;letter-spacing:2px;margin-bottom:2px}
+#upload-label{display:block;border:2px dashed #1a3a5c;border-radius:7px;padding:10px 8px;text-align:center;cursor:pointer;background:#0a1420}
+#upload-label .uico{font-size:18px;margin-bottom:2px}
+#upload-label .utxt{font-size:10px;color:#4a7a9a}
+#upload-label .usub{font-size:9px;color:#2a4a6a;margin-top:1px}
+button{font-family:'Courier New',monospace;cursor:pointer;border:none;outline:none}
+
+/* All 3 tool buttons identical base style */
+.btn-tool{
+  width:100%;padding:8px 6px;border-radius:6px;
+  border:1px solid #1a3a5c;background:#0a1420;color:#5a8aaa;
+  font-size:10px;font-weight:700;letter-spacing:1px;display:block;
+  transition:all 0.15s
+}
+/* active states per type */
+.btn-tool.active-supp{border-color:#ffdd00;background:#2a2200;color:#ffdd00}
+.btn-tool.active-reg{border-color:#00ffc8;background:#002a22;color:#00ffc8}
+.btn-tool.active-cobb{border-color:#ff88ff;background:#2a0a2a;color:#ff88ff}
+
+#btn-clear{width:100%;padding:6px;background:#1a0a0a;border:1px solid #3a1a1a;border-radius:4px;color:#8a4a4a;font-size:10px;display:none}
+#hint-box{font-size:10px;color:#ffdd00;background:#1a1400;border:1px solid #3a3000;border-radius:5px;padding:7px 10px;line-height:1.8;display:none}
+#angle-readout{background:#0d1a0a;border:2px solid #4ade8055;border-radius:8px;padding:8px;text-align:center;display:none}
+#angle-readout .rl{font-size:9px;color:#3a6a8a;letter-spacing:2px;margin-bottom:3px}
+#angle-readout .rv{font-size:24px;font-weight:700;color:#4ade80;text-shadow:0 0 14px #4ade8088}
+#meas-wrap{display:none}
+.meas-row{display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid #0a1a2a}
+.ml{font-size:10px}
+.mv{font-size:14px;font-weight:700}
+.md{background:none;border:none;color:#5a3a3a;font-size:12px;padding:0 3px;cursor:pointer}
+#legend{font-size:9px;color:#4a4015;background:#1a1400;border:1px solid #2a2000;border-radius:5px;padding:7px;line-height:1.9;display:none}
+.vd{color:#ff6030} .pd{color:#00ffc8} .cd{color:#ff88ff}
+#intro{color:#1a3a5a;font-size:10px;line-height:1.8}
+
+/* CENTER */
+#center{flex:1;min-width:0;background:#020608;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+#empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;color:#1a3a5a}
+#empty-state .ei{font-size:54px;opacity:0.12}
+#empty-state .em{font-size:11px;letter-spacing:3px;margin-top:10px}
+#empty-state .es{font-size:9px;opacity:0.35;margin-top:5px}
+#img-wrap{display:none;position:relative}
+#xray-img{display:block}
+#overlay{position:absolute;top:0;left:0;touch-action:none;cursor:default}
+```
+
+  </style>
+</head>
+<body>
+<div id="app">
+  <div id="header">
+<div id="title-bar">
+      <div id="title-icon">🦴</div>
+      <div>
+        <div class="t-main">ORTHOPEDIC ANGLE TOOL</div>
+        <div class="t-sub">ANGLE MEASUREMENT · EDUCATIONAL USE ONLY</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="body">
+    <div id="left">
+      <div class="slabel">RADIOGRAPH INPUT</div>
+      <label id="upload-label" for="xray-upload">
+        <div class="uico">📡</div>
+        <div class="utxt" id="upload-txt">Tap or drop X-ray</div>
+        <div class="usub">JPG · PNG · WEBP</div>
+      </label>
+      <input id="xray-upload" type="file" accept="image/*" style="display:none"/>
+
+```
+  <div id="tool-section" style="display:none">
+    <div class="slabel">TOOLS</div>
+
+    <button id="btn-supp" class="btn-tool" onclick="activateTool(1)">📐 SUPPLEMENTARY (180°−x)</button>
+    <button id="btn-reg"  class="btn-tool" onclick="activateTool(2)">📐 REGULAR ANGLE</button>
+    <button id="btn-cobb" class="btn-tool" onclick="activateTool(3)">📏 COBB ANGLE</button>
+
+    <div id="hint-box"></div>
+    <button id="btn-clear" onclick="clearAll()">✕ CLEAR ALL</button>
+
+    <div id="angle-readout">
+      <div class="rl">LAST MEASUREMENT</div>
+      <div class="rv" id="readout-val">—</div>
+    </div>
+
+    <div id="meas-wrap">
+      <div class="slabel">MEASUREMENTS</div>
+      <div id="measurements"></div>
+    </div>
+
+    <div id="legend">
+      <span class="vd">●V</span> Apex &nbsp;
+      <span class="pd">●1/2</span> Arms &nbsp;
+      <span class="cd">●</span> Cobb pts<br/>
+      Drag any point to adjust.
+    </div>
+  </div>
+  <div id="intro">Upload an X-ray then choose a tool to measure angles.</div>
+</div>
+
+<div id="center">
+  <div id="empty-state">
+    <div class="ei">🩻</div>
+    <div class="em">NO RADIOGRAPH LOADED</div>
+    <div class="es">Upload an X-ray to begin</div>
+  </div>
+  <div id="img-wrap">
+    <img id="xray-img" alt="X-ray"/>
+    <canvas id="overlay"></canvas>
+  </div>
+</div>
+```
+
+  </div>
+</div>
+
+<script>
+(function() {
+  // ── State ──────────────────────────────────────────────────────────────
+  var annotations = [];   // finished measurements
+  var placing     = [];   // points being placed for current measurement
+  var activeTool  = 0;    // 0=none, 1=supp, 2=regular, 3=cobb
+  var dragging    = null; // {ai, key} or {placing:true, pi}
+  var DOT_R   = 4;
+  var HIT_R   = 22;
+
+  // ── Elements ────────────────────────────────────────────────────────────
+  var canvas  = document.getElementById('overlay');
+  var ctx     = canvas.getContext('2d');
+  var xrayImg = document.getElementById('xray-img');
+  var imgWrap = document.getElementById('img-wrap');
+  var center  = document.getElementById('center');
+
+  // ── Geometry ─────────────────────────────────────────────────────────────
+  function dist(a, b) {
+    var dx = b.x - a.x, dy = b.y - a.y;
+    return Math.sqrt(dx*dx + dy*dy);
+  }
+
+  function angleBetween(p1, vertex, p2) {
+    // inner angle at vertex
+    var v1x = p1.x - vertex.x, v1y = p1.y - vertex.y;
+    var v2x = p2.x - vertex.x, v2y = p2.y - vertex.y;
+    var dot = v1x*v2x + v1y*v2y;
+    var mag = Math.sqrt(v1x*v1x + v1y*v1y) * Math.sqrt(v2x*v2x + v2y*v2y);
+    if (mag === 0) return 0;
+    return Math.acos(Math.max(-1, Math.min(1, dot / mag))) * 180 / Math.PI;
+  }
+
+  function cobbAngle(a, b, c, d) {
+    // Angle between line AB and line CD
+    // Direction vectors
+    var dx1 = b.x - a.x, dy1 = b.y - a.y;
+    var dx2 = d.x - c.x, dy2 = d.y - c.y;
+    var dot  = dx1*dx2 + dy1*dy2;
+    var mag  = Math.sqrt(dx1*dx1 + dy1*dy1) * Math.sqrt(dx2*dx2 + dy2*dy2);
+    if (mag === 0) return 0;
+    var ang = Math.acos(Math.max(-1, Math.min(1, Math.abs(dot) / mag))) * 180 / Math.PI;
+    return ang;
+  }
+
+  // ── Layout ────────────────────────────────────────────────────────────────
+  function layoutImage() {
+    var natW = xrayImg.naturalWidth;
+    var natH = xrayImg.naturalHeight;
+    if (!natW || !natH) return;
+    var scale = Math.min(center.clientWidth / natW, center.clientHeight / natH);
+    var dw = Math.floor(natW * scale);
+    var dh = Math.floor(natH * scale);
+    imgWrap.style.width  = dw + 'px';
+    imgWrap.style.height = dh + 'px';
+    xrayImg.style.width  = dw + 'px';
+    xrayImg.style.height = dh + 'px';
+    canvas.width  = dw;
+    canvas.height = dh;
+    canvas.style.width  = dw + 'px';
+    canvas.style.height = dh + 'px';
+    redraw();
+  }
+
+  window.addEventListener('resize', function() {
+    if (!xrayImg.naturalWidth) return;
+    var oldW = canvas.width, oldH = canvas.height;
+    layoutImage();
+    var newW = canvas.width, newH = canvas.height;
+    if (oldW && oldH && (newW !== oldW || newH !== oldH)) {
+      var sx = newW / oldW, sy = newH / oldH;
+      function sp(p) { return {x: p.x*sx, y: p.y*sy}; }
+      annotations = annotations.map(function(a) {
+        var n = {type:a.type, angleDeg:a.angleDeg, id:a.id};
+        if (a.type === 3) {
+          n.p1 = sp(a.p1); n.p2 = sp(a.p2);
+          n.p3 = sp(a.p3); n.p4 = sp(a.p4);
+        } else {
+          n.vertex = sp(a.vertex); n.p1 = sp(a.p1); n.p2 = sp(a.p2);
+        }
+        return n;
+      });
+      placing = placing.map(sp);
+      redraw();
+    }
+  });
+
+  // ── Pointer helpers ───────────────────────────────────────────────────────
+  function getPt(e) {
+    var rect = canvas.getBoundingClientRect();
+    var src  = e.touches ? e.touches[0] : e;
+    return { x: src.clientX - rect.left, y: src.clientY - rect.top };
+  }
+
+  // ── Drawing ───────────────────────────────────────────────────────────────
+  function drawDot(pt, color) {
+    ctx.beginPath(); ctx.arc(pt.x, pt.y, DOT_R + 4, 0, Math.PI*2);
+    ctx.fillStyle = color + '28'; ctx.fill();
+    ctx.beginPath(); ctx.arc(pt.x, pt.y, DOT_R + 1, 0, Math.PI*2);
+    ctx.strokeStyle = '#000'; ctx.lineWidth = 2; ctx.stroke();
+    ctx.beginPath(); ctx.arc(pt.x, pt.y, DOT_R, 0, Math.PI*2);
+    ctx.fillStyle = color; ctx.fill();
+  }
+
+  function drawLine(a, b, color, dashed) {
+    ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
+    ctx.strokeStyle = color; ctx.lineWidth = 2;
+    if (dashed) ctx.setLineDash([6, 4]); else ctx.setLineDash([]);
+    ctx.stroke(); ctx.setLineDash([]);
+  }
+
+  function drawLabel(text, x, y, color) {
+    ctx.font = 'bold 14px \'Courier New\'';
+    ctx.shadowColor = '#000'; ctx.shadowBlur = 8;
+    ctx.fillStyle = color; ctx.textAlign = 'left';
+    ctx.fillText(text, x, y);
+    ctx.shadowBlur = 0;
+  }
+
+  function drawAnnoSuppReg(a) {
+    var col = a.type === 1 ? '#ffdd00' : '#00ffc8';
+    drawLine(a.vertex, a.p1, col, false);
+    drawLine(a.vertex, a.p2, col, false);
+    var ang1 = Math.atan2(a.p1.y - a.vertex.y, a.p1.x - a.vertex.x);
+    var ang2 = Math.atan2(a.p2.y - a.vertex.y, a.p2.x - a.vertex.x);
+    ctx.beginPath(); ctx.arc(a.vertex.x, a.vertex.y, 24, ang1, ang2, false);
+    ctx.strokeStyle = col + '99'; ctx.lineWidth = 3; ctx.stroke();
+    drawDot(a.vertex, '#ff6030');
+    drawDot(a.p1, col);
+    drawDot(a.p2, col);
+    var tag = a.type === 1 ? ' (S)' : ' (R)';
+    drawLabel(a.angleDeg.toFixed(1) + '°' + tag, a.vertex.x + 30, a.vertex.y - 6, col);
+  }
+
+  function drawAnnoCobb(a) {
+    var col = '#ff88ff';
+    // Draw two lines
+    drawLine(a.p1, a.p2, col, false);
+    drawLine(a.p3, a.p4, col, false);
+    // Extend lines to show intersection hint
+    drawDot(a.p1, col); drawDot(a.p2, col);
+    drawDot(a.p3, col); drawDot(a.p4, col);
+    // Label near midpoint of first line
+    var mx = (a.p1.x + a.p2.x) / 2;
+    var my = (a.p1.y + a.p2.y) / 2 - 10;
+    drawLabel(a.angleDeg.toFixed(1) + '° (C)', mx, my, col);
+  }
+
+  function redraw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (var i = 0; i < annotations.length; i++) {
+      var a = annotations[i];
+      if (a.type === 3) drawAnnoCobb(a);
+      else drawAnnoSuppReg(a);
+    }
+    // Draw in-progress placing points
+    for (var j = 0; j < placing.length; j++) {
+      var col = activeTool === 1 ? '#ffdd00' : (activeTool === 2 ? '#00ffc8' : '#ff88ff');
+      drawDot(placing[j], activeTool === 1 || activeTool === 2 ? (j === 0 ? '#ff6030' : col) : col);
+      if (activeTool !== 3 && j > 0) {
+        drawLine(placing[0], placing[j], col + '66', true);
+      }
+      if (activeTool === 3 && j === 1) drawLine(placing[0], placing[1], col + '66', true);
+      if (activeTool === 3 && j === 3) drawLine(placing[2], placing[3], col + '66', true);
+    }
+    updateUI();
+  }
+
+  // ── UI update ────────────────────────────────────────────────────────────
+  var HINTS = {
+    1: ['① Tap the fracture APEX', '② Tap a point on the SHAFT', '③ Tap a point on the FRAGMENT'],
+    2: ['① Tap the VERTEX (center point)', '② Tap point on FIRST LINE', '③ Tap point on SECOND LINE'],
+    3: ['① Tap start of LINE 1', '② Tap end of LINE 1', '③ Tap start of LINE 2', '④ Tap end of LINE 2']
+  };
+
+  function updateUI() {
+    var hasAny = annotations.length > 0 || placing.length > 0;
+    document.getElementById('btn-clear').style.display = hasAny ? 'block' : 'none';
+    document.getElementById('legend').style.display    = hasAny ? 'block' : 'none';
+
+    var hb = document.getElementById('hint-box');
+    if (activeTool && placing.length < (activeTool === 3 ? 4 : 3)) {
+      hb.style.display = 'block';
+      hb.style.color = activeTool === 1 ? '#ffdd00' : (activeTool === 2 ? '#00ffc8' : '#ff88ff');
+      hb.textContent = HINTS[activeTool][placing.length];
+    } else {
+      hb.style.display = 'none';
+    }
+
+    // Measurements list
+    var mw = document.getElementById('meas-wrap');
+    var md = document.getElementById('measurements');
+    if (annotations.length > 0) {
+      mw.style.display = 'block';
+      var h = '';
+      for (var i = 0; i < annotations.length; i++) {
+        var a = annotations[i];
+        var col = a.type === 1 ? '#ffdd00' : (a.type === 2 ? '#00ffc8' : '#ff88ff');
+        var lbl = a.type === 1 ? '∠S' : (a.type === 2 ? '∠R' : '∠C');
+        h += '<div class="meas-row">' +
+             '<span class="ml" style="color:' + col + '">' + lbl + ' ' + (i+1) + '</span>' +
+             '<span class="mv" style="color:' + col + '">' + a.angleDeg.toFixed(1) + '°</span>' +
+             '<button class="md" onclick="window._delAnno(' + i + ')">✕</button>' +
+             '</div>';
+      }
+      md.innerHTML = h;
+    } else {
+      mw.style.display = 'none';
+    }
+
+    // Readout
+    var ro = document.getElementById('angle-readout');
+    if (annotations.length > 0) {
+      var last = annotations[annotations.length - 1];
+      var col = last.type === 1 ? '#4ade80' : (last.type === 2 ? '#00ffc8' : '#ff88ff');
+      ro.style.display = 'block';
+      document.getElementById('readout-val').style.color = col;
+      document.getElementById('readout-val').style.textShadow = '0 0 14px ' + col + '88';
+      document.getElementById('readout-val').textContent = last.angleDeg.toFixed(1) + '°';
+    } else {
+      ro.style.display = 'none';
+    }
+
+    canvas.style.cursor = dragging ? 'grabbing' : (activeTool ? 'crosshair' : (hasAny ? 'grab' : 'default'));
+    canvas.style.pointerEvents = (activeTool || hasAny) ? 'auto' : 'none';
+  }
+
+  // ── File upload ────────────────────────────────────────────────────────────
+  document.getElementById('xray-upload').addEventListener('change', function(e) {
+    if (e.target.files && e.target.files[0]) loadFile(e.target.files[0]);
+  });
+  center.addEventListener('dragover', function(e) { e.preventDefault(); });
+  center.addEventListener('drop',     function(e) { e.preventDefault(); if (e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]); });
+
+  function loadFile(file) {
+    if (!file.type.startsWith('image/')) return;
+    annotations = []; placing = []; activeTool = 0; dragging = null;
+    resetButtons();
+    var reader = new FileReader();
+    reader.onload = function(ev) {
+      xrayImg.onload = function() {
+        document.getElementById('empty-state').style.display = 'none';
+        imgWrap.style.display = 'block';
+        document.getElementById('tool-section').style.display = 'block';
+        document.getElementById('intro').style.display = 'none';
+        document.getElementById('upload-txt').textContent = 'Tap to replace';
+        layoutImage();
+      };
+      xrayImg.src = ev.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  // ── Tool controls ─────────────────────────────────────────────────────────
+  function resetButtons() {
+    var ids = ['btn-supp','btn-reg','btn-cobb'];
+    for (var i = 0; i < ids.length; i++) {
+      var b = document.getElementById(ids[i]);
+      b.classList.remove('active-supp','active-reg','active-cobb');
+    }
+    document.getElementById('btn-supp').textContent = '📐 SUPPLEMENTARY (180°−x)';
+    document.getElementById('btn-reg').textContent  = '📐 REGULAR ANGLE';
+    document.getElementById('btn-cobb').textContent = '📏 COBB ANGLE';
+  }
+
+  window.activateTool = function(type) {
+    if (activeTool === type) {
+      // Toggle off
+      activeTool = 0; placing = [];
+      resetButtons();
+    } else {
+      activeTool = type; placing = [];
+      resetButtons();
+      var map = {1:['btn-supp','active-supp','📐 STOP PLACING'], 2:['btn-reg','active-reg','📐 STOP PLACING'], 3:['btn-cobb','active-cobb','📏 STOP PLACING']};
+      var m = map[type];
+      document.getElementById(m[0]).classList.add(m[1]);
+      document.getElementById(m[0]).textContent = m[2];
+    }
+    redraw();
+  };
+
+  window.clearAll = function() {
+    annotations = []; placing = []; activeTool = 0; dragging = null;
+    resetButtons();
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    updateUI();
+  };
+
+  window._delAnno = function(idx) {
+    annotations.splice(idx, 1);
+    redraw();
+  };
+
+  // ── Pointer events ────────────────────────────────────────────────────────
+  canvas.addEventListener('mousedown',  onDown, false);
+  canvas.addEventListener('mousemove',  onMove, false);
+  canvas.addEventListener('mouseup',    onUp,   false);
+  canvas.addEventListener('mouseleave', onUp,   false);
+  canvas.addEventListener('touchstart', onDown, {passive:false});
+  canvas.addEventListener('touchmove',  onMove, {passive:false});
+  canvas.addEventListener('touchend',   onUp,   {passive:false});
+
+  function onDown(e) {
+    e.preventDefault(); e.stopPropagation();
+    var pt = getPt(e);
+
+    // Check drag on existing annotation points
+    for (var ai = 0; ai < annotations.length; ai++) {
+      var a = annotations[ai];
+      var keys = a.type === 3 ? ['p1','p2','p3','p4'] : ['vertex','p1','p2'];
+      for (var ki = 0; ki < keys.length; ki++) {
+        if (dist(pt, a[keys[ki]]) <= HIT_R) {
+          dragging = {ai:ai, key:keys[ki]};
+          updateUI(); return;
+        }
+      }
+    }
+
+    // Check drag on in-progress placing points
+    for (var pi = 0; pi < placing.length; pi++) {
+      if (dist(pt, placing[pi]) <= HIT_R) {
+        dragging = {placing:true, pi:pi};
+        updateUI(); return;
+      }
+    }
+
+    if (!activeTool) return;
+
+    var maxPts = activeTool === 3 ? 4 : 3;
+    if (placing.length < maxPts - 1) {
+      placing.push(pt);
+      redraw();
+    } else {
+      // Complete the measurement
+      placing.push(pt);
+      var pts = placing;
+      var ang;
+      if (activeTool === 3) {
+        ang = cobbAngle(pts[0], pts[1], pts[2], pts[3]);
+        annotations.push({type:3, p1:pts[0], p2:pts[1], p3:pts[2], p4:pts[3], angleDeg:ang, id:Date.now()});
+      } else {
+        ang = angleBetween(pts[1], pts[0], pts[2]);
+        if (activeTool === 1) ang = 180 - ang;
+        annotations.push({type:activeTool, vertex:pts[0], p1:pts[1], p2:pts[2], angleDeg:ang, id:Date.now()});
+      }
+      placing = [];
+      redraw();
+    }
+  }
+
+  function onMove(e) {
+    if (!dragging) return;
+    e.preventDefault(); e.stopPropagation();
+    var pt = getPt(e);
+    if (dragging.placing) {
+      placing[dragging.pi] = pt;
+    } else {
+      var a = annotations[dragging.ai];
+      a[dragging.key] = pt;
+      // Recalculate angle
+      if (a.type === 3) {
+        a.angleDeg = cobbAngle(a.p1, a.p2, a.p3, a.p4);
+      } else {
+        var inner = angleBetween(a.p1, a.vertex, a.p2);
+        a.angleDeg = a.type === 1 ? 180 - inner : inner;
+      }
+    }
+    redraw();
+  }
+
+  function onUp(e) {
+    if (e) { e.preventDefault(); e.stopPropagation(); }
+    dragging = null;
+    updateUI();
+  }
+
+  // Prevent page scroll on touch
+  document.addEventListener('touchmove', function(e) { e.preventDefault(); }, {passive:false});
+
+})();
+</script>
+
+</body>
+</html>
