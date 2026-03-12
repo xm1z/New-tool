@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <meta name="apple-mobile-web-app-title" content="Orthopedic Angle"/>
+  <meta name="theme-color" content="#050a0e"/>
+  <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTIgMTkyIiB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiI+CiAgPHJlY3Qgd2lkdGg9IjE5MiIgaGVpZ2h0PSIxOTIiIHJ4PSIzOCIgZmlsbD0iIzBhMTYyOCIvPgogIDwhLS0gQm9uZSBzaGFwZSAtLT4KICA8ZyBmaWxsPSIjYzhkOGU4Ij4KICAgIDwhLS0gQm9uZSBzaGFmdCAtLT4KICAgIDxyZWN0IHg9Ijg4IiB5PSI1NSIgd2lkdGg9IjE2IiBoZWlnaHQ9IjgyIiByeD0iNiIvPgogICAgPCEtLSBUb3AgbGVmdCBiYWxsIC0tPgogICAgPGNpcmNsZSBjeD0iNzgiIGN5PSI1OCIgcj0iMTYiLz4KICAgIDwhLS0gVG9wIHJpZ2h0IGJhbGwgLS0+CiAgICA8Y2lyY2xlIGN4PSIxMTQiIGN5PSI1OCIgcj0iMTYiLz4KICAgIDwhLS0gQm90dG9tIGxlZnQgYmFsbCAtLT4KICAgIDxjaXJjbGUgY3g9Ijc4IiBjeT0iMTM0IiByPSIxNiIvPgogICAgPCEtLSBCb3R0b20gcmlnaHQgYmFsbCAtLT4KICAgIDxjaXJjbGUgY3g9IjExNCIgY3k9IjEzNCIgcj0iMTYiLz4KICAgIDwhLS0gU2hhZnQgb3ZlcmxheSB0byBtYWtlIGl0IGxvb2sgbGlrZSBvbmUgcGllY2UgLS0+CiAgICA8cmVjdCB4PSI3MCIgeT0iNTUiIHdpZHRoPSI1MiIgaGVpZ2h0PSI4MiIgcng9IjAiLz4KICAgIDwhLS0gSW5uZXIgY3V0b3V0IHRvIHNoYXBlIGJvbmUgLS0+CiAgICA8cmVjdCB4PSI3OCIgeT0iNjQiIHdpZHRoPSIzNiIgaGVpZ2h0PSI2NCIgcng9IjQiIGZpbGw9IiMwYTE2MjgiLz4KICA8L2c+CiAgPCEtLSBBbmdsZSBsaW5lcyBpbiB5ZWxsb3cgLS0+CiAgPGcgc3Ryb2tlPSIjZmZkZDAwIiBzdHJva2Utd2lkdGg9IjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgZmlsbD0ibm9uZSI+CiAgICA8bGluZSB4MT0iNTIiIHkxPSIxNTAiIHgyPSI5NiIgeTI9Ijk2Ii8+CiAgICA8bGluZSB4MT0iOTYiIHkxPSI5NiIgeDI9IjE1MiIgeTI9IjExMCIvPgogICAgPCEtLSBBcmMgLS0+CiAgICA8cGF0aCBkPSJNIDcyIDExOCBBIDM0IDM0IDAgMCAxIDExMiAxMDQiLz4KICA8L2c+CiAgPCEtLSBBbmdsZSBkb3QgLS0+CiAgPGNpcmNsZSBjeD0iOTYiIGN5PSI5NiIgcj0iNSIgZmlsbD0iI2ZmNjAzMCIvPgogIDwhLS0gRGVncmVlIHN5bWJvbCAtLT4KICA8dGV4dCB4PSIxMTgiIHk9Ijg4IiBmb250LWZhbWlseT0iQ291cmllciBOZXciIGZvbnQtd2VpZ2h0PSJib2xkIiBmb250LXNpemU9IjIyIiBmaWxsPSIjZmZkZDAwIj7CsDwvdGV4dD4KPC9zdmc+"/>
+  <title>Orthopedic Angle Tool</title>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html,body{width:100%;height:100%;overflow:hidden;background:#050a0e;color:#c8d8e8;font-family:'Courier New',monospace}
+    #app{display:flex;flex-direction:column;width:100%;height:100%;overflow:hidden}
+    #header{flex-shrink:0;background:linear-gradient(135deg,#0a1628,#0d1f3c,#0a1628);border-bottom:2px solid #1a3a5c}
+    #title-bar{padding:7px 14px;display:flex;align-items:center;gap:10px}
+    #title-icon{width:26px;height:26px;background:radial-gradient(circle,#00a8ff,#003c6e);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:0 0 12px #00a8ff55;flex-shrink:0}
+    .t-main{font-size:12px;font-weight:700;color:#e0f0ff;letter-spacing:2px}
+    .t-sub{font-size:8px;color:#5a8aaa;letter-spacing:2px;margin-top:1px}
+    #mode-tabs{display:flex;flex-shrink:0;border-bottom:1px solid #1a3a5c}
+    .tab{flex:1;padding:8px 4px;text-align:center;font-size:9px;font-weight:700;letter-spacing:1px;color:#3a6a8a;cursor:pointer;border:none;background:none;font-family:'Courier New',monospace;border-bottom:3px solid transparent;transition:all 0.2s}
+    .tab.active{color:#00a8ff;border-bottom-color:#00a8ff;background:#00a8ff08}
+    #screen-angle{display:flex;flex:1;min-height:0;overflow:hidden}
+    #screen-tttg{display:none;flex:1;min-height:0;overflow:hidden}
+    .left-panel{width:185px;flex-shrink:0;background:#070d14;border-right:1px solid #1a2a3a;display:flex;flex-direction:column;padding:10px 9px;gap:7px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+    .slabel{font-size:9px;color:#3a6a8a;letter-spacing:2px;margin-bottom:2px}
+    .upload-box{display:block;border:2px dashed #1a3a5c;border-radius:7px;padding:10px 8px;text-align:center;cursor:pointer;background:#0a1420;transition:all 0.2s}
+    .upload-box.done{border-color:#4ade8066;border-style:solid;background:#0a1a0a}
+    .upload-box .uico{font-size:18px;margin-bottom:2px}
+    .upload-box .utxt{font-size:10px;color:#4a7a9a}
+    .upload-box .usub{font-size:9px;color:#2a4a6a;margin-top:1px}
+    button{font-family:'Courier New',monospace;cursor:pointer;border:none;outline:none}
+    .btn-tool{width:100%;padding:8px 6px;border-radius:6px;border:1px solid #1a3a5c;background:#0a1420;color:#5a8aaa;font-size:10px;font-weight:700;letter-spacing:1px;display:block;transition:all 0.15s}
+    .btn-tool.active-supp{border-color:#ffdd00;background:#2a2200;color:#ffdd00}
+    .btn-tool.active-reg{border-color:#00ffc8;background:#002a22;color:#00ffc8}
+    .btn-tool.active-cobb{border-color:#ff88ff;background:#2a0a2a;color:#ff88ff}
+    .btn-tool.active-tttg{border-color:#00cfff;background:#00202a;color:#00cfff}
+    .btn-tool.active-tg{border-color:#4488ff;background:#00102a;color:#4488ff}
+    .btn-tool.active-tt{border-color:#ff6644;background:#2a0800;color:#ff6644}
+    .btn-danger{width:100%;padding:6px;background:#1a0a0a;border:1px solid #3a1a1a;border-radius:4px;color:#8a4a4a;font-size:10px;display:none}
+    .hint-box{font-size:10px;border-radius:5px;padding:7px 10px;line-height:1.9;display:none}
+    .readout-box{background:#0d1a0a;border:2px solid #4ade8055;border-radius:8px;padding:8px;text-align:center;display:none}
+    .readout-box .rl{font-size:9px;color:#3a6a8a;letter-spacing:2px;margin-bottom:3px}
+    .readout-box .rv{font-size:22px;font-weight:700}
+    .meas-wrap{display:none}
+    .meas-row{display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid #0a1a2a}
+    .ml{font-size:10px}.mv{font-size:14px;font-weight:700}
+    .md{background:none;border:none;color:#5a3a3a;font-size:12px;padding:0 3px;cursor:pointer}
+    .legend-box{font-size:9px;color:#4a4015;background:#1a1400;border:1px solid #2a2000;border-radius:5px;padding:7px;line-height:1.9;display:none}
+    .intro-txt{color:#1a3a5a;font-size:10px;line-height:1.8}
+    /* Center panels */
+    .center-panel{flex:1;min-width:0;background:#020608;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+    .empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;color:#1a3a5a;height:100%;width:100%}
+    .empty-state .ei{font-size:54px;opacity:0.12}
+    .empty-state .em{font-size:11px;letter-spacing:3px;margin-top:10px}
+    .empty-state .es{font-size:9px;opacity:0.35;margin-top:5px}
+    /* img-wrap: the zoom target — sized to the image, centered by flexbox */
+    #img-wrap{display:none;position:relative;transform-origin:center center}
+    #xray-img{display:block}
+    #overlay{position:absolute;top:0;left:0;touch-action:none;cursor:default}
+    /* TT-TG */
+    #tttg-left{width:185px;flex-shrink:0;background:#070d14;border-right:1px solid #1a2a3a;display:flex;flex-direction:column;padding:8px 9px;gap:5px;overflow-y:auto;-webkit-overflow-scrolling:touch;scroll-behavior:smooth}
+    #tttg-center{flex:1;min-width:0;background:#020608;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+    #tttg-canvas-wrap{display:none;position:relative;transform-origin:center center}
+    #tttg-canvas{display:block;touch-action:none}
+    /* Zoom reset button */
+    .zreset{position:absolute;top:8px;right:8px;z-index:20;background:#0a1628dd;border:1px solid #1a3a5c;color:#5a8aaa;font-family:'Courier New',monospace;font-size:9px;padding:5px 9px;border-radius:4px;cursor:pointer;display:none;letter-spacing:1px}
+    /* TT-TG misc */
+    .step-row{display:flex;align-items:center;gap:5px;font-size:9px;color:#3a6a8a;letter-spacing:1px;margin-bottom:2px}
+    .badge{width:16px;height:16px;border-radius:50%;background:#1a3a5c;color:#5a8aaa;font-size:8px;font-weight:700;text-align:center;line-height:16px;flex-shrink:0;transition:all 0.2s}
+    .badge.done{background:#4ade8022;color:#4ade80;border:1px solid #4ade8044}
+    .badge.act{background:#00cfff22;color:#00cfff;border:1px solid #00cfff44}
+    #tttg-result{background:#001828;border:2px solid #00cfff55;border-radius:8px;padding:10px;text-align:center;display:none;margin-top:4px;margin-bottom:8px}
+    #tttg-result .rl{font-size:9px;color:#3a6a8a;letter-spacing:2px;margin-bottom:3px}
+    #tttg-result .rv{font-size:28px;font-weight:700;color:#00cfff;text-shadow:0 0 14px #00cfff88}
+    #tttg-result .ri{font-size:9px;color:#4a8aaa;margin-top:3px}
+    #tttg-result .rg{font-size:10px;font-weight:700;margin-top:5px;padding:3px 10px;border-radius:4px;display:inline-block}
+    input[type=number]{width:100%;padding:6px 8px;background:#0a1420;border:1px solid #1a3a5c;border-radius:4px;color:#c8d8e8;font-family:'Courier New',monospace;font-size:11px}
+    input[type=number]:focus{outline:none;border-color:#00a8ff}
+    .opacity-row{display:flex;align-items:center;gap:6px;font-size:9px;color:#5a8aaa}
+    input[type=range]{flex:1;accent-color:#00cfff}
+    .sep{height:1px;background:#1a2a3a;margin:2px 0}
+  </style>
+</head>
+<body>
+<div id="app">
+  <div id="header">
+    <div id="title-bar">
+      <div id="title-icon">🦴</div>
+      <div>
+        <div class="t-main">ORTHOPEDIC ANGLE TOOL</div>
+        <div class="t-sub">ANGLE &amp; DISTANCE MEASUREMENT · EDUCATIONAL USE ONLY</div>
+      </div>
+    </div>
+  </div>
+  <div id="mode-tabs">
+    <button class="tab active" id="tab-angle" onclick="switchMode('angle')">📐 ANGLE TOOLS</button>
+    <button class="tab"        id="tab-tttg"  onclick="switchMode('tttg')">📏 TT-TG DISTANCE</button>
+  </div>
+
+  <!-- ═══ ANGLE SCREEN ═══ -->
+
+  <div id="screen-angle">
+    <div class="left-panel">
+      <div class="slabel">RADIOGRAPH INPUT</div>
+      <label class="upload-box" for="xray-upload">
+        <div class="uico">📡</div>
+        <div class="utxt" id="upload-txt">Tap or drop X-ray</div>
+        <div class="usub">JPG · PNG · WEBP</div>
+      </label>
+      <input id="xray-upload" type="file" accept="image/*" style="display:none"/>
+      <div id="tool-section" style="display:none">
+        <div class="slabel">TOOLS</div>
+        <button id="btn-supp" class="btn-tool" onclick="activateTool(1)">📐 SUPPLEMENTARY (180°−x)</button>
+        <button id="btn-reg"  class="btn-tool" onclick="activateTool(2)">📐 REGULAR ANGLE</button>
+        <button id="btn-cobb" class="btn-tool" onclick="activateTool(3)">📏 COBB ANGLE</button>
+        <div id="hint-box" class="hint-box" style="background:#1a1400;border:1px solid #3a3000;color:#ffdd00"></div>
+        <button id="btn-clear" class="btn-danger" onclick="clearAll()">✕ CLEAR ALL</button>
+        <div id="angle-readout" class="readout-box">
+          <div class="rl">LAST MEASUREMENT</div>
+          <div class="rv" id="readout-val" style="color:#4ade80;text-shadow:0 0 14px #4ade8088">—</div>
+        </div>
+        <div id="meas-wrap" class="meas-wrap">
+          <div class="slabel">MEASUREMENTS</div>
+          <div id="measurements"></div>
+        </div>
+        <div id="legend" class="legend-box">
+          <span style="color:#ff6030">●V</span> Apex &nbsp;
+          <span style="color:#00ffc8">●</span> Arms &nbsp;
+          <span style="color:#ff88ff">●</span> Cobb<br/>
+          Drag any point to adjust.<br/>
+          <span style="color:#3a6a8a">Pinch 2 fingers to zoom/pan.</span>
+        </div>
+      </div>
+      <div id="intro" class="intro-txt">Upload an X-ray then choose a tool.</div>
+    </div>
+    <div class="center-panel" id="angle-center">
+      <div class="empty-state" id="a-empty">
+        <div class="ei">🩻</div><div class="em">NO RADIOGRAPH LOADED</div>
+        <div class="es">Upload an X-ray to begin</div>
+      </div>
+      <button class="zreset" id="a-zreset" onclick="aZoomReset()">⊡ RESET ZOOM</button>
+      <div id="img-wrap">
+        <img id="xray-img" alt="X-ray"/>
+        <canvas id="overlay"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ TT-TG SCREEN ═══ -->
+
+  <div id="screen-tttg">
+    <div id="tttg-left">
+      <div class="step-row"><div class="badge" id="b1">1</div>TROCHLEA IMAGE</div>
+      <label class="upload-box" id="tg-lbl" for="tg-upload">
+        <div class="uico">🦴</div>
+        <div class="utxt" id="tg-txt">Upload Trochlea MRI</div>
+        <div class="usub">Axial slice · TG level</div>
+      </label>
+      <input id="tg-upload" type="file" accept="image/*" style="display:none"/>
+      <div class="step-row"><div class="badge" id="b2">2</div>TUBEROSITY IMAGE</div>
+      <label class="upload-box" id="tt-lbl" for="tt-upload">
+        <div class="uico">🦵</div>
+        <div class="utxt" id="tt-txt">Upload TT MRI</div>
+        <div class="usub">Axial slice · TT level</div>
+      </label>
+      <input id="tt-upload" type="file" accept="image/*" style="display:none"/>
+      <div id="tttg-tools" style="display:none">
+        <div class="sep"></div>
+        <div class="slabel">PIXEL SPACING (mm/px)</div>
+        <input type="number" id="px-sp" value="0.5" step="0.01" min="0.05" max="5" oninput="tDraw()"/>
+        <div style="font-size:8px;color:#2a5a7a;margin-top:2px">Check DICOM header for value</div>
+        <div class="slabel" style="margin-top:4px">OVERLAY OPACITY</div>
+        <div class="opacity-row">
+          <span style="color:#4488ff">TG</span>
+          <input type="range" id="op-sl" min="0" max="100" value="50" oninput="tDraw()"/>
+          <span style="color:#ff6644">TT</span>
+        </div>
+        <div class="sep"></div>
+        <div class="step-row"><div class="badge" id="b3">3</div>EPICONDYLE BASELINE</div>
+        <button id="btn-bl" class="btn-tool" onclick="tActivate('bl')">📏 DRAW pFCL LINE (2 pts)</button>
+        <div class="step-row" style="margin-top:6px"><div class="badge" id="b4">4</div>TROCHLEAR GROOVE</div>
+        <button id="btn-tg" class="btn-tool" onclick="tActivate('tg')">🔵 MARK POINT A</button>
+        <div class="step-row" style="margin-top:6px"><div class="badge" id="b5">5</div>TIBIAL TUBEROSITY</div>
+        <button id="btn-tt" class="btn-tool" onclick="tActivate('tt')">🔴 MARK POINT B</button>
+        <div id="t-hint" class="hint-box" style="background:#00101a;border:1px solid #003050;color:#00cfff;margin-top:4px"></div>
+        <div class="sep"></div>
+        <button class="btn-danger" id="btn-tr" onclick="tReset()" style="display:block">↺ RESET ALL POINTS</button>
+        <div id="tttg-result">
+          <div class="rl">TT-TG DISTANCE</div>
+          <div class="rv" id="t-rv">—</div>
+          <div class="ri" id="t-ri"></div>
+          <div class="rg" id="t-rg"></div>
+        </div>
+      </div>
+      <div id="t-intro" class="intro-txt">Upload both MRI axial slices to begin TT-TG measurement.<br/><br/><span style="color:#2a5a3a">Pinch 2 fingers to zoom/pan.</span></div>
+    </div>
+    <div id="tttg-center">
+      <div class="empty-state" id="t-empty">
+        <div class="ei">🦴</div>
+        <div class="em">UPLOAD BOTH IMAGES</div>
+        <div class="es">Trochlea + Tibial Tuberosity slices</div>
+      </div>
+      <button class="zreset" id="t-zreset" onclick="tZoomReset()">⊡ RESET ZOOM</button>
+      <div id="tttg-canvas-wrap">
+        <canvas id="tttg-canvas"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+
+// ═══════════════════════════════════════════
+// ZOOM ENGINE
+// Each panel gets its own zoom state.
+// The wrap element gets CSS transform: translate(tx,ty) scale(s)
+// with transform-origin: center center.
+//
+// screenToCanvas(cx,cy):
+//   The canvas/overlay sits inside wrap at position (0,0).
+//   When wrap has transform translate(tx,ty) scale(s) from its center,
+//   the rendered rect of the canvas is:
+//     left  = wrapCenter.x + tx + (-naturalW/2)*s
+//     top   = wrapCenter.y + ty + (-naturalH/2)*s
+//   So canvas coords = (screen - renderLeft) / s
+// ═══════════════════════════════════════════
+
+function ZoomState(wrapEl, centerEl, resetBtnId) {
+  this.s  = 1;   // scale
+  this.tx = 0;   // translate X (px, in screen space)
+  this.ty = 0;   // translate Y
+  this.wrap   = wrapEl;
+  this.center = centerEl;
+  this.resetId = resetBtnId;
+  this._pinch = null;
+}
+
+ZoomState.prototype.apply = function() {
+  this.wrap.style.transform =
+    'translate('+this.tx+'px,'+this.ty+'px) scale('+this.s+')';
+  var btn = document.getElementById(this.resetId);
+  if(btn) btn.style.display =
+    (this.s!==1||this.tx!==0||this.ty!==0) ? 'block' : 'none';
+};
+
+ZoomState.prototype.reset = function() {
+  this.s=1; this.tx=0; this.ty=0; this.apply();
+};
+
+// Convert screen clientX/Y → canvas pixel coords
+ZoomState.prototype.toCanvas = function(cx, cy) {
+  var cr = this.center.getBoundingClientRect();
+  var nw = this.wrap.offsetWidth;
+  var nh = this.wrap.offsetHeight;
+  // Center of wrap in screen coords
+  var wCx = cr.left + cr.width/2  + this.tx;
+  var wCy = cr.top  + cr.height/2 + this.ty;
+  // Top-left of rendered image in screen coords
+  var imgLeft = wCx - (nw/2) * this.s;
+  var imgTop  = wCy - (nh/2) * this.s;
+  return {
+    x: (cx - imgLeft) / this.s,
+    y: (cy - imgTop)  / this.s
+  };
+};
+
+ZoomState.prototype.attachPinch = function(onMove) {
+  var self = this;
+  function mid(t1,t2){return{x:(t1.clientX+t2.clientX)/2,y:(t1.clientY+t2.clientY)/2};}
+  function tdist(t1,t2){var dx=t1.clientX-t2.clientX,dy=t1.clientY-t2.clientY;return Math.sqrt(dx*dx+dy*dy);}
+
+  self.center.addEventListener('touchstart', function(e){
+    if(e.touches.length===2){
+      e.preventDefault(); e.stopPropagation();
+      var t1=e.touches[0],t2=e.touches[1];
+      self._pinch={d0:tdist(t1,t2),s0:self.s,tx0:self.tx,ty0:self.ty,m0:mid(t1,t2)};
+    }
+  },{passive:false});
+
+  self.center.addEventListener('touchmove', function(e){
+    if(self._pinch && e.touches.length===2){
+      e.preventDefault(); e.stopPropagation();
+      var t1=e.touches[0],t2=e.touches[1];
+      var d=tdist(t1,t2);
+      var m=mid(t1,t2);
+      var newS=Math.max(1,Math.min(8, self._pinch.s0*(d/self._pinch.d0)));
+      var dpx=m.x-self._pinch.m0.x;
+      var dpy=m.y-self._pinch.m0.y;
+      var cr=self.center.getBoundingClientRect();
+      var relX=self._pinch.m0.x-(cr.left+cr.width/2);
+      var relY=self._pinch.m0.y-(cr.top+cr.height/2);
+      var ds=newS/self._pinch.s0;
+      self.tx=dpx+self._pinch.tx0+relX*(1-ds);
+      self.ty=dpy+self._pinch.ty0+relY*(1-ds);
+      self.s=newS;
+      var mp=(self.s-1)*Math.max(self.center.clientWidth,self.center.clientHeight)*0.55+150;
+      self.tx=Math.max(-mp,Math.min(mp,self.tx));
+      self.ty=Math.max(-mp,Math.min(mp,self.ty));
+      self.apply();
+      if(onMove) onMove();
+    }
+  },{passive:false});
+
+  self.center.addEventListener('touchend', function(e){
+    if(e.touches.length<2) self._pinch=null;
+  },{passive:false});
+};
+
+// ═══════════════════════════════════════════
+// MODE SWITCH
+// ═══════════════════════════════════════════
+window.switchMode = function(m){
+  document.getElementById('screen-angle').style.display = m==='angle'?'flex':'none';
+  document.getElementById('screen-tttg').style.display  = m==='tttg' ?'flex':'none';
+  document.getElementById('tab-angle').classList.toggle('active', m==='angle');
+  document.getElementById('tab-tttg').classList.toggle('active',  m==='tttg');
+  if(m==='tttg') tLayout();
+};
+
+// ═══════════════════════════════════════════
+// ANGLE TOOL
+// ═══════════════════════════════════════════
+var annotations=[], placing=[], activeTool=0, aDrg=null;
+var DOT_R=4, HIT_R=22;
+var canvas  = document.getElementById('overlay');
+var ctx     = canvas.getContext('2d');
+var xrayImg = document.getElementById('xray-img');
+var imgWrap = document.getElementById('img-wrap');
+var aC      = document.getElementById('angle-center');
+
+// Zoom for angle panel
+var aZ = new ZoomState(imgWrap, aC, 'a-zreset');
+aZ.attachPinch(function(){ aRedraw(); });
+window.aZoomReset = function(){ aZ.reset(); aRedraw(); };
+
+function aPt(e){
+  var src=e.touches?e.touches[0]:e;
+  return aZ.toCanvas(src.clientX, src.clientY);
+}
+
+function dist(a,b){var dx=b.x-a.x,dy=b.y-a.y;return Math.sqrt(dx*dx+dy*dy);}
+function angBetween(p1,v,p2){
+  var v1x=p1.x-v.x,v1y=p1.y-v.y,v2x=p2.x-v.x,v2y=p2.y-v.y;
+  var dot=v1x*v2x+v1y*v2y,mag=Math.sqrt(v1x*v1x+v1y*v1y)*Math.sqrt(v2x*v2x+v2y*v2y);
+  if(!mag)return 0;return Math.acos(Math.max(-1,Math.min(1,dot/mag)))*180/Math.PI;
+}
+function cobbAng(a,b,c,d){
+  var dx1=b.x-a.x,dy1=b.y-a.y,dx2=d.x-c.x,dy2=d.y-c.y;
+  var dot=dx1*dx2+dy1*dy2,mag=Math.sqrt(dx1*dx1+dy1*dy1)*Math.sqrt(dx2*dx2+dy2*dy2);
+  if(!mag)return 0;return Math.acos(Math.max(-1,Math.min(1,Math.abs(dot)/mag)))*180/Math.PI;
+}
+
+function aLayout(){
+  var nw=xrayImg.naturalWidth,nh=xrayImg.naturalHeight;if(!nw)return;
+  var sc=Math.min(aC.clientWidth/nw,aC.clientHeight/nh);
+  var dw=Math.floor(nw*sc),dh=Math.floor(nh*sc);
+  var dpr=window.devicePixelRatio||1;
+  imgWrap.style.width=dw+'px';imgWrap.style.height=dh+'px';
+  xrayImg.style.width=dw+'px';xrayImg.style.height=dh+'px';
+  canvas.width=dw*dpr;canvas.height=dh*dpr;
+  canvas.style.width=dw+'px';canvas.style.height=dh+'px';
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  aRedraw();
+}
+
+window.addEventListener('resize',function(){
+  if(xrayImg.naturalWidth){
+    var dpr=window.devicePixelRatio||1;
+    var ow=canvas.width/dpr,oh=canvas.height/dpr;
+    aLayout();
+    var nw2=canvas.width/dpr,nh2=canvas.height/dpr;
+    if(ow&&oh&&(nw2!==ow||nh2!==oh)){
+      var sx=nw2/ow,sy=nh2/oh;
+      function sp(p){return{x:p.x*sx,y:p.y*sy};}
+      annotations=annotations.map(function(a){
+        var n={type:a.type,angleDeg:a.angleDeg,id:a.id};
+        if(a.type===3){n.p1=sp(a.p1);n.p2=sp(a.p2);n.p3=sp(a.p3);n.p4=sp(a.p4);}
+        else{n.vertex=sp(a.vertex);n.p1=sp(a.p1);n.p2=sp(a.p2);}
+        return n;
+      });
+      placing=placing.map(sp);
+    }
+    aRedraw();
+  }
+  if(tttgCanvas.width) tLayout();
+});
+
+function aDot(pt,col){
+  var r=DOT_R/aZ.s;
+  ctx.beginPath();ctx.arc(pt.x,pt.y,r+4/aZ.s,0,Math.PI*2);ctx.fillStyle=col+'28';ctx.fill();
+  ctx.beginPath();ctx.arc(pt.x,pt.y,r+1/aZ.s,0,Math.PI*2);ctx.strokeStyle='#000';ctx.lineWidth=2/aZ.s;ctx.stroke();
+  ctx.beginPath();ctx.arc(pt.x,pt.y,r,0,Math.PI*2);ctx.fillStyle=col;ctx.fill();
+}
+function aLine(a,b,col,dash){
+  ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);
+  ctx.strokeStyle=col;ctx.lineWidth=2/aZ.s;
+  if(dash)ctx.setLineDash([6/aZ.s,4/aZ.s]);else ctx.setLineDash([]);
+  ctx.stroke();ctx.setLineDash([]);
+}
+function aLbl(txt,x,y,col){
+  var fs=Math.round(14/aZ.s);
+  ctx.font='bold '+fs+"px 'Courier New'";ctx.shadowColor='#000';ctx.shadowBlur=8/aZ.s;
+  ctx.fillStyle=col;ctx.textAlign='left';ctx.fillText(txt,x,y);ctx.shadowBlur=0;
+}
+function aRedraw(){
+  var dpr=window.devicePixelRatio||1;
+  ctx.clearRect(0,0,canvas.width/dpr,canvas.height/dpr);
+  annotations.forEach(function(a){
+    if(a.type===3){
+      var col='#ff88ff';
+      aLine(a.p1,a.p2,col,false);aLine(a.p3,a.p4,col,false);
+      [a.p1,a.p2,a.p3,a.p4].forEach(function(p){aDot(p,col);});
+      aLbl(a.angleDeg.toFixed(1)+'° (C)',(a.p1.x+a.p2.x)/2,(a.p1.y+a.p2.y)/2-10/aZ.s,col);
+    } else {
+      var col=a.type===1?'#ffdd00':'#00ffc8';
+      aLine(a.vertex,a.p1,col,false);aLine(a.vertex,a.p2,col,false);
+      var a1=Math.atan2(a.p1.y-a.vertex.y,a.p1.x-a.vertex.x),a2=Math.atan2(a.p2.y-a.vertex.y,a.p2.x-a.vertex.x);
+      ctx.beginPath();ctx.arc(a.vertex.x,a.vertex.y,24/aZ.s,a1,a2,false);ctx.strokeStyle=col+'99';ctx.lineWidth=3/aZ.s;ctx.stroke();
+      aDot(a.vertex,'#ff6030');aDot(a.p1,col);aDot(a.p2,col);
+      aLbl(a.angleDeg.toFixed(1)+'°'+(a.type===1?' (S)':' (R)'),a.vertex.x+30/aZ.s,a.vertex.y-6/aZ.s,col);
+    }
+  });
+  var col=activeTool===1?'#ffdd00':activeTool===2?'#00ffc8':'#ff88ff';
+  placing.forEach(function(p,j){
+    aDot(p,(activeTool!==3&&j===0)?'#ff6030':col);
+    if(activeTool!==3&&j>0)aLine(placing[0],p,col+'66',true);
+    if(activeTool===3&&j===1)aLine(placing[0],p,col+'66',true);
+    if(activeTool===3&&j===3)aLine(placing[2],p,col+'66',true);
+  });
+  aUI();
+}
+
+var AHINTS={
+  1:['① Tap the fracture APEX','② Tap point on the SHAFT','③ Tap point on the FRAGMENT'],
+  2:['① Tap the VERTEX','② Tap point on FIRST LINE','③ Tap point on SECOND LINE'],
+  3:['① Tap START of LINE 1','② Tap END of LINE 1','③ Tap START of LINE 2','④ Tap END of LINE 2']
+};
+function aUI(){
+  var any=annotations.length>0||placing.length>0;
+  document.getElementById('btn-clear').style.display=any?'block':'none';
+  document.getElementById('legend').style.display=any?'block':'none';
+  var hb=document.getElementById('hint-box');
+  if(activeTool&&placing.length<(activeTool===3?4:3)){
+    hb.style.display='block';
+    hb.style.color=activeTool===1?'#ffdd00':activeTool===2?'#00ffc8':'#ff88ff';
+    hb.textContent=AHINTS[activeTool][placing.length];
+  } else hb.style.display='none';
+  var mw=document.getElementById('meas-wrap'),md=document.getElementById('measurements');
+  if(annotations.length>0){
+    mw.style.display='block';var h='';
+    annotations.forEach(function(a,i){
+      var col=a.type===1?'#ffdd00':a.type===2?'#00ffc8':'#ff88ff',lbl=a.type===1?'∠S':a.type===2?'∠R':'∠C';
+      h+='<div class="meas-row"><span class="ml" style="color:'+col+'">'+lbl+' '+(i+1)+'</span><span class="mv" style="color:'+col+'">'+a.angleDeg.toFixed(1)+'°</span><button class="md" onclick="window._del('+i+')">✕</button></div>';
+    });
+    md.innerHTML=h;
+  } else mw.style.display='none';
+  var ro=document.getElementById('angle-readout');
+  if(annotations.length>0){
+    var last=annotations[annotations.length-1],col=last.type===1?'#4ade80':last.type===2?'#00ffc8':'#ff88ff';
+    ro.style.display='block';
+    var rv=document.getElementById('readout-val');rv.style.color=col;rv.style.textShadow='0 0 14px '+col+'88';
+    rv.textContent=last.angleDeg.toFixed(1)+'°';
+  } else ro.style.display='none';
+  canvas.style.cursor=aDrg?'grabbing':activeTool?'crosshair':any?'grab':'default';
+  canvas.style.pointerEvents=(activeTool||any)?'auto':'none';
+}
+
+document.getElementById('xray-upload').addEventListener('change',function(e){
+  if(e.target.files&&e.target.files[0])aLoad(e.target.files[0]);
+});
+aC.addEventListener('dragover',function(e){e.preventDefault();});
+aC.addEventListener('drop',function(e){e.preventDefault();if(e.dataTransfer.files[0])aLoad(e.dataTransfer.files[0]);});
+
+function aLoad(file){
+  if(!file.type.startsWith('image/'))return;
+  annotations=[];placing=[];activeTool=0;aDrg=null;aBtnReset();aZ.reset();
+  var r=new FileReader();
+  r.onload=function(ev){
+    xrayImg.onload=function(){
+      document.getElementById('a-empty').style.display='none';
+      imgWrap.style.display='block';
+      document.getElementById('tool-section').style.display='block';
+      document.getElementById('intro').style.display='none';
+      document.getElementById('upload-txt').textContent='Tap to replace';
+      aLayout();
+    };
+    xrayImg.src=ev.target.result;
+  };
+  r.readAsDataURL(file);
+}
+
+function aBtnReset(){
+  ['btn-supp','btn-reg','btn-cobb'].forEach(function(id){
+    document.getElementById(id).classList.remove('active-supp','active-reg','active-cobb');
+  });
+  document.getElementById('btn-supp').textContent='📐 SUPPLEMENTARY (180°−x)';
+  document.getElementById('btn-reg').textContent='📐 REGULAR ANGLE';
+  document.getElementById('btn-cobb').textContent='📏 COBB ANGLE';
+}
+
+window.activateTool=function(type){
+  if(activeTool===type){activeTool=0;placing=[];aBtnReset();}
+  else{
+    activeTool=type;placing=[];aBtnReset();
+    var map={1:['btn-supp','active-supp'],2:['btn-reg','active-reg'],3:['btn-cobb','active-cobb']};
+    var m=map[type];
+    document.getElementById(m[0]).classList.add(m[1]);
+    document.getElementById(m[0]).textContent='⏹ STOP PLACING';
+  }
+  aRedraw();
+};
+window.clearAll=function(){
+  annotations=[];placing=[];activeTool=0;aDrg=null;aBtnReset();
+  var dpr=window.devicePixelRatio||1;
+  ctx.clearRect(0,0,canvas.width/dpr,canvas.height/dpr);aUI();
+};
+window._del=function(i){annotations.splice(i,1);aRedraw();};
+
+// Canvas events — 1 finger only (2-finger handled by ZoomState.attachPinch on centerEl)
+canvas.addEventListener('mousedown', aDown, false);
+canvas.addEventListener('mousemove', aMove, false);
+canvas.addEventListener('mouseup',   aUp,   false);
+canvas.addEventListener('mouseleave',aUp,   false);
+canvas.addEventListener('touchstart',function(e){if(e.touches.length===1)aDown(e);},{passive:false});
+canvas.addEventListener('touchmove', function(e){if(e.touches.length===1)aMove(e);},{passive:false});
+canvas.addEventListener('touchend',  aUp,   {passive:false});
+
+function aDown(e){
+  e.preventDefault();e.stopPropagation();
+  var pt=aPt(e);
+  for(var ai=0;ai<annotations.length;ai++){
+    var a=annotations[ai],keys=a.type===3?['p1','p2','p3','p4']:['vertex','p1','p2'];
+    for(var ki=0;ki<keys.length;ki++)if(dist(pt,a[keys[ki]])<=HIT_R/aZ.s){aDrg={ai:ai,key:keys[ki]};aUI();return;}
+  }
+  for(var pi=0;pi<placing.length;pi++)if(dist(pt,placing[pi])<=HIT_R/aZ.s){aDrg={placing:true,pi:pi};aUI();return;}
+  if(!activeTool)return;
+  var mx=activeTool===3?4:3;
+  if(placing.length<mx-1){placing.push(pt);aRedraw();}
+  else{
+    placing.push(pt);var pts=placing,ang;
+    if(activeTool===3){
+      ang=cobbAng(pts[0],pts[1],pts[2],pts[3]);
+      annotations.push({type:3,p1:pts[0],p2:pts[1],p3:pts[2],p4:pts[3],angleDeg:ang,id:Date.now()});
+    } else {
+      ang=angBetween(pts[1],pts[0],pts[2]);
+      if(activeTool===1)ang=180-ang;
+      annotations.push({type:activeTool,vertex:pts[0],p1:pts[1],p2:pts[2],angleDeg:ang,id:Date.now()});
+    }
+    placing=[];aRedraw();
+  }
+}
+function aMove(e){
+  if(!aDrg)return;e.preventDefault();e.stopPropagation();
+  var pt=aPt(e);
+  if(aDrg.placing)placing[aDrg.pi]=pt;
+  else{
+    var a=annotations[aDrg.ai];a[aDrg.key]=pt;
+    if(a.type===3)a.angleDeg=cobbAng(a.p1,a.p2,a.p3,a.p4);
+    else{var inn=angBetween(a.p1,a.vertex,a.p2);a.angleDeg=a.type===1?180-inn:inn;}
+  }
+  aRedraw();
+}
+function aUp(e){if(e){e.preventDefault();e.stopPropagation();}aDrg=null;aUI();}
+
+// ═══════════════════════════════════════════
+// TT-TG MODULE
+// ═══════════════════════════════════════════
+var tgImg=null, ttImg=null;
+var tS={bl:null,tgPt:null,ttPt:null,mode:null,tmp:null};
+var tDrg=null;
+var tttgCanvas=document.getElementById('tttg-canvas');
+var tC=tttgCanvas.getContext('2d');
+var tWrap  =document.getElementById('tttg-canvas-wrap');
+var tCenter=document.getElementById('tttg-center');
+var T_DOT=5, T_HIT=26;
+
+var tZ = new ZoomState(tWrap, tCenter, 't-zreset');
+tZ.attachPinch(function(){ tDraw(); });
+window.tZoomReset = function(){ tZ.reset(); tDraw(); };
+
+function tPt(e){
+  var src=e.touches?e.touches[0]:e;
+  return tZ.toCanvas(src.clientX, src.clientY);
+}
+
+function tLayout(){
+  var ref=tgImg||ttImg;if(!ref||!ref.naturalWidth)return;
+  var nw=ref.naturalWidth,nh=ref.naturalHeight;
+  var sc=Math.min(tCenter.clientWidth/nw,tCenter.clientHeight/nh);
+  var dw=Math.floor(nw*sc),dh=Math.floor(nh*sc);
+  var dpr=window.devicePixelRatio||1;
+  tttgCanvas.width=dw*dpr;tttgCanvas.height=dh*dpr;
+  tttgCanvas.style.width=dw+'px';tttgCanvas.style.height=dh+'px';
+  tWrap.style.width=dw+'px';tWrap.style.height=dh+'px';
+  tC.setTransform(dpr,0,0,dpr,0,0);
+  tDraw();
+}
+
+function project(P,L1,L2){
+  var dx=L2.x-L1.x,dy=L2.y-L1.y,len2=dx*dx+dy*dy;
+  if(!len2)return{x:L1.x,y:L1.y};
+  var t=((P.x-L1.x)*dx+(P.y-L1.y)*dy)/len2;
+  return{x:L1.x+t*dx,y:L1.y+t*dy};
+}
+function tDot(pt,col){
+  var r=T_DOT/tZ.s;
+  tC.beginPath();tC.arc(pt.x,pt.y,r+4/tZ.s,0,Math.PI*2);tC.fillStyle=col+'28';tC.fill();
+  tC.beginPath();tC.arc(pt.x,pt.y,r+1/tZ.s,0,Math.PI*2);tC.strokeStyle='#000';tC.lineWidth=2/tZ.s;tC.stroke();
+  tC.beginPath();tC.arc(pt.x,pt.y,r,0,Math.PI*2);tC.fillStyle=col;tC.fill();
+}
+function tDotLbl(pt,col,lbl){
+  tDot(pt,col);
+  var fs=Math.round(14/tZ.s);
+  tC.font='bold '+fs+"px 'Courier New'";tC.shadowColor='#000';tC.shadowBlur=6/tZ.s;
+  tC.fillStyle=col;tC.fillText(lbl,pt.x+12/tZ.s,pt.y-6/tZ.s);tC.shadowBlur=0;
+}
+
+window.tDraw=function(){
+  var dpr=window.devicePixelRatio||1;
+  var w=tttgCanvas.width/dpr,h=tttgCanvas.height/dpr;if(!w||!h)return;
+  tC.clearRect(0,0,w,h);
+  var op=parseInt(document.getElementById('op-sl').value)/100;
+  if(tgImg&&tgImg.naturalWidth){tC.globalAlpha=1-op*0.6;tC.drawImage(tgImg,0,0,w,h);}
+  if(ttImg&&ttImg.naturalWidth){tC.globalAlpha=Math.max(0.15,op);tC.drawImage(ttImg,0,0,w,h);}
+  tC.globalAlpha=1;
+
+  if(tS.bl){
+    var b1=tS.bl.p1,b2=tS.bl.p2;
+    var dx=b2.x-b1.x,dy=b2.y-b1.y,len=Math.sqrt(dx*dx+dy*dy);
+    if(len>0){
+      var ext=Math.max(w,h)*3;
+      var ex1={x:b1.x-dx/len*ext,y:b1.y-dy/len*ext};
+      var ex2={x:b2.x+dx/len*ext,y:b2.y+dy/len*ext};
+      tC.beginPath();tC.moveTo(ex1.x,ex1.y);tC.lineTo(ex2.x,ex2.y);
+      tC.strokeStyle='#ffffff66';tC.lineWidth=1.5/tZ.s;tC.setLineDash([8/tZ.s,5/tZ.s]);tC.stroke();tC.setLineDash([]);
+    }
+    tDot(b1,'#ffffff');tDot(b2,'#ffffff');
+    var lfs=Math.round(11/tZ.s);
+    tC.font='bold '+lfs+"px 'Courier New'";tC.fillStyle='#ffffffaa';
+    tC.fillText('pFCL',(b1.x+b2.x)/2+8/tZ.s,(b1.y+b2.y)/2-8/tZ.s);
+  }
+  if(tS.mode==='bl'&&tS.tmp) tDot(tS.tmp,'#ffffff');
+
+  if(tS.tgPt){
+    if(tS.bl){
+      var fA=project(tS.tgPt,tS.bl.p1,tS.bl.p2);
+      tC.beginPath();tC.moveTo(tS.tgPt.x,tS.tgPt.y);tC.lineTo(fA.x,fA.y);
+      tC.strokeStyle='#4488ff';tC.lineWidth=2/tZ.s;tC.setLineDash([4/tZ.s,3/tZ.s]);tC.stroke();tC.setLineDash([]);
+      draw90(fA,tS.tgPt,tS.bl,'#4488ff');
+    }
+    tDotLbl(tS.tgPt,'#4488ff','A');
+  }
+  if(tS.ttPt){
+    if(tS.bl){
+      var fB=project(tS.ttPt,tS.bl.p1,tS.bl.p2);
+      tC.beginPath();tC.moveTo(tS.ttPt.x,tS.ttPt.y);tC.lineTo(fB.x,fB.y);
+      tC.strokeStyle='#ff6644';tC.lineWidth=2/tZ.s;tC.setLineDash([4/tZ.s,3/tZ.s]);tC.stroke();tC.setLineDash([]);
+      draw90(fB,tS.ttPt,tS.bl,'#ff6644');
+    }
+    tDotLbl(tS.ttPt,'#ff6644','B');
+  }
+  if(tS.tgPt&&tS.ttPt&&tS.bl){
+    var fA2=project(tS.tgPt,tS.bl.p1,tS.bl.p2);
+    var fB2=project(tS.ttPt,tS.bl.p1,tS.bl.p2);
+    tC.beginPath();tC.moveTo(fA2.x,fA2.y);tC.lineTo(fB2.x,fB2.y);
+    tC.strokeStyle='#ffdd00';tC.lineWidth=3/tZ.s;tC.stroke();
+    tDot(fA2,'#4488ff');tDot(fB2,'#ff6644');
+    var px=parseFloat(document.getElementById('px-sp').value)||0.5;
+    var pxD=Math.sqrt(Math.pow(fB2.x-fA2.x,2)+Math.pow(fB2.y-fA2.y,2));
+    var mm=pxD*px;
+    var mx=(fA2.x+fB2.x)/2,my=(fA2.y+fB2.y)/2;
+    var mfs=Math.round(16/tZ.s);
+    tC.font='bold '+mfs+"px 'Courier New'";tC.shadowColor='#000';tC.shadowBlur=10/tZ.s;
+    tC.fillStyle='#ffdd00';tC.textAlign='center';tC.fillText(mm.toFixed(1)+' mm',mx,my-14/tZ.s);
+    tC.shadowBlur=0;tC.textAlign='left';
+    showResult(mm,px);
+  }
+};
+
+function draw90(foot,apex,bl,col){
+  var dx=bl.p2.x-bl.p1.x,dy=bl.p2.y-bl.p1.y,len=Math.sqrt(dx*dx+dy*dy);if(!len)return;
+  var ux=dx/len,uy=dy/len,sz=7/tZ.s;
+  var adx=apex.x-foot.x,ady=apex.y-foot.y,al=Math.sqrt(adx*adx+ady*ady);if(!al)return;
+  var ax=adx/al,ay=ady/al;
+  var p1x=foot.x+ux*sz,p1y=foot.y+uy*sz;
+  var p2x=p1x+ax*sz,p2y=p1y+ay*sz;
+  var p3x=foot.x+ax*sz,p3y=foot.y+ay*sz;
+  tC.beginPath();tC.moveTo(p1x,p1y);tC.lineTo(p2x,p2y);tC.lineTo(p3x,p3y);
+  tC.strokeStyle=col+'88';tC.lineWidth=1.5/tZ.s;tC.stroke();
+}
+
+function showResult(mm,px){
+  var r=document.getElementById('tttg-result');r.style.display='block';
+  document.getElementById('t-rv').textContent=mm.toFixed(1)+' mm';
+  document.getElementById('t-ri').textContent='Pixel spacing: '+px+' mm/px';
+  var rg=document.getElementById('t-rg');
+  if(mm<10){rg.textContent='✓ NORMAL (<10 mm)';rg.style.background='#0a2a0a';rg.style.color='#4ade80';}
+  else if(mm<=20){rg.textContent='⚠ BORDERLINE (10–20 mm)';rg.style.background='#2a2200';rg.style.color='#ffdd00';}
+  else{rg.textContent='✕ ELEVATED (>20 mm)';rg.style.background='#2a0800';rg.style.color='#ff6644';}
+  // Scroll result into view
+  setTimeout(function(){ r.scrollIntoView({behavior:'smooth',block:'nearest'}); }, 80);
+}
+
+function tCheckReady(){
+  if(tgImg&&ttImg){
+    document.getElementById('t-empty').style.display='none';
+    tWrap.style.display='block';
+    document.getElementById('tttg-tools').style.display='block';
+    document.getElementById('t-intro').style.display='none';
+    tZ.reset();tLayout();tBadges();
+  }
+}
+function tBadges(){
+  function b(id,st){var el=document.getElementById(id);el.classList.remove('done','act');if(st)el.classList.add(st);}
+  b('b1',tgImg?'done':'');b('b2',ttImg?'done':'');
+  b('b3',tS.bl?'done':(tgImg&&ttImg?'act':''));
+  b('b4',tS.tgPt?'done':tS.bl?'act':'');
+  b('b5',tS.ttPt?'done':tS.tgPt?'act':'');
+}
+window.tActivate=function(mode){
+  tS.mode=(tS.mode===mode)?null:mode;
+  if(tS.mode==='bl')tS.tmp=null;
+  tBtns();tDraw();
+};
+function tBtns(){
+  var m=tS.mode;
+  var bbl=document.getElementById('btn-bl'),btg=document.getElementById('btn-tg'),btt=document.getElementById('btn-tt');
+  var hb=document.getElementById('t-hint');
+  [bbl,btg,btt].forEach(function(b){b.classList.remove('active-tttg','active-tg','active-tt');});
+  if(m==='bl'){
+    bbl.classList.add('active-tttg');
+    bbl.textContent='📏 '+(tS.tmp?'TAP 2nd EPICONDYLE':'TAP 1st EPICONDYLE');
+    hb.style.display='block';
+    hb.textContent=tS.tmp?'② Now tap the lateral epicondyle':'① Tap the medial epicondyle';
+  } else bbl.textContent='📏 DRAW pFCL LINE (2 pts)';
+  if(m==='tg'){
+    btg.classList.add('active-tg');btg.textContent='🔵 TAP TROCHLEAR GROOVE';
+    hb.style.display='block';hb.textContent='Tap the deepest point of the Trochlear Groove (Point A)';
+  } else btg.textContent='🔵 MARK POINT A';
+  if(m==='tt'){
+    btt.classList.add('active-tt');btt.textContent='🔴 TAP TIBIAL TUBEROSITY';
+    hb.style.display='block';hb.textContent='Tap the center of the Tibial Tuberosity (Point B)';
+  } else btt.textContent='🔴 MARK POINT B';
+  if(!m) hb.style.display='none';
+}
+window.tReset=function(){
+  tS={bl:null,tgPt:null,ttPt:null,mode:null,tmp:null};
+  document.getElementById('tttg-result').style.display='none';
+  tBtns();tDraw();tBadges();
+};
+
+// TT-TG canvas events — 1 finger only
+tttgCanvas.addEventListener('mousedown', tDown, false);
+tttgCanvas.addEventListener('mousemove', tMove, false);
+tttgCanvas.addEventListener('mouseup',   tUp2,  false);
+tttgCanvas.addEventListener('mouseleave',tUp2,  false);
+tttgCanvas.addEventListener('touchstart',function(e){if(e.touches.length===1)tDown(e);},{passive:false});
+tttgCanvas.addEventListener('touchmove', function(e){if(e.touches.length===1)tMove(e);},{passive:false});
+tttgCanvas.addEventListener('touchend',  tUp2,  {passive:false});
+
+function tDown(e){
+  e.preventDefault();e.stopPropagation();
+  var pt=tPt(e);
+  if(!tS.mode){
+    if(tS.bl){
+      if(dist(pt,tS.bl.p1)<=T_HIT/tZ.s){tDrg={t:'bl',k:'p1'};return;}
+      if(dist(pt,tS.bl.p2)<=T_HIT/tZ.s){tDrg={t:'bl',k:'p2'};return;}
+    }
+    if(tS.tgPt&&dist(pt,tS.tgPt)<=T_HIT/tZ.s){tDrg={t:'tg'};return;}
+    if(tS.ttPt&&dist(pt,tS.ttPt)<=T_HIT/tZ.s){tDrg={t:'tt'};return;}
+    return;
+  }
+  if(tS.mode==='bl'){
+    if(!tS.tmp){tS.tmp=pt;tBtns();tDraw();}
+    else{tS.bl={p1:tS.tmp,p2:pt};tS.tmp=null;tS.mode=null;tBtns();tDraw();tBadges();}
+  } else if(tS.mode==='tg'){
+    tS.tgPt=pt;tS.mode=null;tBtns();tDraw();tBadges();
+  } else if(tS.mode==='tt'){
+    tS.ttPt=pt;tS.mode=null;tBtns();tDraw();tBadges();
+  }
+}
+function tMove(e){
+  if(!tDrg)return;e.preventDefault();e.stopPropagation();
+  var pt=tPt(e);
+  if(tDrg.t==='bl')tS.bl[tDrg.k]=pt;
+  else if(tDrg.t==='tg')tS.tgPt=pt;
+  else if(tDrg.t==='tt')tS.ttPt=pt;
+  tDraw();
+}
+function tUp2(e){if(e){e.preventDefault();e.stopPropagation();}tDrg=null;}
+
+// Image uploads
+document.getElementById('tg-upload').addEventListener('change',function(e){
+  if(!e.target.files||!e.target.files[0])return;
+  var img=new Image(),r=new FileReader();
+  r.onload=function(ev){img.onload=function(){
+    tgImg=img;
+    document.getElementById('tg-txt').textContent='✓ Trochlea loaded';
+    document.getElementById('tg-lbl').classList.add('done');
+    tCheckReady();
+  };img.src=ev.target.result;};
+  r.readAsDataURL(e.target.files[0]);
+});
+document.getElementById('tt-upload').addEventListener('change',function(e){
+  if(!e.target.files||!e.target.files[0])return;
+  var img=new Image(),r=new FileReader();
+  r.onload=function(ev){img.onload=function(){
+    ttImg=img;
+    document.getElementById('tt-txt').textContent='✓ Tuberosity loaded';
+    document.getElementById('tt-lbl').classList.add('done');
+    tCheckReady();
+  };img.src=ev.target.result;};
+  r.readAsDataURL(e.target.files[0]);
+});
+
+document.getElementById('px-sp').addEventListener('input',function(){tDraw();});
+
+// Prevent page scroll on single-touch
+document.addEventListener('touchmove',function(e){
+  if(e.touches.length===1)e.preventDefault();
+},{passive:false});
+
+})();
+</script>
+
+</body>
+</html>
