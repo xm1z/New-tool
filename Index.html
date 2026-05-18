@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
@@ -19,12 +18,12 @@
     #title-icon{width:26px;height:26px;background:radial-gradient(circle,#00a8ff,#003c6e);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:0 0 12px #00a8ff55;flex-shrink:0}
     .t-main{font-size:12px;font-weight:700;color:#e0f0ff;letter-spacing:2px}
     .t-sub{font-size:8px;color:#5a8aaa;letter-spacing:2px;margin-top:1px}
-    #mode-tabs{display:flex;flex-shrink:0;border-bottom:1px solid #1a3a5c}
-    .tab{flex:1;padding:8px 4px;text-align:center;font-size:9px;font-weight:700;letter-spacing:1px;color:#3a6a8a;cursor:pointer;border:none;background:none;font-family:'Courier New',monospace;border-bottom:3px solid transparent;transition:all 0.2s}
+    #mode-tabs{display:flex;flex-shrink:0;border-bottom:1px solid #1a3a5c;overflow-x:auto;-webkit-overflow-scrolling:touch}
+    .tab{flex-shrink:0;padding:8px 8px;text-align:center;font-size:8px;font-weight:700;letter-spacing:0.5px;color:#3a6a8a;cursor:pointer;border:none;background:none;font-family:'Courier New',monospace;border-bottom:3px solid transparent;transition:all 0.2s;white-space:nowrap}
     .tab.active{color:#00a8ff;border-bottom-color:#00a8ff;background:#00a8ff08}
     #screen-angle{display:flex;flex:1;min-height:0;overflow:hidden}
     #screen-tttg{display:none;flex:1;min-height:0;overflow:hidden}
-    .left-panel{width:185px;flex-shrink:0;background:#070d14;border-right:1px solid #1a2a3a;display:flex;flex-direction:column;padding:10px 9px;gap:7px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+    .left-panel{width:185px;flex-shrink:0;background:#070d14;border-right:1px solid #1a2a3a;display:block;padding:10px 9px;overflow-y:scroll;-webkit-overflow-scrolling:touch;height:100%;box-sizing:border-box}
     .slabel{font-size:9px;color:#3a6a8a;letter-spacing:2px;margin-bottom:2px}
     .upload-box{display:block;border:2px dashed #1a3a5c;border-radius:7px;padding:10px 8px;text-align:center;cursor:pointer;background:#0a1420;transition:all 0.2s}
     .upload-box.done{border-color:#4ade8066;border-style:solid;background:#0a1a0a}
@@ -36,6 +35,15 @@
     .btn-tool.active-supp{border-color:#ffdd00;background:#2a2200;color:#ffdd00}
     .btn-tool.active-reg{border-color:#00ffc8;background:#002a22;color:#00ffc8}
     .btn-tool.active-cobb{border-color:#ff88ff;background:#2a0a2a;color:#ff88ff}
+    .btn-tool.active-pelv{border-color:#44ffaa;background:#002a1a;color:#44ffaa}
+    .btn-tool.active-lsk{border-color:#ff44aa;background:#2a0015;color:#ff44aa}
+    #pelv-result{display:none;background:#001a10;border:2px solid #44ffaa55;border-radius:8px;padding:8px;margin-top:2px}
+    #pelv-result .pr{font-size:9px;color:#2a6a4a;letter-spacing:1px;margin-bottom:4px}
+    #pelv-result .prow{display:flex;justify-content:space-between;align-items:baseline;padding:3px 0;border-bottom:1px solid #0a2a1a}
+    #pelv-result .pn{font-size:9px;color:#5aaa7a}
+    #pelv-result .pv{font-size:16px;font-weight:700;color:#44ffaa}
+    #pelv-result .pi-eq{font-size:8px;color:#2a6a4a;margin-top:4px;text-align:center}
+    .btn-tool.active-ruler{border-color:#ffdd00;background:#2a2200;color:#ffdd00}
     .btn-tool.active-tttg{border-color:#00cfff;background:#00202a;color:#00cfff}
     .btn-tool.active-tg{border-color:#4488ff;background:#00102a;color:#4488ff}
     .btn-tool.active-tt{border-color:#ff6644;background:#2a0800;color:#ff6644}
@@ -61,7 +69,7 @@
     #xray-img{display:block}
     #overlay{position:absolute;top:0;left:0;touch-action:none;cursor:default}
     /* TT-TG */
-    #tttg-left{width:185px;flex-shrink:0;background:#070d14;border-right:1px solid #1a2a3a;display:flex;flex-direction:column;padding:8px 9px;gap:5px;overflow-y:auto;-webkit-overflow-scrolling:touch;scroll-behavior:smooth}
+    #tttg-left{width:185px;flex-shrink:0;background:#070d14;border-right:1px solid #1a2a3a;display:block;padding:8px 9px;overflow-y:scroll;-webkit-overflow-scrolling:touch;height:100%;box-sizing:border-box}
     #tttg-center{flex:1;min-width:0;background:#020608;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
     #tttg-canvas-wrap{display:none;position:relative;transform-origin:center center}
     #tttg-canvas{display:block;touch-action:none}
@@ -82,6 +90,41 @@
     .opacity-row{display:flex;align-items:center;gap:6px;font-size:9px;color:#5a8aaa}
     input[type=range]{flex:1;accent-color:#00cfff}
     .sep{height:1px;background:#1a2a3a;margin:2px 0}
+
+
+    /* LEA screen */
+    #screen-lea{display:none;flex:1;min-height:0;overflow:hidden}
+    #lea-left{width:200px;flex-shrink:0;background:#070d14;border-right:1px solid #1a2a3a;display:block;padding:8px 9px;overflow-y:scroll;-webkit-overflow-scrolling:touch;height:100%;box-sizing:border-box}
+    #lea-center{flex:1;min-width:0;background:#020608;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+    #lea-canvas-wrap{display:none;position:relative;transform-origin:center center}
+    #lea-canvas{display:block;touch-action:none}
+    .lea-btn{width:100%;padding:7px 6px;border-radius:5px;border:1px solid #1a3a5c;background:#0a1420;color:#5a8aaa;font-size:9px;font-weight:700;letter-spacing:1px;display:block;transition:all 0.15s;font-family:'Courier New',monospace;cursor:pointer;text-align:left}
+    .lea-btn.active-lea{border-color:#00e5ff;background:#00152a;color:#00e5ff}
+    .lea-btn.done-lea{border-color:#4ade8066;background:#0a1a0a;color:#4ade80}
+    #lea-result{display:none;background:#000d1a;border:1px solid #00e5ff33;border-radius:7px;padding:8px;margin-bottom:8px}
+    #lea-result .lr-title{font-size:9px;color:#2a6a8a;letter-spacing:2px;margin-bottom:5px}
+    .lr-row{display:flex;justify-content:space-between;align-items:baseline;padding:3px 0;border-bottom:1px solid #0a1a2a}
+    .lr-label{font-size:8px;color:#3a6a8a}
+    .lr-val{font-size:13px;font-weight:700}
+    #lea-cora-box{display:none;background:#0a0015;border:1px solid #aa88ff44;border-radius:6px;padding:8px;margin-bottom:8px;font-size:9px;line-height:1.8;color:#6a5a8a}
+    #lea-deformity-box{display:none;background:#0a000a;border:1px solid #ff88aa44;border-radius:6px;padding:8px;margin-bottom:8px;font-size:9px;line-height:1.8}
+    #screen-fav{display:none;flex:1;min-height:0;overflow:hidden}
+    #fav-left{width:190px;flex-shrink:0;background:#070d14;border-right:1px solid #1a2a3a;display:block;padding:8px 9px;overflow-y:scroll;-webkit-overflow-scrolling:touch;height:100%;box-sizing:border-box}
+    #fav-center{flex:1;min-width:0;background:#020608;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+    #fav-canvas-wrap{display:none;position:relative;transform-origin:center center}
+    #fav-canvas{display:block;touch-action:none}
+    #fav-result{display:none;background:#00101a;border:2px solid #aa88ff55;border-radius:8px;padding:10px;text-align:center;margin-bottom:8px}
+    #fav-result .fr-lbl{font-size:9px;color:#5a4a8a;letter-spacing:2px;margin-bottom:3px}
+    #fav-result .fr-val{font-size:28px;font-weight:700;color:#aa88ff;text-shadow:0 0 14px #aa88ff66}
+    #fav-result .fr-grade{font-size:10px;font-weight:700;margin-top:5px;padding:3px 10px;border-radius:4px;display:inline-block}
+    #fav-result .fr-note{font-size:8px;color:#4a3a6a;margin-top:4px;line-height:1.6}
+    .fav-btn{width:100%;padding:8px 6px;border-radius:6px;border:1px solid #1a3a5c;background:#0a1420;color:#5a8aaa;font-size:9px;font-weight:700;letter-spacing:1px;display:block;transition:all 0.15s;font-family:'Courier New',monospace;cursor:pointer}
+    .fav-btn.active-neck{border-color:#aa88ff;background:#1a0a2a;color:#aa88ff}
+    .fav-btn.active-cond{border-color:#44ffdd;background:#002a22;color:#44ffdd}
+    .fav-hint{font-size:9px;background:#0a0a1a;border:1px solid #2a2a4a;border-radius:4px;padding:6px 8px;line-height:1.8;display:none}
+
+    .left-panel>*,.left-panel>label{margin-bottom:7px;display:block}
+    #tttg-left>*,#fav-left>*,#lea-left>*{margin-bottom:5px;display:block}
   </style>
 </head>
 <body>
@@ -98,10 +141,11 @@
   <div id="mode-tabs">
     <button class="tab active" id="tab-angle" onclick="switchMode('angle')">📐 ANGLE TOOLS</button>
     <button class="tab"        id="tab-tttg"  onclick="switchMode('tttg')">📏 TT-TG DISTANCE</button>
+    <button class="tab"        id="tab-fav"   onclick="switchMode('fav')">🦴 ANTEVERSION</button>
+    <button class="tab"        id="tab-lea"   onclick="switchMode('lea')">📐 LEG ALIGNMENT</button>
   </div>
 
   <!-- ═══ ANGLE SCREEN ═══ -->
-
   <div id="screen-angle">
     <div class="left-panel">
       <div class="slabel">RADIOGRAPH INPUT</div>
@@ -116,6 +160,7 @@
         <button id="btn-supp" class="btn-tool" onclick="activateTool(1)">📐 SUPPLEMENTARY (180°−x)</button>
         <button id="btn-reg"  class="btn-tool" onclick="activateTool(2)">📐 REGULAR ANGLE</button>
         <button id="btn-cobb" class="btn-tool" onclick="activateTool(3)">📏 COBB ANGLE</button>
+        <button id="btn-pelv" class="btn-tool" onclick="activateTool(4)">🦴 PELVIC PARAMETERS</button>
         <div id="hint-box" class="hint-box" style="background:#1a1400;border:1px solid #3a3000;color:#ffdd00"></div>
         <button id="btn-clear" class="btn-danger" onclick="clearAll()">✕ CLEAR ALL</button>
         <div id="angle-readout" class="readout-box">
@@ -133,6 +178,14 @@
           Drag any point to adjust.<br/>
           <span style="color:#3a6a8a">Pinch 2 fingers to zoom/pan.</span>
         </div>
+        <div id="pelv-result">
+          <div class="pr">PELVIC PARAMETERS</div>
+          <div class="prow"><span class="pn">Pelvic Incidence (PI)</span><span class="pv" id="pr-pi">—</span></div>
+          <div class="prow"><span class="pn">Sacral Slope (SS)</span><span class="pv" id="pr-ss">—</span></div>
+          <div class="prow"><span class="pn">Pelvic Tilt (PT)</span><span class="pv" id="pr-pt">—</span></div>
+          <div class="pi-eq" id="pr-eq">PI = SS + PT</div>
+        </div>
+
       </div>
       <div id="intro" class="intro-txt">Upload an X-ray then choose a tool.</div>
     </div>
@@ -150,7 +203,6 @@
   </div>
 
   <!-- ═══ TT-TG SCREEN ═══ -->
-
   <div id="screen-tttg">
     <div id="tttg-left">
       <div class="step-row"><div class="badge" id="b1">1</div>TROCHLEA IMAGE</div>
@@ -169,21 +221,26 @@
       <input id="tt-upload" type="file" accept="image/*" style="display:none"/>
       <div id="tttg-tools" style="display:none">
         <div class="sep"></div>
-        <div class="slabel">PIXEL SPACING (mm/px)</div>
-        <input type="number" id="px-sp" value="0.5" step="0.01" min="0.05" max="5" oninput="tDraw()"/>
-        <div style="font-size:8px;color:#2a5a7a;margin-top:2px">Check DICOM header for value</div>
         <div class="slabel" style="margin-top:4px">OVERLAY OPACITY</div>
         <div class="opacity-row">
           <span style="color:#4488ff">TG</span>
           <input type="range" id="op-sl" min="0" max="100" value="50" oninput="tDraw()"/>
           <span style="color:#ff6644">TT</span>
         </div>
+        <div class="step-row"><div class="badge" id="b3">3</div>CALIBRATION RULER</div>
+        <button id="btn-ruler" class="btn-tool" onclick="tActivate('ruler')">📏 DRAW RULER LINE (2 pts)</button>
+        <div style="display:flex;align-items:center;gap:5px;margin-top:5px">
+          <span style="font-size:9px;color:#3a6a8a;flex-shrink:0">Known dist:</span>
+          <input type="number" id="ruler-mm" value="10" min="1" max="500" step="0.5" style="width:60px;padding:4px 6px;font-size:10px" oninput="window.tApplyRuler()"/>
+          <span style="font-size:9px;color:#3a6a8a">mm</span>
+        </div>
+        <div id="ruler-status" style="font-size:9px;padding:4px 7px;border-radius:4px;background:#0a1400;border:1px solid #2a3a00;color:#4a6a20;display:none;margin-top:3px"></div>
         <div class="sep"></div>
-        <div class="step-row"><div class="badge" id="b3">3</div>EPICONDYLE BASELINE</div>
+        <div class="step-row"><div class="badge" id="b4">4</div>EPICONDYLE BASELINE</div>
         <button id="btn-bl" class="btn-tool" onclick="tActivate('bl')">📏 DRAW pFCL LINE (2 pts)</button>
-        <div class="step-row" style="margin-top:6px"><div class="badge" id="b4">4</div>TROCHLEAR GROOVE</div>
+        <div class="step-row" style="margin-top:6px"><div class="badge" id="b5">5</div>TROCHLEAR GROOVE</div>
         <button id="btn-tg" class="btn-tool" onclick="tActivate('tg')">🔵 MARK POINT A</button>
-        <div class="step-row" style="margin-top:6px"><div class="badge" id="b5">5</div>TIBIAL TUBEROSITY</div>
+        <div class="step-row" style="margin-top:6px"><div class="badge" id="b6">6</div>TIBIAL TUBEROSITY</div>
         <button id="btn-tt" class="btn-tool" onclick="tActivate('tt')">🔴 MARK POINT B</button>
         <div id="t-hint" class="hint-box" style="background:#00101a;border:1px solid #003050;color:#00cfff;margin-top:4px"></div>
         <div class="sep"></div>
@@ -209,7 +266,163 @@
       </div>
     </div>
   </div>
-</div>
+  <!-- ═══ FEMORAL ANTEVERSION SCREEN ═══ -->
+  <div id="screen-fav">
+    <div id="fav-left">
+
+      <div class="step-row"><div class="badge" id="fav-b1">1</div>FEMORAL NECK CT</div>
+      <label class="upload-box" id="fav-neck-lbl" for="fav-neck-upload">
+        <div class="uico">🦴</div>
+        <div class="utxt" id="fav-neck-txt">Upload Neck Axial CT</div>
+        <div class="usub">Axial slice · neck level</div>
+      </label>
+      <input id="fav-neck-upload" type="file" accept="image/*" style="display:none"/>
+
+      <div class="step-row"><div class="badge" id="fav-b2">2</div>POSTERIOR CONDYLES CT</div>
+      <label class="upload-box" id="fav-cond-lbl" for="fav-cond-upload">
+        <div class="uico">🦵</div>
+        <div class="utxt" id="fav-cond-txt">Upload Condyles Axial CT</div>
+        <div class="usub">Axial slice · condyle level</div>
+      </label>
+      <input id="fav-cond-upload" type="file" accept="image/*" style="display:none"/>
+
+      <div id="fav-tools" style="display:none">
+        <div class="sep"></div>
+
+        <div class="slabel">OVERLAY OPACITY</div>
+        <div class="opacity-row">
+          <span style="color:#aa88ff;font-size:9px">Neck</span>
+          <input type="range" id="fav-op-sl" min="0" max="100" value="50" oninput="window.favDraw()"/>
+          <span style="color:#44ffdd;font-size:9px">Condyles</span>
+        </div>
+
+        <div class="sep"></div>
+
+        <div class="step-row"><div class="badge" id="fav-b3">3</div>FEMORAL NECK AXIS</div>
+        <button class="fav-btn" id="fav-btn-neck" onclick="favActivate('neck')">🦴 DRAW NECK AXIS (2 pts)</button>
+        <div style="font-size:8px;color:#3a3a6a;margin-top:2px;line-height:1.6">Tap 2 pts along the center of the femoral neck</div>
+
+        <div class="step-row" style="margin-top:6px"><div class="badge" id="fav-b4">4</div>POSTERIOR CONDYLE AXIS</div>
+        <button class="fav-btn" id="fav-btn-cond" onclick="favActivate('cond')">📐 DRAW CONDYLE AXIS (2 pts)</button>
+        <div style="font-size:8px;color:#2a5a4a;margin-top:2px;line-height:1.6">Tap 2 pts along the posterior condyle tangent line</div>
+
+        <div id="fav-hint" class="fav-hint"></div>
+
+        <div class="sep"></div>
+        <button class="btn-danger" onclick="favReset()" style="display:block">↺ RESET</button>
+
+        <div id="fav-result">
+          <div class="fr-lbl">FEMORAL ANTEVERSION</div>
+          <div class="fr-val" id="fav-val">—</div>
+          <div class="fr-grade" id="fav-grade"></div>
+          <div class="fr-note">
+            Normal adult: 10–20°<br/>
+            Children: up to 40°<br/>
+            &gt;20° = Anteversion<br/>
+            &lt;0° = Retroversion
+          </div>
+        </div>
+      </div>
+
+      <div id="fav-intro" class="intro-txt">
+        Upload both CT axial slices then draw the two axes to measure femoral anteversion.<br/><br/>
+        <span style="color:#3a3a6a">Pinch 2 fingers to zoom/pan.</span>
+      </div>
+    </div>
+
+    <div id="fav-center">
+      <div class="empty-state" id="fav-empty">
+        <div class="ei">🦴</div>
+        <div class="em">UPLOAD BOTH CT SLICES</div>
+        <div class="es">Femoral neck + Posterior condyles</div>
+      </div>
+      <button class="zreset" id="fav-zreset" onclick="favZoomReset()">⊡ RESET ZOOM</button>
+      <div id="fav-canvas-wrap">
+        <canvas id="fav-canvas"></canvas>
+      </div>
+    </div>
+  </div>
+  <!-- ═══ LOWER EXTREMITY ALIGNMENT SCREEN ═══ -->
+  <div id="screen-lea">
+    <div id="lea-left">
+
+      <div class="step-row"><div class="badge" id="lea-b-img">1</div>HIP-TO-ANKLE X-RAY</div>
+      <label class="upload-box" id="lea-upload-lbl" for="lea-upload">
+        <div class="uico">🦴</div>
+        <div class="utxt" id="lea-upload-txt">Upload Long-Leg X-ray</div>
+        <div class="usub">Full limb AP view</div>
+      </label>
+      <input id="lea-upload" type="file" accept="image/*" style="display:none"/>
+
+      <div id="lea-tools" style="display:none">
+        <div class="sep"></div>
+        <div class="slabel">CALIBRATION</div>
+        <button class="lea-btn" id="lea-btn-cal" onclick="leaActivate('cal')">📏 DRAW RULER (2 pts)</button>
+        <div style="display:flex;align-items:center;gap:5px;margin-top:4px">
+          <input type="number" id="lea-cal-mm" value="50" min="1" max="1000" step="1" style="width:58px;padding:4px 6px;font-size:10px" oninput="leaApplyRuler()"/>
+          <span style="font-size:9px;color:#3a6a8a">mm known</span>
+        </div>
+        <div id="lea-cal-status" style="font-size:9px;padding:3px 7px;border-radius:4px;background:#0a1400;border:1px solid #2a3a00;color:#4a6a20;display:none;margin-top:3px"></div>
+
+        <div class="sep"></div>
+        <div class="slabel">LANDMARKS (tap to place)</div>
+
+        <button class="lea-btn" id="lea-btn-fh"  onclick="leaActivate('fh')">🔵 Femoral Head Center</button>
+        <button class="lea-btn" id="lea-btn-pf"  onclick="leaActivate('pf')">🟣 Piriformis Fossa</button>
+        <button class="lea-btn" id="lea-btn-fdc" onclick="leaActivate('fdc')">🟣 Distal Femoral Canal</button>
+        <button class="lea-btn" id="lea-btn-kj"  onclick="leaActivate('kj')">🟡 Knee Joint Center</button>
+        <button class="lea-btn" id="lea-btn-tpc" onclick="leaActivate('tpc')">🔶 Proximal Tibial Center</button>
+        <button class="lea-btn" id="lea-btn-tdc" onclick="leaActivate('tdc')">🔶 Distal Tibial Center</button>
+        <button class="lea-btn" id="lea-btn-aj"  onclick="leaActivate('aj')">🟠 Ankle Joint Center</button>
+
+        <div class="sep"></div>
+        <div class="slabel">JOINT LINES (2 pts each)</div>
+        <button class="lea-btn" id="lea-btn-fc"  onclick="leaActivate('fc')">📐 Distal Femoral Condyles</button>
+        <button class="lea-btn" id="lea-btn-tp"  onclick="leaActivate('tp')">📐 Proximal Tibial Plateau</button>
+
+        <div id="lea-hint" style="font-size:9px;background:#001020;border:1px solid #002040;border-radius:4px;padding:6px 8px;line-height:1.8;display:none;margin-top:3px;color:#00e5ff"></div>
+
+        <div class="sep"></div>
+        <button class="btn-danger" onclick="leaReset()" style="display:block">↺ RESET ALL</button>
+
+        <!-- Results -->
+        <div id="lea-result">
+          <div class="lr-title">ALIGNMENT RESULTS</div>
+          <div class="lr-row"><span class="lr-label">Alignment</span><span class="lr-val" id="lr-vv" style="color:#00e5ff">—</span></div>
+          <div class="lr-row"><span class="lr-label">MAD at knee</span><span class="lr-val" id="lr-off" style="color:#00e5ff">—</span></div>
+          <div class="lr-row"><span class="lr-label">mLDFA</span><span class="lr-val" id="lr-ldfa" style="color:#ff8844">—</span></div>
+          <div class="lr-row"><span class="lr-label">mMPTA</span><span class="lr-val" id="lr-mpta" style="color:#44ffdd">—</span></div>
+          <div class="lr-row"><span class="lr-label">JLCA</span><span class="lr-val" id="lr-jlca" style="color:#ffdd00">—</span></div>
+        </div>
+
+        <div id="lea-cora-box">
+          <div style="color:#aa88ff;font-weight:700;margin-bottom:3px">CORA</div>
+          <div id="lr-cora-txt">—</div>
+        </div>
+
+        <div id="lea-deformity-box">
+          <div style="color:#ff88aa;font-weight:700;margin-bottom:3px">DEFORMITY SITE</div>
+          <div id="lr-deformity-txt">—</div>
+        </div>
+      </div>
+
+      <div id="lea-intro" class="intro-txt">Upload a full-length AP lower extremity X-ray (hip to ankle) to begin alignment analysis.</div>
+    </div>
+
+    <div id="lea-center">
+      <div class="empty-state" id="lea-empty">
+        <div class="ei">🦵</div>
+        <div class="em">NO X-RAY LOADED</div>
+        <div class="es">Upload full-length AP X-ray</div>
+      </div>
+      <button class="zreset" id="lea-zreset" onclick="leaZoomReset()">⊡ RESET ZOOM</button>
+      <div id="lea-canvas-wrap">
+        <canvas id="lea-canvas"></canvas>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /app -->
 
 <script>
 (function(){
@@ -316,9 +529,15 @@ ZoomState.prototype.attachPinch = function(onMove) {
 window.switchMode = function(m){
   document.getElementById('screen-angle').style.display = m==='angle'?'flex':'none';
   document.getElementById('screen-tttg').style.display  = m==='tttg' ?'flex':'none';
+  document.getElementById('screen-fav').style.display   = m==='fav'  ?'flex':'none';
+  document.getElementById('screen-lea').style.display   = m==='lea'  ?'flex':'none';
   document.getElementById('tab-angle').classList.toggle('active', m==='angle');
   document.getElementById('tab-tttg').classList.toggle('active',  m==='tttg');
+  document.getElementById('tab-fav').classList.toggle('active',   m==='fav');
+  document.getElementById('tab-lea').classList.toggle('active',   m==='lea');
   if(m==='tttg') tLayout();
+  if(m==='fav')  favLayout();
+  if(m==='lea')  leaLayout();
 };
 
 // ═══════════════════════════════════════════
@@ -378,8 +597,14 @@ window.addEventListener('resize',function(){
       function sp(p){return{x:p.x*sx,y:p.y*sy};}
       annotations=annotations.map(function(a){
         var n={type:a.type,angleDeg:a.angleDeg,id:a.id};
-        if(a.type===3){n.p1=sp(a.p1);n.p2=sp(a.p2);n.p3=sp(a.p3);n.p4=sp(a.p4);}
-        else{n.vertex=sp(a.vertex);n.p1=sp(a.p1);n.p2=sp(a.p2);}
+        if(a.type===4){
+          n.rFH=sp(a.rFH);n.lFH=sp(a.lFH);n.s1L=sp(a.s1L);n.s1R=sp(a.s1R);
+          n.PI=a.PI;n.SS=a.SS;n.PT=a.PT;
+        } else if(a.type===3){
+          n.p1=sp(a.p1);n.p2=sp(a.p2);n.p3=sp(a.p3);n.p4=sp(a.p4);
+        } else {
+          n.vertex=sp(a.vertex);n.p1=sp(a.p1);n.p2=sp(a.p2);
+        }
         return n;
       });
       placing=placing.map(sp);
@@ -410,7 +635,9 @@ function aRedraw(){
   var dpr=window.devicePixelRatio||1;
   ctx.clearRect(0,0,canvas.width/dpr,canvas.height/dpr);
   annotations.forEach(function(a){
-    if(a.type===3){
+    if(a.type===4){
+      drawPelvicAnnotation(a);
+    } else if(a.type===3){
       var col='#ff88ff';
       aLine(a.p1,a.p2,col,false);aLine(a.p3,a.p4,col,false);
       [a.p1,a.p2,a.p3,a.p4].forEach(function(p){aDot(p,col);});
@@ -424,47 +651,206 @@ function aRedraw(){
       aLbl(a.angleDeg.toFixed(1)+'°'+(a.type===1?' (S)':' (R)'),a.vertex.x+30/aZ.s,a.vertex.y-6/aZ.s,col);
     }
   });
-  var col=activeTool===1?'#ffdd00':activeTool===2?'#00ffc8':'#ff88ff';
+  // In-progress placing dots
+  var col=activeTool===1?'#ffdd00':activeTool===2?'#00ffc8':activeTool===4?'#44ffaa':'#ff88ff';
   placing.forEach(function(p,j){
-    aDot(p,(activeTool!==3&&j===0)?'#ff6030':col);
-    if(activeTool!==3&&j>0)aLine(placing[0],p,col+'66',true);
-    if(activeTool===3&&j===1)aLine(placing[0],p,col+'66',true);
-    if(activeTool===3&&j===3)aLine(placing[2],p,col+'66',true);
+    if(activeTool===4){
+      var pCol=['#ff8844','#4488ff','#44ffaa','#44ffaa'][j]||'#44ffaa';
+      var lbl=['R','L','S1L','S1R'][j]||'';
+      aDot(p,pCol);
+      aLbl(lbl,p.x+8/aZ.s,p.y-6/aZ.s,pCol);
+      // Preview S1 line when both S1 corners placed
+      if(j===3) aLine(placing[2],placing[3],'#44ffaa66',true);
+      // Preview femoral axis when both heads placed
+      if(j>=1){
+        var mid={x:(placing[0].x+placing[1].x)/2,y:(placing[0].y+placing[1].y)/2};
+        aDot(mid,'#44ffaa88');
+      }
+    } else {
+      aDot(p,(activeTool!==3&&j===0)?'#ff6030':col);
+      if(activeTool!==3&&j>0)aLine(placing[0],p,col+'66',true);
+      if(activeTool===3&&j===1)aLine(placing[0],p,col+'66',true);
+      if(activeTool===3&&j===3)aLine(placing[2],p,col+'66',true);
+    }
   });
   aUI();
+}
+
+// ── Pelvic Parameters ──────────────────────────────────────
+// Points: rFH=right femoral head, lFH=left femoral head,
+//         s1L=S1 endplate left corner, s1R=S1 endplate right corner
+// Derived:
+//   fhMid = midpoint of femoral heads
+//   s1Mid = midpoint of S1 endplate
+//   S1 endplate vector: (s1R - s1L)
+//   S1 normal (perpendicular, pointing superior): rotate S1 vector 90° CCW
+//   PI = angle between (fhMid→s1Mid) and S1 normal
+//   SS = angle between S1 endplate and horizontal
+//   PT = PI - SS  (or directly: angle between vertical and fhMid→s1Mid)
+
+function calcPelvicParams(rFH, lFH, s1L, s1R){
+  // Screen coords: Y increases downward
+  var fhMid = {x:(rFH.x+lFH.x)/2, y:(rFH.y+lFH.y)/2};
+  var s1Mid = {x:(s1L.x+s1R.x)/2, y:(s1L.y+s1R.y)/2};
+
+  // S1 endplate unit vector
+  var s1dx=s1R.x-s1L.x, s1dy=s1R.y-s1L.y;
+  var s1len=Math.sqrt(s1dx*s1dx+s1dy*s1dy)||1;
+  var s1ux=s1dx/s1len, s1uy=s1dy/s1len;
+
+  // Vector from S1Mid to fhMid
+  var vx=fhMid.x-s1Mid.x, vy=fhMid.y-s1Mid.y;
+  var vlen=Math.sqrt(vx*vx+vy*vy)||1;
+
+  // S1 perpendicular — two candidate normals (90° CW and CCW)
+  // Pick the one pointing in the SAME general direction as S1Mid→fhMid
+  var nAx=-s1uy, nAy=s1ux;  // 90° CCW
+  var nBx=s1uy,  nBy=-s1ux; // 90° CW
+  var normX, normY;
+  if(nAx*vx + nAy*vy >= 0){ normX=nAx; normY=nAy; }
+  else { normX=nBx; normY=nBy; }
+
+  // PI = angle between S1-normal and line S1Mid→fhMid
+  var dotPI=(vx*normX + vy*normY)/vlen;
+  var PI=Math.acos(Math.max(-1,Math.min(1,dotPI)))*180/Math.PI;
+
+  // SS = angle of S1 endplate from horizontal
+  var SS=Math.abs(Math.atan2(s1dy,s1dx)*180/Math.PI);
+  if(SS>90) SS=180-SS;
+
+  // PT = angle between vertical and line fhMid→s1Mid
+  // Vector fhMid→s1Mid, compared to vertical (0,-1) = upward in screen
+  var wx=s1Mid.x-fhMid.x, wy=s1Mid.y-fhMid.y;
+  var wlen=Math.sqrt(wx*wx+wy*wy)||1;
+  var dotPT=-wy/wlen; // dot with (0,-1)
+  var PT=Math.acos(Math.max(-1,Math.min(1,dotPT)))*180/Math.PI;
+  if(PT>90) PT=180-PT;
+
+  return {
+    PI:  Math.round(PI*10)/10,
+    SS:  Math.round(SS*10)/10,
+    PT:  Math.round(PT*10)/10,
+    fhMid:fhMid, s1Mid:s1Mid,
+    normX:normX, normY:normY
+  };
+}
+
+function drawPelvicAnnotation(a){
+  var z=aZ.s;
+  var r=a.rFH, l=a.lFH, s1L=a.s1L, s1R=a.s1R;
+  var p=calcPelvicParams(r,l,s1L,s1R);
+  var fhM=p.fhMid, s1M=p.s1Mid;
+
+  // Femoral head circles
+  var fhR=dist(r,l)*0.12; // approximate radius as ~12% of inter-head distance
+  ctx.beginPath();ctx.arc(r.x,r.y,fhR,0,Math.PI*2);
+  ctx.strokeStyle='#ff8844';ctx.lineWidth=2/z;ctx.stroke();
+  ctx.beginPath();ctx.arc(l.x,l.y,fhR,0,Math.PI*2);
+  ctx.strokeStyle='#4488ff';ctx.lineWidth=2/z;ctx.stroke();
+  aDot(r,'#ff8844'); aDot(l,'#4488ff');
+  aLbl('R',r.x+fhR+3/z,r.y,'#ff8844');
+  aLbl('L',l.x+fhR+3/z,l.y,'#4488ff');
+
+  // Femoral heads midpoint
+  aDot(fhM,'#44ffaa');
+  // Inter-femoral line
+  aLine(r,l,'#ffffff44',true);
+
+  // S1 endplate line (extended)
+  var s1dx=s1R.x-s1L.x, s1dy=s1R.y-s1L.y;
+  var s1len=Math.sqrt(s1dx*s1dx+s1dy*s1dy)||1;
+  var ext=20/z;
+  var es1L={x:s1L.x-s1dx/s1len*ext, y:s1L.y-s1dy/s1len*ext};
+  var es1R={x:s1R.x+s1dx/s1len*ext, y:s1R.y+s1dy/s1len*ext};
+  aLine(es1L,es1R,'#44ffaa',false);
+  aDot(s1L,'#44ffaa'); aDot(s1R,'#44ffaa');
+  aDot(s1M,'#44ffaa');
+  aLbl('S1',s1M.x+5/z,s1M.y-8/z,'#44ffaa');
+
+  // Line from S1 midpoint to FH midpoint (PI axis)
+  aLine(s1M,fhM,'#44ffaa',false);
+
+  // S1 perpendicular (normal line)
+  var normLen=dist(s1M,fhM)*0.5;
+  var normEnd={x:s1M.x+p.normX*normLen, y:s1M.y+p.normY*normLen};
+  aLine(s1M,normEnd,'#ffdd00',true);
+
+  // Vertical reference from S1 mid
+  var vLen=dist(s1M,fhM)*0.4;
+  var vertEnd={x:s1M.x, y:s1M.y-vLen};
+  aLine(s1M,vertEnd,'#ffffff55',true);
+
+  // Angle arcs at S1 mid
+  var piAng1=Math.atan2(fhM.y-s1M.y,fhM.x-s1M.x);
+  var piAng2=Math.atan2(normEnd.y-s1M.y,normEnd.x-s1M.x);
+  var arcR=20/z;
+  ctx.beginPath();ctx.arc(s1M.x,s1M.y,arcR,piAng2,piAng1,false);
+  ctx.strokeStyle='#44ffaa99';ctx.lineWidth=1.5/z;ctx.stroke();
+
+  // Labels near center
+  var lx=s1M.x+5/z, ly=s1M.y+arcR+14/z;
+  aLbl('PI '+a.PI+'°', lx, ly,    '#44ffaa');
+  aLbl('SS '+a.SS+'°', lx, ly+16/z, '#ffdd00');
+  aLbl('PT '+a.PT+'°', lx, ly+32/z, '#ff8844');
+}
+
+function updatePelvicResultBox(){
+  var last=null;
+  for(var i=annotations.length-1;i>=0;i--){
+    if(annotations[i].type===4){last=annotations[i];break;}
+  }
+  var box=document.getElementById('pelv-result');
+  if(last){
+    box.style.display='block';
+    document.getElementById('pr-pi').textContent=last.PI+'°';
+    document.getElementById('pr-ss').textContent=last.SS+'°';
+    document.getElementById('pr-pt').textContent=last.PT+'°';
+    var check=Math.abs(last.PI-(last.SS+last.PT))<2;
+    document.getElementById('pr-eq').textContent='PI = SS + PT  ('+(last.SS+last.PT).toFixed(1)+'°)  '+(check?'✓':'≈');
+  } else {
+    box.style.display='none';
+  }
 }
 
 var AHINTS={
   1:['① Tap the fracture APEX','② Tap point on the SHAFT','③ Tap point on the FRAGMENT'],
   2:['① Tap the VERTEX','② Tap point on FIRST LINE','③ Tap point on SECOND LINE'],
-  3:['① Tap START of LINE 1','② Tap END of LINE 1','③ Tap START of LINE 2','④ Tap END of LINE 2']
+  3:['① Tap START of LINE 1','② Tap END of LINE 1','③ Tap START of LINE 2','④ Tap END of LINE 2'],
+  4:['① Tap center of RIGHT femoral head','② Tap center of LEFT femoral head','③ Tap LEFT corner of S1 endplate','④ Tap RIGHT corner of S1 endplate']
 };
 function aUI(){
   var any=annotations.length>0||placing.length>0;
   document.getElementById('btn-clear').style.display=any?'block':'none';
   document.getElementById('legend').style.display=any?'block':'none';
   var hb=document.getElementById('hint-box');
-  if(activeTool&&placing.length<(activeTool===3?4:3)){
+  var maxPts=activeTool===3||activeTool===4?4:3;
+  if(activeTool&&placing.length<maxPts){
     hb.style.display='block';
-    hb.style.color=activeTool===1?'#ffdd00':activeTool===2?'#00ffc8':'#ff88ff';
+    hb.style.color=activeTool===1?'#ffdd00':activeTool===2?'#00ffc8':activeTool===4?'#44ffaa':'#ff88ff';
     hb.textContent=AHINTS[activeTool][placing.length];
   } else hb.style.display='none';
   var mw=document.getElementById('meas-wrap'),md=document.getElementById('measurements');
   if(annotations.length>0){
     mw.style.display='block';var h='';
     annotations.forEach(function(a,i){
-      var col=a.type===1?'#ffdd00':a.type===2?'#00ffc8':'#ff88ff',lbl=a.type===1?'∠S':a.type===2?'∠R':'∠C';
-      h+='<div class="meas-row"><span class="ml" style="color:'+col+'">'+lbl+' '+(i+1)+'</span><span class="mv" style="color:'+col+'">'+a.angleDeg.toFixed(1)+'°</span><button class="md" onclick="window._del('+i+')">✕</button></div>';
+      if(a.type===4){
+        h+='<div class="meas-row"><span class="ml" style="color:#44ffaa">🦴 Pelvis '+(i+1)+'</span><span class="mv" style="color:#44ffaa;font-size:10px">PI '+a.PI+'° SS '+a.SS+'° PT '+a.PT+'°</span><button class="md" onclick="window._del('+i+')">✕</button></div>';
+      } else {
+        var col=a.type===1?'#ffdd00':a.type===2?'#00ffc8':'#ff88ff',lbl=a.type===1?'∠S':a.type===2?'∠R':'∠C';
+        h+='<div class="meas-row"><span class="ml" style="color:'+col+'">'+lbl+' '+(i+1)+'</span><span class="mv" style="color:'+col+'">'+a.angleDeg.toFixed(1)+'°</span><button class="md" onclick="window._del('+i+')">✕</button></div>';
+      }
     });
     md.innerHTML=h;
   } else mw.style.display='none';
   var ro=document.getElementById('angle-readout');
-  if(annotations.length>0){
-    var last=annotations[annotations.length-1],col=last.type===1?'#4ade80':last.type===2?'#00ffc8':'#ff88ff';
+  var nonPelv=annotations.filter(function(a){return a.type!==4;});
+  if(nonPelv.length>0){
+    var last=nonPelv[nonPelv.length-1],col=last.type===1?'#4ade80':last.type===2?'#00ffc8':'#ff88ff';
     ro.style.display='block';
     var rv=document.getElementById('readout-val');rv.style.color=col;rv.style.textShadow='0 0 14px '+col+'88';
     rv.textContent=last.angleDeg.toFixed(1)+'°';
   } else ro.style.display='none';
+  updatePelvicResultBox();
   canvas.style.cursor=aDrg?'grabbing':activeTool?'crosshair':any?'grab':'default';
   canvas.style.pointerEvents=(activeTool||any)?'auto':'none';
 }
@@ -494,19 +880,21 @@ function aLoad(file){
 }
 
 function aBtnReset(){
-  ['btn-supp','btn-reg','btn-cobb'].forEach(function(id){
-    document.getElementById(id).classList.remove('active-supp','active-reg','active-cobb');
+  ['btn-supp','btn-reg','btn-cobb','btn-pelv'].forEach(function(id){
+    var b=document.getElementById(id);
+    if(b) b.classList.remove('active-supp','active-reg','active-cobb','active-pelv');
   });
   document.getElementById('btn-supp').textContent='📐 SUPPLEMENTARY (180°−x)';
   document.getElementById('btn-reg').textContent='📐 REGULAR ANGLE';
   document.getElementById('btn-cobb').textContent='📏 COBB ANGLE';
+  document.getElementById('btn-pelv').textContent='🦴 PELVIC PARAMETERS';
 }
 
 window.activateTool=function(type){
   if(activeTool===type){activeTool=0;placing=[];aBtnReset();}
   else{
     activeTool=type;placing=[];aBtnReset();
-    var map={1:['btn-supp','active-supp'],2:['btn-reg','active-reg'],3:['btn-cobb','active-cobb']};
+    var map={1:['btn-supp','active-supp'],2:['btn-reg','active-reg'],3:['btn-cobb','active-cobb'],4:['btn-pelv','active-pelv']};
     var m=map[type];
     document.getElementById(m[0]).classList.add(m[1]);
     document.getElementById(m[0]).textContent='⏹ STOP PLACING';
@@ -532,19 +920,26 @@ canvas.addEventListener('touchend',  aUp,   {passive:false});
 function aDown(e){
   e.preventDefault();e.stopPropagation();
   var pt=aPt(e);
+  // Drag existing annotation points
   for(var ai=0;ai<annotations.length;ai++){
-    var a=annotations[ai],keys=a.type===3?['p1','p2','p3','p4']:['vertex','p1','p2'];
+    var a=annotations[ai];
+    var keys=a.type===3?['p1','p2','p3','p4']:a.type===4?['rFH','lFH','s1L','s1R']:['vertex','p1','p2'];
     for(var ki=0;ki<keys.length;ki++)if(dist(pt,a[keys[ki]])<=HIT_R/aZ.s){aDrg={ai:ai,key:keys[ki]};aUI();return;}
   }
   for(var pi=0;pi<placing.length;pi++)if(dist(pt,placing[pi])<=HIT_R/aZ.s){aDrg={placing:true,pi:pi};aUI();return;}
   if(!activeTool)return;
-  var mx=activeTool===3?4:3;
+  var mx=(activeTool===3||activeTool===4)?4:3;
   if(placing.length<mx-1){placing.push(pt);aRedraw();}
   else{
     placing.push(pt);var pts=placing,ang;
     if(activeTool===3){
       ang=cobbAng(pts[0],pts[1],pts[2],pts[3]);
       annotations.push({type:3,p1:pts[0],p2:pts[1],p3:pts[2],p4:pts[3],angleDeg:ang,id:Date.now()});
+    } else if(activeTool===4){
+      var p=calcPelvicParams(pts[0],pts[1],pts[2],pts[3]);
+      annotations.push({type:4,rFH:pts[0],lFH:pts[1],s1L:pts[2],s1R:pts[3],
+        PI:p.PI,SS:p.SS,PT:p.PT,angleDeg:p.PI,id:Date.now()});
+      updatePelvicResultBox();
     } else {
       ang=angBetween(pts[1],pts[0],pts[2]);
       if(activeTool===1)ang=180-ang;
@@ -559,8 +954,15 @@ function aMove(e){
   if(aDrg.placing)placing[aDrg.pi]=pt;
   else{
     var a=annotations[aDrg.ai];a[aDrg.key]=pt;
-    if(a.type===3)a.angleDeg=cobbAng(a.p1,a.p2,a.p3,a.p4);
-    else{var inn=angBetween(a.p1,a.vertex,a.p2);a.angleDeg=a.type===1?180-inn:inn;}
+    if(a.type===4){
+      var p=calcPelvicParams(a.rFH,a.lFH,a.s1L,a.s1R);
+      a.PI=p.PI;a.SS=p.SS;a.PT=p.PT;a.angleDeg=p.PI;
+      updatePelvicResultBox();
+    } else if(a.type===3){
+      a.angleDeg=cobbAng(a.p1,a.p2,a.p3,a.p4);
+    } else {
+      var inn=angBetween(a.p1,a.vertex,a.p2);a.angleDeg=a.type===1?180-inn:inn;
+    }
   }
   aRedraw();
 }
@@ -570,7 +972,7 @@ function aUp(e){if(e){e.preventDefault();e.stopPropagation();}aDrg=null;aUI();}
 // TT-TG MODULE
 // ═══════════════════════════════════════════
 var tgImg=null, ttImg=null;
-var tS={bl:null,tgPt:null,ttPt:null,mode:null,tmp:null};
+var tS={bl:null,tgPt:null,ttPt:null,mode:null,tmp:null,ruler:null,pxPerMm:null};
 var tDrg=null;
 var tttgCanvas=document.getElementById('tttg-canvas');
 var tC=tttgCanvas.getContext('2d');
@@ -628,6 +1030,25 @@ window.tDraw=function(){
   if(ttImg&&ttImg.naturalWidth){tC.globalAlpha=Math.max(0.15,op);tC.drawImage(ttImg,0,0,w,h);}
   tC.globalAlpha=1;
 
+
+  if(tS.mode==='ruler'&&tS.tmp) tDot(tS.tmp,'#ffdd00');
+
+  if(tS.ruler){
+    var ru1=tS.ruler.p1,ru2=tS.ruler.p2;
+    tC.beginPath();tC.moveTo(ru1.x,ru1.y);tC.lineTo(ru2.x,ru2.y);
+    tC.strokeStyle='#ffdd00';tC.lineWidth=2/tZ.s;tC.setLineDash([6/tZ.s,3/tZ.s]);tC.stroke();tC.setLineDash([]);
+    var rdx=ru2.x-ru1.x,rdy=ru2.y-ru1.y,rlen=Math.sqrt(rdx*rdx+rdy*rdy)||1;
+    var rpx=-rdy/rlen*6/tZ.s,rpy=rdx/rlen*6/tZ.s;
+    tC.beginPath();tC.moveTo(ru1.x+rpx,ru1.y+rpy);tC.lineTo(ru1.x-rpx,ru1.y-rpy);tC.strokeStyle='#ffdd00';tC.lineWidth=2/tZ.s;tC.stroke();
+    tC.beginPath();tC.moveTo(ru2.x+rpx,ru2.y+rpy);tC.lineTo(ru2.x-rpx,ru2.y-rpy);tC.strokeStyle='#ffdd00';tC.lineWidth=2/tZ.s;tC.stroke();
+    tDot(ru1,'#ffdd00');tDot(ru2,'#ffdd00');
+    var rmm=parseFloat(document.getElementById('ruler-mm').value)||10;
+    var rfs=Math.round(11/tZ.s);
+    tC.font='bold '+rfs+"px 'Courier New'";tC.shadowColor='#000';tC.shadowBlur=6/tZ.s;
+    tC.fillStyle='#ffdd00';
+    tC.fillText(rmm+'mm',((ru1.x+ru2.x)/2)+5/tZ.s,((ru1.y+ru2.y)/2)-5/tZ.s);
+    tC.shadowBlur=0;
+  }
   if(tS.bl){
     var b1=tS.bl.p1,b2=tS.bl.p2;
     var dx=b2.x-b1.x,dy=b2.y-b1.y,len=Math.sqrt(dx*dx+dy*dy);
@@ -669,7 +1090,7 @@ window.tDraw=function(){
     tC.beginPath();tC.moveTo(fA2.x,fA2.y);tC.lineTo(fB2.x,fB2.y);
     tC.strokeStyle='#ffdd00';tC.lineWidth=3/tZ.s;tC.stroke();
     tDot(fA2,'#4488ff');tDot(fB2,'#ff6644');
-    var px=parseFloat(document.getElementById('px-sp').value)||0.5;
+    var px=tS.pxPerMm||1.0; // set by ruler calibration
     var pxD=Math.sqrt(Math.pow(fB2.x-fA2.x,2)+Math.pow(fB2.y-fA2.y,2));
     var mm=pxD*px;
     var mx=(fA2.x+fB2.x)/2,my=(fA2.y+fB2.y)/2;
@@ -696,7 +1117,7 @@ function draw90(foot,apex,bl,col){
 function showResult(mm,px){
   var r=document.getElementById('tttg-result');r.style.display='block';
   document.getElementById('t-rv').textContent=mm.toFixed(1)+' mm';
-  document.getElementById('t-ri').textContent='Pixel spacing: '+px+' mm/px';
+  document.getElementById('t-ri').textContent=tS.pxPerMm?'Calibrated: '+tS.pxPerMm.toFixed(2)+' px/mm':'⚠ Draw ruler to calibrate';
   var rg=document.getElementById('t-rg');
   if(mm<10){rg.textContent='✓ NORMAL (<10 mm)';rg.style.background='#0a2a0a';rg.style.color='#4ade80';}
   else if(mm<=20){rg.textContent='⚠ BORDERLINE (10–20 mm)';rg.style.background='#2a2200';rg.style.color='#ffdd00';}
@@ -715,11 +1136,12 @@ function tCheckReady(){
   }
 }
 function tBadges(){
-  function b(id,st){var el=document.getElementById(id);el.classList.remove('done','act');if(st)el.classList.add(st);}
+  function b(id,st){var el=document.getElementById(id);if(!el)return;el.classList.remove('done','act');if(st)el.classList.add(st);}
   b('b1',tgImg?'done':'');b('b2',ttImg?'done':'');
-  b('b3',tS.bl?'done':(tgImg&&ttImg?'act':''));
-  b('b4',tS.tgPt?'done':tS.bl?'act':'');
-  b('b5',tS.ttPt?'done':tS.tgPt?'act':'');
+  b('b3',tS.ruler?'done':(tgImg&&ttImg?'act':''));
+  b('b4',tS.bl?'done':tS.ruler?'act':'');
+  b('b5',tS.tgPt?'done':tS.bl?'act':'');
+  b('b6',tS.ttPt?'done':tS.tgPt?'act':'');
 }
 window.tActivate=function(mode){
   tS.mode=(tS.mode===mode)?null:mode;
@@ -728,13 +1150,21 @@ window.tActivate=function(mode){
 };
 function tBtns(){
   var m=tS.mode;
+  var bru=document.getElementById('btn-ruler');
   var bbl=document.getElementById('btn-bl'),btg=document.getElementById('btn-tg'),btt=document.getElementById('btn-tt');
   var hb=document.getElementById('t-hint');
   [bbl,btg,btt].forEach(function(b){b.classList.remove('active-tttg','active-tg','active-tt');});
+  if(bru) bru.classList.remove('active-ruler');
+  if(m==='ruler'){
+    if(bru) bru.classList.add('active-ruler');
+    bru.textContent='📏 '+(tS.tmp?'TAP 2nd POINT':'TAP 1st POINT');
+    hb.style.display='block';hb.style.color='#ffdd00';
+    hb.textContent=tS.tmp?'② Tap the end of the ruler':'① Tap the start of the ruler';
+  } else if(bru) bru.textContent='📏 DRAW RULER LINE (2 pts)';
   if(m==='bl'){
     bbl.classList.add('active-tttg');
     bbl.textContent='📏 '+(tS.tmp?'TAP 2nd EPICONDYLE':'TAP 1st EPICONDYLE');
-    hb.style.display='block';
+    hb.style.display='block';hb.style.color='#00cfff';
     hb.textContent=tS.tmp?'② Now tap the lateral epicondyle':'① Tap the medial epicondyle';
   } else bbl.textContent='📏 DRAW pFCL LINE (2 pts)';
   if(m==='tg'){
@@ -748,9 +1178,23 @@ function tBtns(){
   if(!m) hb.style.display='none';
 }
 window.tReset=function(){
-  tS={bl:null,tgPt:null,ttPt:null,mode:null,tmp:null};
+  tS={bl:null,tgPt:null,ttPt:null,mode:null,tmp:null,ruler:null,pxPerMm:null};
   document.getElementById('tttg-result').style.display='none';
+  document.getElementById('ruler-status').style.display='none';
   tBtns();tDraw();tBadges();
+};
+
+window.tApplyRuler=function(){
+  if(!tS.ruler) return;
+  var dx=tS.ruler.p2.x-tS.ruler.p1.x, dy=tS.ruler.p2.y-tS.ruler.p1.y;
+  var pxLen=Math.sqrt(dx*dx+dy*dy);
+  var mm=parseFloat(document.getElementById('ruler-mm').value)||10;
+  tS.pxPerMm=pxLen/mm;
+  var el=document.getElementById('ruler-status');
+  el.style.display='block';
+  el.style.background='#0a2a0a';el.style.borderColor='#2a5a2a';el.style.color='#4ade80';
+  el.textContent='✓ '+tS.pxPerMm.toFixed(2)+' px/mm ('+mm+'mm)';
+  tDraw();
 };
 
 // TT-TG canvas events — 1 finger only
@@ -766,6 +1210,11 @@ function tDown(e){
   e.preventDefault();e.stopPropagation();
   var pt=tPt(e);
   if(!tS.mode){
+    // Drag ruler endpoints
+    if(tS.ruler){
+      if(dist(pt,tS.ruler.p1)<=T_HIT/tZ.s){tDrg={t:'ru',k:'p1'};return;}
+      if(dist(pt,tS.ruler.p2)<=T_HIT/tZ.s){tDrg={t:'ru',k:'p2'};return;}
+    }
     if(tS.bl){
       if(dist(pt,tS.bl.p1)<=T_HIT/tZ.s){tDrg={t:'bl',k:'p1'};return;}
       if(dist(pt,tS.bl.p2)<=T_HIT/tZ.s){tDrg={t:'bl',k:'p2'};return;}
@@ -774,7 +1223,10 @@ function tDown(e){
     if(tS.ttPt&&dist(pt,tS.ttPt)<=T_HIT/tZ.s){tDrg={t:'tt'};return;}
     return;
   }
-  if(tS.mode==='bl'){
+  if(tS.mode==='ruler'){
+    if(!tS.tmp){tS.tmp=pt;tBtns();tDraw();}
+    else{tS.ruler={p1:tS.tmp,p2:pt};tS.tmp=null;tS.mode=null;tBtns();window.tApplyRuler();tBadges();}
+  } else if(tS.mode==='bl'){
     if(!tS.tmp){tS.tmp=pt;tBtns();tDraw();}
     else{tS.bl={p1:tS.tmp,p2:pt};tS.tmp=null;tS.mode=null;tBtns();tDraw();tBadges();}
   } else if(tS.mode==='tg'){
@@ -786,7 +1238,8 @@ function tDown(e){
 function tMove(e){
   if(!tDrg)return;e.preventDefault();e.stopPropagation();
   var pt=tPt(e);
-  if(tDrg.t==='bl')tS.bl[tDrg.k]=pt;
+  if(tDrg.t==='ru'){tS.ruler[tDrg.k]=pt;window.tApplyRuler();}
+  else if(tDrg.t==='bl')tS.bl[tDrg.k]=pt;
   else if(tDrg.t==='tg')tS.tgPt=pt;
   else if(tDrg.t==='tt')tS.ttPt=pt;
   tDraw();
@@ -817,15 +1270,789 @@ document.getElementById('tt-upload').addEventListener('change',function(e){
   r.readAsDataURL(e.target.files[0]);
 });
 
-document.getElementById('px-sp').addEventListener('input',function(){tDraw();});
+document.getElementById('ruler-mm').addEventListener('input',function(){window.tApplyRuler();});
 
 // Prevent page scroll on single-touch
 document.addEventListener('touchmove',function(e){
   if(e.touches.length===1)e.preventDefault();
 },{passive:false});
 
+// ═══════════════════════════════════════════
+// FEMORAL ANTEVERSION MODULE
+// ═══════════════════════════════════════════
+var favNeckImg=null, favCondImg=null;
+var favState={neckLine:null,condLine:null,mode:null,tmp:null};
+var favDrg=null;
+var favCanvas=document.getElementById('fav-canvas');
+var favCtx=favCanvas.getContext('2d');
+var favWrap=document.getElementById('fav-canvas-wrap');
+var favCenter=document.getElementById('fav-center');
+var favZ=new ZoomState(favWrap,favCenter,'fav-zreset');
+favZ.attachPinch(function(){window.favDraw();});
+window.favZoomReset=function(){favZ.reset();window.favDraw();};
+
+function favLayout(){
+  var ref=favNeckImg||favCondImg;if(!ref||!ref.naturalWidth)return;
+  var nw=ref.naturalWidth,nh=ref.naturalHeight;
+  var sc=Math.min(favCenter.clientWidth/nw,favCenter.clientHeight/nh);
+  var dw=Math.floor(nw*sc),dh=Math.floor(nh*sc);
+  var dpr=window.devicePixelRatio||1;
+  favCanvas.width=dw*dpr;favCanvas.height=dh*dpr;
+  favCanvas.style.width=dw+'px';favCanvas.style.height=dh+'px';
+  favWrap.style.width=dw+'px';favWrap.style.height=dh+'px';
+  favCtx.setTransform(dpr,0,0,dpr,0,0);
+  window.favDraw();
+}
+function favW(){return favCanvas.width/(window.devicePixelRatio||1);}
+function favH(){return favCanvas.height/(window.devicePixelRatio||1);}
+function favPt(e){
+  var src=e.touches?e.touches[0]:e;
+  var rect=favCanvas.getBoundingClientRect();
+  return {x:(src.clientX-rect.left)/(rect.width/favW()),y:(src.clientY-rect.top)/(rect.height/favH())};
+}
+function favDistPt(a,b){var dx=b.x-a.x,dy=b.y-a.y;return Math.sqrt(dx*dx+dy*dy);}
+function favDotF(pt,col){
+  var z=favZ.s,r=5/z;
+  favCtx.beginPath();favCtx.arc(pt.x,pt.y,r+4/z,0,Math.PI*2);favCtx.fillStyle=col+'28';favCtx.fill();
+  favCtx.beginPath();favCtx.arc(pt.x,pt.y,r+1/z,0,Math.PI*2);favCtx.strokeStyle='#000';favCtx.lineWidth=2/z;favCtx.stroke();
+  favCtx.beginPath();favCtx.arc(pt.x,pt.y,r,0,Math.PI*2);favCtx.fillStyle=col;favCtx.fill();
+}
+function favExtLine(a,b,col,lw){
+  var z=favZ.s,dx=b.x-a.x,dy=b.y-a.y,len=Math.sqrt(dx*dx+dy*dy)||1;
+  var ext=Math.max(favW(),favH())*2;
+  favCtx.beginPath();
+  favCtx.moveTo(a.x-dx/len*ext,a.y-dy/len*ext);
+  favCtx.lineTo(b.x+dx/len*ext,b.y+dy/len*ext);
+  favCtx.strokeStyle=col;favCtx.lineWidth=(lw||2)/z;favCtx.stroke();
+}
+function favLbl(txt,x,y,col){
+  var z=favZ.s;
+  favCtx.font='bold '+Math.max(8,Math.round(12/z))+"px 'Courier New'";
+  favCtx.shadowColor='#000';favCtx.shadowBlur=6/z;
+  favCtx.fillStyle=col;favCtx.fillText(txt,x,y);favCtx.shadowBlur=0;
+}
+
+function calcFAV(nl,cl){
+  var dx1=nl.p2.x-nl.p1.x,dy1=nl.p2.y-nl.p1.y;
+  var dx2=cl.p2.x-cl.p1.x,dy2=cl.p2.y-cl.p1.y;
+  var len1=Math.sqrt(dx1*dx1+dy1*dy1)||1,len2=Math.sqrt(dx2*dx2+dy2*dy2)||1;
+  var cross=(dx1/len1)*(dy2/len2)-(dy1/len1)*(dx2/len2);
+  var dot  =(dx1/len1)*(dx2/len2)+(dy1/len1)*(dy2/len2);
+  var ang=Math.atan2(Math.abs(cross),Math.abs(dot))*180/Math.PI;
+  return Math.round((cross>=0?1:-1)*ang*10)/10;
+}
+
+function updateFAVResult(ang){
+  var box=document.getElementById('fav-result');
+  box.style.display='block';
+  var absAng=Math.abs(ang);
+  document.getElementById('fav-val').textContent=absAng.toFixed(1)+'°';
+  document.getElementById('fav-val').style.color=ang<0?'#ff6644':'#aa88ff';
+  var grade=document.getElementById('fav-grade');
+  if(ang<0){
+    grade.textContent='RETROVERSION ('+ang.toFixed(1)+'°)';
+    grade.style.background='#2a0800';grade.style.color='#ff6644';
+  } else if(absAng<=20){
+    grade.textContent='✓ NORMAL ('+ang.toFixed(1)+'°)';
+    grade.style.background='#0a2a0a';grade.style.color='#4ade80';
+  } else if(absAng<=40){
+    grade.textContent='⚡ INCREASED ('+ang.toFixed(1)+'°)';
+    grade.style.background='#2a2000';grade.style.color='#ffdd00';
+  } else {
+    grade.textContent='⚠ SEVERE >40° ('+ang.toFixed(1)+'°)';
+    grade.style.background='#2a0a00';grade.style.color='#ff6644';
+  }
+  setTimeout(function(){box.scrollIntoView({behavior:'smooth',block:'nearest'});},80);
+}
+
+window.favDraw=function(){
+  if(!favCanvas.width||(!favNeckImg&&!favCondImg))return;
+  var dpr=window.devicePixelRatio||1;
+  favCtx.setTransform(dpr,0,0,dpr,0,0);
+  favCtx.clearRect(0,0,favW(),favH());
+  var op=parseInt(document.getElementById('fav-op-sl').value)/100;
+  var w=favW(),h=favH(),z=favZ.s;
+  if(favNeckImg&&favNeckImg.naturalWidth){favCtx.globalAlpha=1-op*0.6;favCtx.drawImage(favNeckImg,0,0,w,h);}
+  if(favCondImg&&favCondImg.naturalWidth){favCtx.globalAlpha=Math.max(0.15,op);favCtx.drawImage(favCondImg,0,0,w,h);}
+  favCtx.globalAlpha=1;
+
+  if(favState.neckLine){
+    var nl=favState.neckLine;
+    favExtLine(nl.p1,nl.p2,'#aa88ff',2.5);
+    favDotF(nl.p1,'#aa88ff');favDotF(nl.p2,'#aa88ff');
+    favLbl('Neck',nl.p2.x+8/z,nl.p2.y-6/z,'#aa88ff');
+  }
+  if(favState.condLine){
+    var cl=favState.condLine;
+    favExtLine(cl.p1,cl.p2,'#44ffdd',2.5);
+    favDotF(cl.p1,'#44ffdd');favDotF(cl.p2,'#44ffdd');
+    favLbl('Condyle',cl.p2.x+8/z,cl.p2.y-6/z,'#44ffdd');
+  }
+  if(favState.tmp) favDotF(favState.tmp,favState.mode==='neck'?'#aa88ff':'#44ffdd');
+
+  if(favState.neckLine&&favState.condLine){
+    var ang=calcFAV(favState.neckLine,favState.condLine);
+    var nl2=favState.neckLine,cl2=favState.condLine;
+    var cx=(nl2.p1.x+nl2.p2.x+cl2.p1.x+cl2.p2.x)/4;
+    var cy=(nl2.p1.y+nl2.p2.y+cl2.p1.y+cl2.p2.y)/4;
+    var ang1=Math.atan2(nl2.p2.y-nl2.p1.y,nl2.p2.x-nl2.p1.x);
+    var ang2=Math.atan2(cl2.p2.y-cl2.p1.y,cl2.p2.x-cl2.p1.x);
+    favCtx.beginPath();favCtx.arc(cx,cy,28/z,Math.min(ang1,ang2),Math.max(ang1,ang2));
+    favCtx.strokeStyle='#ffdd0099';favCtx.lineWidth=2/z;favCtx.stroke();
+    favCtx.font='bold '+Math.round(18/z)+"px 'Courier New'";
+    favCtx.shadowColor='#000';favCtx.shadowBlur=8/z;
+    favCtx.fillStyle='#ffdd00';favCtx.textAlign='center';
+    favCtx.fillText(Math.abs(ang).toFixed(1)+'°',cx,cy-36/z);
+    favCtx.textAlign='left';favCtx.shadowBlur=0;
+    updateFAVResult(ang);
+  }
+};
+
+function favCheckReady(){
+  if(favNeckImg&&favCondImg){
+    document.getElementById('fav-empty').style.display='none';
+    favWrap.style.display='block';
+    document.getElementById('fav-tools').style.display='block';
+    document.getElementById('fav-intro').style.display='none';
+    document.getElementById('fav-b1').classList.add('done');
+    document.getElementById('fav-b2').classList.add('done');
+    favZ.reset();favLayout();
+  }
+}
+
+window.favActivate=function(mode){
+  favState.mode=(favState.mode===mode)?null:mode;
+  favState.tmp=null;
+  favUpdateBtns();window.favDraw();
+};
+function favUpdateBtns(){
+  var m=favState.mode;
+  var bn=document.getElementById('fav-btn-neck');
+  var bc=document.getElementById('fav-btn-cond');
+  var hb=document.getElementById('fav-hint');
+  if(bn)bn.classList.remove('active-neck');if(bc)bc.classList.remove('active-cond');
+  if(m==='neck'){
+    bn.classList.add('active-neck');
+    bn.textContent=favState.tmp?'\uD83E\uDDB4 TAP 2nd POINT':'\uD83E\uDDB4 DRAW NECK AXIS (2 pts)';
+    hb.style.display='block';hb.style.color='#aa88ff';
+    hb.textContent=favState.tmp?'\u2460 Now tap a 2nd point along the neck':'\u2460 Tap along the femoral neck center';
+  } else if(bn) bn.textContent='\uD83E\uDDB4 DRAW NECK AXIS (2 pts)';
+  if(m==='cond'){
+    bc.classList.add('active-cond');
+    bc.textContent=favState.tmp?'\uD83D\uDCD0 TAP 2nd POINT':'\uD83D\uDCCF DRAW CONDYLE AXIS (2 pts)';
+    hb.style.display='block';hb.style.color='#44ffdd';
+    hb.textContent=favState.tmp?'\u2461 Now tap medial condyle':'\u2460 Tap lateral posterior condyle';
+  } else if(bc) bc.textContent='\uD83D\uDCCF DRAW CONDYLE AXIS (2 pts)';
+  if(!m&&hb) hb.style.display='none';
+  function sb(id,st){var el=document.getElementById(id);if(!el)return;el.classList.remove('done','act');if(st)el.classList.add(st);}
+  sb('fav-b3',favState.neckLine?'done':m==='neck'?'act':'');
+  sb('fav-b4',favState.condLine?'done':m==='cond'?'act':'');
+}
+window.favReset=function(){
+  favState={neckLine:null,condLine:null,mode:null,tmp:null};favDrg=null;
+  document.getElementById('fav-result').style.display='none';
+  favUpdateBtns();window.favDraw();
+};
+
+favCanvas.addEventListener('mousedown',favDown,false);favCanvas.addEventListener('mousemove',favMove,false);
+favCanvas.addEventListener('mouseup',favUp,false);favCanvas.addEventListener('mouseleave',favUp,false);
+favCanvas.addEventListener('touchstart',function(e){if(e.touches.length===1)favDown(e);},{passive:false});
+favCanvas.addEventListener('touchmove', function(e){if(e.touches.length===1)favMove(e);},{passive:false});
+favCanvas.addEventListener('touchend',  favUp,{passive:false});
+
+function favDown(e){
+  e.preventDefault();e.stopPropagation();
+  var pt=favPt(e),s=favState,z=favZ.s,HIT=28/z;
+  if(s.mode==='neck'||s.mode==='cond'){
+    var lk=s.mode==='neck'?'neckLine':'condLine';
+    if(!s.tmp){s.tmp=pt;favUpdateBtns();window.favDraw();}
+    else{s[lk]={p1:s.tmp,p2:pt};s.tmp=null;s.mode=null;favUpdateBtns();window.favDraw();}
+    return;
+  }
+  if(s.neckLine){
+    if(favDistPt(pt,s.neckLine.p1)<=HIT){favDrg={line:'neckLine',pt:'p1'};return;}
+    if(favDistPt(pt,s.neckLine.p2)<=HIT){favDrg={line:'neckLine',pt:'p2'};return;}
+  }
+  if(s.condLine){
+    if(favDistPt(pt,s.condLine.p1)<=HIT){favDrg={line:'condLine',pt:'p1'};return;}
+    if(favDistPt(pt,s.condLine.p2)<=HIT){favDrg={line:'condLine',pt:'p2'};return;}
+  }
+}
+function favMove(e){
+  if(!favDrg)return;e.preventDefault();e.stopPropagation();
+  var pt=favPt(e);
+  favState[favDrg.line][favDrg.pt]=pt;
+  window.favDraw();
+}
+function favUp(e){if(e){e.preventDefault();e.stopPropagation();}favDrg=null;}
+
+document.getElementById('fav-neck-upload').addEventListener('change',function(e){
+  if(!e.target.files||!e.target.files[0])return;
+  var img=new Image(),r=new FileReader();
+  r.onload=function(ev){img.onload=function(){
+    favNeckImg=img;document.getElementById('fav-neck-txt').textContent='\u2713 Neck slice loaded';
+    document.getElementById('fav-neck-lbl').classList.add('done');favCheckReady();
+  };img.src=ev.target.result;};
+  r.readAsDataURL(e.target.files[0]);
+});
+document.getElementById('fav-cond-upload').addEventListener('change',function(e){
+  if(!e.target.files||!e.target.files[0])return;
+  var img=new Image(),r=new FileReader();
+  r.onload=function(ev){img.onload=function(){
+    favCondImg=img;document.getElementById('fav-cond-txt').textContent='\u2713 Condyle slice loaded';
+    document.getElementById('fav-cond-lbl').classList.add('done');favCheckReady();
+  };img.src=ev.target.result;};
+  r.readAsDataURL(e.target.files[0]);
+});
+
+window.addEventListener('resize',function(){if(favCanvas.width)favLayout();});
+
+// ═══════════════════════════════════════════
+// LOWER EXTREMITY ALIGNMENT MODULE
+// ═══════════════════════════════════════════
+// Landmarks:
+//   fh  = femoral head center
+//   pf  = piriformis fossa
+//   kj  = knee joint center
+//   aj  = ankle joint center
+//   fc1/fc2 = distal femoral condyle line
+//   tp1/tp2 = proximal tibial plateau line
+//   cal = calibration ruler {p1,p2}
+//
+// Axes:
+//   Femoral Mechanical Axis (FMA): fh → kj
+//   Tibial Mechanical Axis (TMA):  kj → aj
+//   Full Mechanical Axis (MA):     fh → aj
+//
+// Angles:
+//   mLDFA = angle between FMA and distal femoral condyle line
+//           (normal: 87° ± 3°, lateral angle)
+//   mMPTA = angle between TMA and tibial plateau line
+//           (normal: 87° ± 3°, medial angle)
+//   JLCA  = angle between condyle line and plateau line at intersection
+//           (normal: 0–2°)
+//
+// Varus/Valgus:
+//   Perpendicular distance from KJ to MA line (fh→aj)
+//   Positive = valgus (KJ medial to MA), Negative = varus (KJ lateral)
+//
+// CORA:
+//   Intersection of proximal axis (fh→pf direction extended)
+//   and distal axis (determined by pf→kj or tibial axis extended)
+//   If CORA is at joint line → intra-articular
+//   If CORA is >3cm above joint line → extra-articular
+
+var leaPts = {fh:null,pf:null,fdc:null,kj:null,tpc:null,tdc:null,aj:null,fc1:null,fc2:null,tp1:null,tp2:null,cal:null};
+var leaState = {mode:null, tmp:null, pxPerMm:null};
+var leaDrg = null;
+var leaCanvas = document.getElementById('lea-canvas');
+var leaCtx    = leaCanvas.getContext('2d');
+var leaWrap   = document.getElementById('lea-canvas-wrap');
+var leaCenter = document.getElementById('lea-center');
+var leaXray   = document.createElement('img');
+
+var leaZ = new ZoomState(leaWrap, leaCenter, 'lea-zreset');
+leaZ.attachPinch(function(){ leaDraw(); });
+window.leaZoomReset = function(){ leaZ.reset(); leaDraw(); };
+
+function leaLayout(){
+  if(!leaXray.naturalWidth) return;
+  var nw=leaXray.naturalWidth, nh=leaXray.naturalHeight;
+  var sc=Math.min(leaCenter.clientWidth/nw, leaCenter.clientHeight/nh);
+  var dw=Math.floor(nw*sc), dh=Math.floor(nh*sc);
+  var dpr=window.devicePixelRatio||1;
+  leaXray.style.width=dw+'px'; leaXray.style.height=dh+'px';
+  leaWrap.style.width=dw+'px'; leaWrap.style.height=dh+'px';
+  leaCanvas.width=dw*dpr; leaCanvas.height=dh*dpr;
+  leaCanvas.style.width=dw+'px'; leaCanvas.style.height=dh+'px';
+  leaCtx.setTransform(dpr,0,0,dpr,0,0);
+  leaDraw();
+}
+function leaW(){ return leaCanvas.width/(window.devicePixelRatio||1); }
+function leaH(){ return leaCanvas.height/(window.devicePixelRatio||1); }
+
+function leaPt(e){
+  var src=e.touches?e.touches[0]:e;
+  var rect=leaCanvas.getBoundingClientRect();
+  return {x:(src.clientX-rect.left)/(rect.width/leaW()), y:(src.clientY-rect.top)/(rect.height/leaH())};
+}
+function leaDist(a,b){ var dx=b.x-a.x,dy=b.y-a.y; return Math.sqrt(dx*dx+dy*dy); }
+function leaMid(a,b){ return {x:(a.x+b.x)/2, y:(a.y+b.y)/2}; }
+
+// Signed angle between two vectors from a common vertex (in degrees)
+// Returns angle at vertex between va and vb
+function angleBetweenVecs(ax,ay,bx,by){
+  var dot=ax*bx+ay*by;
+  var mag=Math.sqrt(ax*ax+ay*ay)*Math.sqrt(bx*bx+by*by)||1;
+  return Math.acos(Math.max(-1,Math.min(1,dot/mag)))*180/Math.PI;
+}
+
+// Angle a line makes with vertical (screen Y axis)
+function angleWithVertical(dx,dy){
+  // Vertical = (0,1) in screen coords
+  var len=Math.sqrt(dx*dx+dy*dy)||1;
+  return Math.acos(Math.max(-1,Math.min(1,Math.abs(dy)/len)))*180/Math.PI;
+}
+
+// Perpendicular distance from point P to line through A and B
+// Returns signed: positive if P is to the right of A→B
+function ptToLineDist(P, A, B){
+  var dx=B.x-A.x, dy=B.y-A.y, len=Math.sqrt(dx*dx+dy*dy)||1;
+  return ((P.x-A.x)*dy-(P.y-A.y)*dx)/len;
+}
+
+// Line-line intersection of (p1→p2) and (p3→p4), returns null if parallel
+function lineIntersect(p1,p2,p3,p4){
+  var d1x=p2.x-p1.x, d1y=p2.y-p1.y;
+  var d2x=p4.x-p3.x, d2y=p4.y-p3.y;
+  var denom=d1x*d2y-d1y*d2x;
+  if(Math.abs(denom)<0.0001) return null;
+  var t=((p3.x-p1.x)*d2y-(p3.y-p1.y)*d2x)/denom;
+  return {x:p1.x+t*d1x, y:p1.y+t*d1y};
+}
+
+// Draw utilities
+function leaDot(pt, col, r){
+  var z=leaZ.s; r=(r||5)/z;
+  leaCtx.beginPath(); leaCtx.arc(pt.x,pt.y,r+4/z,0,Math.PI*2);
+  leaCtx.fillStyle=col+'28'; leaCtx.fill();
+  leaCtx.beginPath(); leaCtx.arc(pt.x,pt.y,r+1/z,0,Math.PI*2);
+  leaCtx.strokeStyle='#000'; leaCtx.lineWidth=2/z; leaCtx.stroke();
+  leaCtx.beginPath(); leaCtx.arc(pt.x,pt.y,r,0,Math.PI*2);
+  leaCtx.fillStyle=col; leaCtx.fill();
+}
+function leaLine(a,b,col,lw,dash){
+  var z=leaZ.s;
+  leaCtx.beginPath(); leaCtx.moveTo(a.x,a.y); leaCtx.lineTo(b.x,b.y);
+  leaCtx.strokeStyle=col; leaCtx.lineWidth=(lw||2)/z;
+  leaCtx.setLineDash(dash?[8/z,4/z]:[]);
+  leaCtx.stroke(); leaCtx.setLineDash([]);
+}
+function leaExtLine(a,b,col,lw,dash){
+  var z=leaZ.s;
+  var dx=b.x-a.x,dy=b.y-a.y,len=Math.sqrt(dx*dx+dy*dy)||1;
+  var ext=Math.max(leaW(),leaH())*2;
+  leaLine({x:a.x-dx/len*ext,y:a.y-dy/len*ext},{x:b.x+dx/len*ext,y:b.y+dy/len*ext},col,lw,dash);
+}
+function leaLbl(txt,x,y,col,sz){
+  var z=leaZ.s;
+  leaCtx.font='bold '+Math.max(8,Math.round((sz||11)/z))+"px 'Courier New'";
+  leaCtx.shadowColor='#000'; leaCtx.shadowBlur=5/z;
+  leaCtx.fillStyle=col; leaCtx.fillText(txt,x,y); leaCtx.shadowBlur=0;
+}
+function leaAngleArc(vertex,pt1,pt2,r,col,lbl){
+  var z=leaZ.s;
+  var a1=Math.atan2(pt1.y-vertex.y,pt1.x-vertex.x);
+  var a2=Math.atan2(pt2.y-vertex.y,pt2.x-vertex.x);
+  leaCtx.beginPath(); leaCtx.arc(vertex.x,vertex.y,r/z,Math.min(a1,a2),Math.max(a1,a2));
+  leaCtx.strokeStyle=col+'99'; leaCtx.lineWidth=2/z; leaCtx.stroke();
+  var midA=(a1+a2)/2;
+  leaLbl(lbl,vertex.x+Math.cos(midA)*(r+10)/z,vertex.y+Math.sin(midA)*(r+10)/z,col,10);
+}
+
+function leaDraw(){
+  if(!leaCanvas.width||!leaXray.naturalWidth) return;
+  var dpr=window.devicePixelRatio||1;
+  leaCtx.setTransform(dpr,0,0,dpr,0,0);
+  leaCtx.clearRect(0,0,leaW(),leaH());
+
+  // Draw X-ray
+  leaCtx.drawImage(leaXray,0,0,leaW(),leaH());
+
+  var p=leaPts, z=leaZ.s;
+
+  // ── Calibration ruler ──
+  if(p.cal){
+    leaLine(p.cal.p1,p.cal.p2,'#ffdd00',1.5,true);
+    var rdx=p.cal.p2.x-p.cal.p1.x,rdy=p.cal.p2.y-p.cal.p1.y;
+    var rlen=Math.sqrt(rdx*rdx+rdy*rdy)||1;
+    var rpx=-rdy/rlen*6/z,rpy=rdx/rlen*6/z;
+    leaCtx.beginPath();leaCtx.moveTo(p.cal.p1.x+rpx,p.cal.p1.y+rpy);leaCtx.lineTo(p.cal.p1.x-rpx,p.cal.p1.y-rpy);leaCtx.strokeStyle='#ffdd00';leaCtx.lineWidth=1.5/z;leaCtx.stroke();
+    leaCtx.beginPath();leaCtx.moveTo(p.cal.p2.x+rpx,p.cal.p2.y+rpy);leaCtx.lineTo(p.cal.p2.x-rpx,p.cal.p2.y-rpy);leaCtx.strokeStyle='#ffdd00';leaCtx.lineWidth=1.5/z;leaCtx.stroke();
+    leaDot(p.cal.p1,'#ffdd00'); leaDot(p.cal.p2,'#ffdd00');
+  }
+
+  // ── In-progress temp point ──
+  if(leaState.tmp){
+    var tmpCol={cal:'#ffdd00',fc:'#ff8844',tp:'#44ffdd'}[leaState.mode]||'#00e5ff';
+    leaDot(leaState.tmp,tmpCol);
+  }
+
+  // ── Distal femoral condyle line ──
+  if(p.fc1&&p.fc2){
+    leaExtLine(p.fc1,p.fc2,'#ff8844',2,false);
+    leaDot(p.fc1,'#ff8844'); leaDot(p.fc2,'#ff8844');
+    leaLbl('dFC',leaMid(p.fc1,p.fc2).x+5/z,leaMid(p.fc1,p.fc2).y-10/z,'#ff8844');
+  } else if(p.fc1) leaDot(p.fc1,'#ff8844');
+
+  // ── Tibial plateau line ──
+  if(p.tp1&&p.tp2){
+    leaExtLine(p.tp1,p.tp2,'#44ffdd',2,false);
+    leaDot(p.tp1,'#44ffdd'); leaDot(p.tp2,'#44ffdd');
+    leaLbl('pTP',leaMid(p.tp1,p.tp2).x+5/z,leaMid(p.tp1,p.tp2).y+14/z,'#44ffdd');
+  } else if(p.tp1) leaDot(p.tp1,'#44ffdd');
+
+  // ── Landmark dots ──
+  if(p.fh){ leaDot(p.fh,'#4488ff',6); leaLbl('FH',p.fh.x+8/z,p.fh.y,'#4488ff'); }
+  if(p.pf){ leaDot(p.pf,'#aa88ff'); leaLbl('PF',p.pf.x+8/z,p.pf.y,'#aa88ff'); }
+  if(p.fdc){ leaDot(p.fdc,'#aa88ff'); leaLbl('FDC',p.fdc.x+8/z,p.fdc.y,'#aa88ff'); }
+  if(p.kj){ leaDot(p.kj,'#ffdd00',6); leaLbl('KJ',p.kj.x+8/z,p.kj.y,'#ffdd00'); }
+  if(p.tpc){ leaDot(p.tpc,'#ff9944'); leaLbl('TPC',p.tpc.x+8/z,p.tpc.y,'#ff9944'); }
+  if(p.tdc){ leaDot(p.tdc,'#ff9944'); leaLbl('TDC',p.tdc.x+8/z,p.tdc.y,'#ff9944'); }
+  if(p.aj){ leaDot(p.aj,'#ff8844'); leaLbl('AJ',p.aj.x+8/z,p.aj.y,'#ff8844'); }
+
+  // ── Mechanical axes ──
+  if(p.fh&&p.kj){
+    leaLine(p.fh,p.kj,'#4488ff',2,false); // Femoral Mechanical Axis
+  }
+  if(p.kj&&p.aj){
+    leaLine(p.kj,p.aj,'#44ffdd',2,false); // Tibial Mechanical Axis
+  }
+  if(p.fh&&p.aj){
+    leaLine(p.fh,p.aj,'#ffffff44',1.5,true); // Full mechanical axis dashed
+  }
+
+  // ── Femoral anatomical axis (PF → FDC extended both ways) ──
+  if(p.pf&&p.fdc){
+    leaExtLine(p.pf,p.fdc,'#aa88ff',1.5,true);
+    leaLbl('FA axis',p.fdc.x+8/z,p.fdc.y+14/z,'#aa88ff',9);
+  }
+
+  // ── Tibial anatomical axis (TPC → TDC extended both ways) ──
+  if(p.tpc&&p.tdc){
+    leaExtLine(p.tpc,p.tdc,'#ff9944',1.5,true);
+    leaLbl('TA axis',p.tdc.x+8/z,p.tdc.y+14/z,'#ff9944',9);
+  }
+
+  // ── Compute and draw angles if we have enough points ──
+  var results = leaCalc();
+  if(results) leaDrawResults(results);
+}
+
+function leaCalc(){
+  var p=leaPts;
+  if(!p.fh||!p.kj||!p.aj) return null;
+
+  var res={};
+  var pxMm = leaState.pxPerMm||1;
+
+  // Mechanical axis vector: fh→aj
+  var madx=p.aj.x-p.fh.x, mady=p.aj.y-p.fh.y;
+
+  // Varus/valgus: signed distance of KJ from the full MA line (fh→aj)
+  // Positive = KJ is to the right of fh→aj = valgus (in standard AP left-leg)
+  var vvPx = ptToLineDist(p.kj, p.fh, p.aj);
+  res.vvMm = leaState.pxPerMm ? Math.abs(vvPx/pxMm).toFixed(1) : null;
+  res.vvDir = vvPx > 2/leaZ.s ? 'VALGUS' : vvPx < -2/leaZ.s ? 'VARUS' : 'NEUTRAL';
+  res.vvPx = vvPx;
+
+  // mLDFA: angle between Femoral Mechanical Axis (fh→kj) and condyle line (fc1→fc2)
+  // Measured as lateral angle (supplementary if needed to get the correct convention)
+  if(p.fc1&&p.fc2){
+    var fmaDx=p.kj.x-p.fh.x, fmaDy=p.kj.y-p.fh.y;
+    var fcDx=p.fc2.x-p.fc1.x, fcDy=p.fc2.y-p.fc1.y;
+    var ang=angleBetweenVecs(fmaDx,fmaDy,fcDx,fcDy);
+    // mLDFA is the lateral distal angle — normal ~87°
+    res.mLDFA = ang > 90 ? (180-ang).toFixed(1) : ang.toFixed(1);
+    res.mLDFA_val = parseFloat(res.mLDFA);
+    res.fcMid = leaMid(p.fc1,p.fc2);
+  }
+
+  // mMPTA: angle between Tibial Mechanical Axis (kj→aj) and tibial plateau line (tp1→tp2)
+  // Medial proximal angle — normal ~87°
+  if(p.tp1&&p.tp2){
+    var tmaDx=p.aj.x-p.kj.x, tmaDy=p.aj.y-p.kj.y;
+    var tpDx=p.tp2.x-p.tp1.x, tpDy=p.tp2.y-p.tp1.y;
+    var ang2=angleBetweenVecs(tmaDx,tmaDy,tpDx,tpDy);
+    res.mMPTA = ang2 > 90 ? (180-ang2).toFixed(1) : ang2.toFixed(1);
+    res.mMPTA_val = parseFloat(res.mMPTA);
+    res.tpMid = leaMid(p.tp1,p.tp2);
+  }
+
+  // JLCA: angle between condyle line and plateau line at their intersection
+  if(p.fc1&&p.fc2&&p.tp1&&p.tp2){
+    var fcDx2=p.fc2.x-p.fc1.x, fcDy2=p.fc2.y-p.fc1.y;
+    var tpDx2=p.tp2.x-p.tp1.x, tpDy2=p.tp2.y-p.tp1.y;
+    var jlcaAng=angleBetweenVecs(fcDx2,fcDy2,tpDx2,tpDy2);
+    res.JLCA = Math.min(jlcaAng,180-jlcaAng).toFixed(1);
+    res.jlcaIntersect = lineIntersect(p.fc1,p.fc2,p.tp1,p.tp2);
+  }
+
+  // ── CORA: intersection of femoral anatomical axis (PF→FDC) and tibial anatomical axis (TPC→TDC) ──
+  if(p.pf&&p.fdc&&p.tpc&&p.tdc&&p.kj){
+    var cora=lineIntersect(p.pf,p.fdc,p.tpc,p.tdc);
+    if(cora) res.CORA=cora;
+
+    if(cora&&leaState.pxPerMm){
+      // Distance from CORA to KJ (knee center) — this defines intra vs extra-articular
+      var coraToKJpx=leaDist(cora,p.kj);
+      var coraToKJmm=coraToKJpx/leaState.pxPerMm;
+      res.coraDistMm=coraToKJmm;
+
+      if(coraToKJmm<=10){
+        // CORA at knee joint — intra-articular deformity
+        res.deformity='INTRA-ARTICULAR';
+        var mag=0;
+        if(res.mLDFA_val) mag+=Math.abs(res.mLDFA_val-87);
+        if(res.mMPTA_val) mag+=Math.abs(res.mMPTA_val-87);
+        res.deformityMag=mag.toFixed(1);
+      } else if(coraToKJmm<=30){
+        // CORA close to joint — peri-articular
+        res.deformity='PERI-ARTICULAR';
+        res.deformityDist=coraToKJmm.toFixed(0);
+        res.coraAbove=cora.y<p.kj.y; // above = femoral side, below = tibial side
+      } else {
+        // CORA far from joint — extra-articular (shaft level)
+        res.deformity='EXTRA-ARTICULAR';
+        res.deformityDist=coraToKJmm.toFixed(0);
+        res.coraAbove=cora.y<p.kj.y;
+      }
+    } else if(cora&&p.kj){
+      // No calibration — classify by pixel distance
+      var cpx2=leaDist(cora,p.kj);
+      if(cpx2<20) res.deformity='INTRA-ARTICULAR (calibrate for mm)';
+      else res.deformity='EXTRA-ARTICULAR (calibrate for mm)';
+    }
+  }
+
+  return res;
+}
+
+function leaDrawResults(res){
+  var p=leaPts, z=leaZ.s;
+
+  // Draw CORA point
+  if(res.CORA){
+    leaCtx.beginPath(); leaCtx.arc(res.CORA.x,res.CORA.y,8/z,0,Math.PI*2);
+    leaCtx.strokeStyle='#aa88ff'; leaCtx.lineWidth=2/z; leaCtx.stroke();
+    leaDot(res.CORA,'#aa88ff',3);
+    leaLbl('CORA',res.CORA.x+10/z,res.CORA.y,'#aa88ff',10);
+  }
+
+  // Draw varus/valgus offset line at knee
+  if(p.fh&&p.kj&&p.aj&&Math.abs(res.vvPx)>2){
+    // Foot of perpendicular from KJ to MA line
+    var madx=p.aj.x-p.fh.x, mady=p.aj.y-p.fh.y;
+    var malen=Math.sqrt(madx*madx+mady*mady)||1;
+    var t=((p.kj.x-p.fh.x)*madx+(p.kj.y-p.fh.y)*mady)/(malen*malen);
+    var foot={x:p.fh.x+t*madx, y:p.fh.y+t*mady};
+    leaLine(p.kj,foot,'#00e5ff',2,true);
+    leaDot(foot,'#00e5ff',3);
+    if(res.vvMm){
+      leaLbl('MAD: '+res.vvMm+'mm '+res.vvDir, foot.x+6/z, foot.y-6/z,'#00e5ff',10);
+    }
+  }
+
+  // mLDFA arc at knee
+  if(res.mLDFA&&p.fh&&p.kj&&p.fc1&&p.fc2){
+    // Draw small arc at kj between FMA and condyle line
+    var v1={x:p.fh.x-p.kj.x,y:p.fh.y-p.kj.y}; // toward fh
+    var fcM={x:(p.fc1.x+p.fc2.x)/2,y:(p.fc1.y+p.fc2.y)/2};
+    var v2={x:fcM.x-p.kj.x,y:fcM.y-p.kj.y};
+    leaAngleArc(p.kj,{x:p.kj.x+v1.x/leaDist(p.kj,{x:p.kj.x+v1.x,y:p.kj.y+v1.y})*35,y:p.kj.y+v1.y/leaDist(p.kj,{x:p.kj.x+v1.x,y:p.kj.y+v1.y})*35},{x:p.kj.x+v2.x/Math.max(1,Math.sqrt(v2.x*v2.x+v2.y*v2.y))*35,y:p.kj.y+v2.y/Math.max(1,Math.sqrt(v2.x*v2.x+v2.y*v2.y))*35},35,'#ff8844','mLDFA\n'+res.mLDFA+'°');
+  }
+
+  // mMPTA arc at kj (tibial side)
+  if(res.mMPTA&&p.kj&&p.aj&&p.tp1&&p.tp2){
+    var v3={x:p.aj.x-p.kj.x,y:p.aj.y-p.kj.y};
+    var tpMid2={x:(p.tp1.x+p.tp2.x)/2,y:(p.tp1.y+p.tp2.y)/2};
+    var v4={x:tpMid2.x-p.kj.x,y:tpMid2.y-p.kj.y};
+    leaAngleArc(p.kj,{x:p.kj.x+v3.x/Math.max(1,Math.sqrt(v3.x*v3.x+v3.y*v3.y))*50,y:p.kj.y+v3.y/Math.max(1,Math.sqrt(v3.x*v3.x+v3.y*v3.y))*50},{x:p.kj.x+v4.x/Math.max(1,Math.sqrt(v4.x*v4.x+v4.y*v4.y))*50,y:p.kj.y+v4.y/Math.max(1,Math.sqrt(v4.x*v4.x+v4.y*v4.y))*50},50,'#44ffdd','mMPTA\n'+res.mMPTA+'°');
+  }
+
+  // JLCA at joint line intersection
+  if(res.JLCA&&res.jlcaIntersect){
+    leaDot(res.jlcaIntersect,'#ffdd00',3);
+    leaLbl('JLCA '+res.JLCA+'°',res.jlcaIntersect.x+8/z,res.jlcaIntersect.y-8/z,'#ffdd00',10);
+  }
+
+  // Update result boxes
+  var haveAll = p.fh&&p.kj&&p.aj;
+  document.getElementById('lea-result').style.display = haveAll?'block':'none';
+  if(haveAll){
+    var vvEl=document.getElementById('lr-vv');
+    vvEl.textContent = res.vvDir;
+    vvEl.style.color = res.vvDir==='VALGUS'?'#00e5ff':res.vvDir==='VARUS'?'#ff6644':'#4ade80';
+    document.getElementById('lr-off').textContent = res.vvMm ? res.vvMm+' mm' : '— (calibrate)';
+    document.getElementById('lr-ldfa').textContent = res.mLDFA ? res.mLDFA+'°' : '—';
+    document.getElementById('lr-mpta').textContent = res.mMPTA ? res.mMPTA+'°' : '—';
+    document.getElementById('lr-jlca').textContent = res.JLCA  ? res.JLCA+'°'  : '—';
+  }
+
+  var coraBox=document.getElementById('lea-cora-box');
+  if(res.CORA){
+    coraBox.style.display='block';
+    var coraTxt='';
+    if(res.coraDistMm!==undefined){
+      coraTxt='Distance CORA → Knee: <span style="color:#aa88ff;font-weight:700">'+res.coraDistMm.toFixed(0)+' mm</span>';
+    } else {
+      coraTxt='Place calibration ruler for mm distance.';
+    }
+    document.getElementById('lr-cora-txt').innerHTML=coraTxt;
+  } else coraBox.style.display='none';
+
+  var defBox=document.getElementById('lea-deformity-box');
+  if(res.deformity){
+    defBox.style.display='block';
+    var defCol=res.deformity.includes('INTRA')?'#ff4466':res.deformity.includes('EXTRA')?'#ffaa44':'#ffdd00';
+    var defTxt='<span style="color:'+defCol+';font-weight:700">'+res.deformity+'</span><br/>';
+    if(res.deformity==='INTRA-ARTICULAR'){
+      defTxt+='<span style="color:#8a4a5a">CORA at knee joint.<br/>Deformity within joint.<br/>Combined magnitude: '+res.deformityMag+'°</span>';
+    } else if(res.deformity==='EXTRA-ARTICULAR'){
+      var side=res.coraAbove?'Femoral shaft':'Tibial shaft';
+      defTxt+='<span style="color:#8a6a2a">CORA is '+res.deformityDist+'mm from knee center.<br/>'+side+' level deformity.<br/>Osteotomy at CORA level.</span>';
+    } else if(res.deformity==='PERI-ARTICULAR'){
+      var side2=res.coraAbove?'Distal femur':'Proximal tibia';
+      defTxt+='<span style="color:#7a7a2a">CORA is '+res.deformityDist+'mm from knee.<br/>'+side2+' deformity.<br/>Consider osteotomy at CORA.</span>';
+    } else {
+      defTxt+='<span style="color:#5a6a2a">'+res.deformity+'</span>';
+    }
+    document.getElementById('lr-deformity-txt').innerHTML=defTxt;
+  } else defBox.style.display='none';
+}
+
+// Mode activation
+var LEA_MODES={fh:'🔵 Femoral Head Center',pf:'🟣 Piriformis Fossa',fdc:'🟣 Distal Femoral Canal',
+               kj:'🟡 Knee Joint Center',tpc:'🔶 Proximal Tibial Center',tdc:'🔶 Distal Tibial Center',
+               aj:'🟠 Ankle Joint Center',fc:'📐 Distal Femoral Condyles',tp:'📐 Proximal Tibial Plateau',cal:'📏 Calibration Ruler'};
+var LEA_COLORS={fh:'#4488ff',pf:'#aa88ff',fdc:'#aa88ff',kj:'#ffdd00',tpc:'#ff9944',tdc:'#ff9944',aj:'#ff8844',fc:'#ff8844',tp:'#44ffdd',cal:'#ffdd00'};
+var LEA_HINTS={
+  fh:'Tap center of the femoral head',
+  pf:'Tap the piriformis fossa (proximal femoral canal entry)',
+  fdc:'Tap center of the distal femoral canal (intramedullary canal center distally)',
+  kj:'Tap center of the knee joint',
+  tpc:'Tap center of the proximal tibial canal (just below plateau)',
+  tdc:'Tap center of the distal tibial canal (just above ankle)',
+  aj:'Tap center of the ankle joint',
+  fc:['① Tap one end of the distal femoral condyle line','② Tap the other end'],
+  tp:['① Tap one end of the tibial plateau','② Tap the other end'],
+  cal:['① Tap start of known distance on ruler','② Tap end of ruler distance']
+};
+
+window.leaActivate=function(mode){
+  leaState.mode=(leaState.mode===mode)?null:mode;
+  leaState.tmp=null;
+  leaUpdateBtns(); leaDraw();
+};
+
+function leaUpdateBtns(){
+  var m=leaState.mode;
+  var hb=document.getElementById('lea-hint');
+  // Reset all buttons
+  ['fh','pf','fdc','kj','tpc','tdc','aj','fc','tp','cal'].forEach(function(k){
+    var btn=document.getElementById('lea-btn-'+k);
+    if(!btn) return;
+    btn.classList.remove('active-lea','done-lea');
+    if(leaPts[k]||(k==='fc'&&leaPts.fc1&&leaPts.fc2)||(k==='tp'&&leaPts.tp1&&leaPts.tp2)||(k==='cal'&&leaPts.cal)){
+      btn.classList.add('done-lea');
+    }
+    btn.textContent=LEA_MODES[k]||k;
+  });
+  if(m){
+    var btn=document.getElementById('lea-btn-'+m);
+    if(btn){btn.classList.add('active-lea'); btn.classList.remove('done-lea');}
+    hb.style.display='block'; hb.style.color=LEA_COLORS[m]||'#00e5ff';
+    var hint=LEA_HINTS[m];
+    if(Array.isArray(hint)) hb.textContent=hint[leaState.tmp?1:0];
+    else hb.textContent=hint;
+  } else hb.style.display='none';
+}
+
+window.leaReset=function(){
+  leaPts={fh:null,pf:null,fdc:null,kj:null,tpc:null,tdc:null,aj:null,fc1:null,fc2:null,tp1:null,tp2:null,cal:null};
+  leaState={mode:null,tmp:null,pxPerMm:null};
+  leaDrg=null;
+  document.getElementById('lea-result').style.display='none';
+  document.getElementById('lea-cora-box').style.display='none';
+  document.getElementById('lea-deformity-box').style.display='none';
+  document.getElementById('lea-cal-status').style.display='none';
+  leaUpdateBtns(); leaDraw();
+};
+
+window.leaApplyRuler=function(){
+  if(!leaPts.cal) return;
+  var dx=leaPts.cal.p2.x-leaPts.cal.p1.x, dy=leaPts.cal.p2.y-leaPts.cal.p1.y;
+  var pxLen=Math.sqrt(dx*dx+dy*dy);
+  var mm=parseFloat(document.getElementById('lea-cal-mm').value)||50;
+  leaState.pxPerMm=pxLen/mm;
+  var el=document.getElementById('lea-cal-status');
+  el.style.display='block'; el.style.background='#0a2a0a';
+  el.style.borderColor='#2a5a2a'; el.style.color='#4ade80';
+  el.textContent='✓ '+leaState.pxPerMm.toFixed(2)+' px/mm ('+mm+'mm)';
+  leaDraw();
+};
+
+// Canvas events
+leaCanvas.addEventListener('mousedown',leaDown,false);leaCanvas.addEventListener('mousemove',leaMove,false);
+leaCanvas.addEventListener('mouseup',leaUp,false);leaCanvas.addEventListener('mouseleave',leaUp,false);
+leaCanvas.addEventListener('touchstart',function(e){if(e.touches.length===1)leaDown(e);},{passive:false});
+leaCanvas.addEventListener('touchmove', function(e){if(e.touches.length===1)leaMove(e);},{passive:false});
+leaCanvas.addEventListener('touchend',  leaUp,{passive:false});
+
+function leaDown(e){
+  e.preventDefault();e.stopPropagation();
+  var pt=leaPt(e), m=leaState.mode, z=leaZ.s, HIT=24/z;
+
+  // Placement modes
+  if(m==='fh'||m==='pf'||m==='fdc'||m==='kj'||m==='tpc'||m==='tdc'||m==='aj'){
+    leaPts[m]=pt; leaState.mode=null; leaUpdateBtns(); leaDraw(); return;
+  }
+  if(m==='fc'||m==='tp'||m==='cal'){
+    var k1=m==='fc'?'fc1':m==='tp'?'tp1':'cal_p1';
+    if(!leaState.tmp){leaState.tmp=pt; leaUpdateBtns(); leaDraw();}
+    else{
+      if(m==='fc'){leaPts.fc1=leaState.tmp;leaPts.fc2=pt;}
+      else if(m==='tp'){leaPts.tp1=leaState.tmp;leaPts.tp2=pt;}
+      else if(m==='cal'){leaPts.cal={p1:leaState.tmp,p2:pt}; leaApplyRuler();}
+      leaState.tmp=null; leaState.mode=null; leaUpdateBtns(); leaDraw();
+    }
+    return;
+  }
+
+  // Drag existing points
+  var hits=[
+    {k:'fh',p:leaPts.fh},{k:'pf',p:leaPts.pf},{k:'fdc',p:leaPts.fdc},
+    {k:'kj',p:leaPts.kj},{k:'tpc',p:leaPts.tpc},{k:'tdc',p:leaPts.tdc},{k:'aj',p:leaPts.aj},
+    {k:'fc1',p:leaPts.fc1},{k:'fc2',p:leaPts.fc2},{k:'tp1',p:leaPts.tp1},{k:'tp2',p:leaPts.tp2},
+    {k:'cal_p1',p:leaPts.cal?leaPts.cal.p1:null},{k:'cal_p2',p:leaPts.cal?leaPts.cal.p2:null}
+  ];
+  for(var i=0;i<hits.length;i++){
+    if(hits[i].p&&leaDist(pt,hits[i].p)<=HIT){leaDrg=hits[i].k;return;}
+  }
+}
+function leaMove(e){
+  if(!leaDrg)return; e.preventDefault(); e.stopPropagation();
+  var pt=leaPt(e);
+  if(leaDrg==='cal_p1'){leaPts.cal.p1=pt;leaApplyRuler();}
+  else if(leaDrg==='cal_p2'){leaPts.cal.p2=pt;leaApplyRuler();}
+  else leaPts[leaDrg]=pt;
+  leaDraw();
+}
+function leaUp(e){if(e){e.preventDefault();e.stopPropagation();}leaDrg=null;}
+
+// Image upload
+document.getElementById('lea-upload').addEventListener('change',function(e){
+  if(!e.target.files||!e.target.files[0])return;
+  var r=new FileReader();
+  r.onload=function(ev){
+    leaXray.onload=function(){
+      document.getElementById('lea-empty').style.display='none';
+      leaWrap.style.display='block';
+      document.getElementById('lea-tools').style.display='block';
+      document.getElementById('lea-intro').style.display='none';
+      document.getElementById('lea-upload-txt').textContent='✓ X-ray loaded';
+      document.getElementById('lea-upload-lbl').classList.add('done');
+      document.getElementById('lea-b-img').classList.add('done');
+      leaZ.reset(); leaReset(); leaLayout();
+    };
+    leaXray.src=ev.target.result;
+  };
+  r.readAsDataURL(e.target.files[0]);
+});
+document.getElementById('lea-cal-mm').addEventListener('input',function(){leaApplyRuler();});
+window.addEventListener('resize',function(){if(leaCanvas.width)leaLayout();});
+
 })();
 </script>
-
 </body>
 </html>
