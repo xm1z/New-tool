@@ -672,12 +672,14 @@ function cobbAng(a,b,c,d){
 
 function aLayout(){
   var nw=xrayImg.naturalWidth,nh=xrayImg.naturalHeight;if(!nw)return;
-  var sc=Math.min(aC.clientWidth/nw,aC.clientHeight/nh);
+  var sc=Math.min(1,Math.min(aC.clientWidth/nw,aC.clientHeight/nh));
   var dw=Math.floor(nw*sc),dh=Math.floor(nh*sc);
   var dpr=window.devicePixelRatio||1;
+  if(window._aCSS===undefined)window._aCSS={};
+  window._aCSS.w=dw;window._aCSS.h=dh;
   imgWrap.style.width=dw+'px';imgWrap.style.height=dh+'px';
   xrayImg.style.width=dw+'px';xrayImg.style.height=dh+'px';
-  canvas.width=dw*dpr;canvas.height=dh*dpr;
+  canvas.width=nw*dpr;canvas.height=nh*dpr;
   canvas.style.width=dw+'px';canvas.style.height=dh+'px';
   ctx.setTransform(dpr,0,0,dpr,0,0);
   aRedraw();
@@ -731,7 +733,8 @@ function aLbl(txt,x,y,col){
 function aRedraw(){
   var dpr=window.devicePixelRatio||1;
   ctx.setTransform(dpr,0,0,dpr,0,0);
-  ctx.clearRect(0,0,canvas.width/dpr,canvas.height/dpr);
+  var _aw=(window._aCSS&&window._aCSS.w)||canvas.width/dpr,_ah=(window._aCSS&&window._aCSS.h)||canvas.height/dpr;
+  ctx.clearRect(0,0,_aw,_ah);
   annotations.forEach(function(a){
     if(a.type===4){
       drawPelvicAnnotation(a);
@@ -993,7 +996,8 @@ window.activateTool=function(type){
 window.clearAll=function(){
   annotations=[];placing=[];activeTool=0;aDrg=null;aBtnReset();
   var dpr=window.devicePixelRatio||1;
-  ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,canvas.width/dpr,canvas.height/dpr);aUI();
+  var _aw2=(window._aCSS&&window._aCSS.w)||canvas.width/dpr,_ah2=(window._aCSS&&window._aCSS.h)||canvas.height/dpr;
+ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,_aw2,_ah2);aUI();
 };
 window._del=function(i){annotations.splice(i,1);aRedraw();};
 
@@ -1074,8 +1078,8 @@ tZ.attachPinch(function(){ tZoomRedraw(); });
 window.tZoomReset = function(){ tZ.reset(); tZoomRedraw(); };
 
 function tZoomRedraw(){ tDraw(); }
-function tW(){return tttgCanvas.width/(window.devicePixelRatio||1);}
-function tH(){return tttgCanvas.height/(window.devicePixelRatio||1);}
+function tW(){return(window._tCSS&&window._tCSS.w)||tttgCanvas.width/(window.devicePixelRatio||1);}
+function tH(){return(window._tCSS&&window._tCSS.h)||tttgCanvas.height/(window.devicePixelRatio||1);}
 
 function tPt(e){
   var src=e.touches?e.touches[0]:e;
@@ -1085,10 +1089,12 @@ function tPt(e){
 function tLayout(){
   var ref=tgImg||ttImg;if(!ref||!ref.naturalWidth)return;
   var nw=ref.naturalWidth,nh=ref.naturalHeight;
-  var sc=Math.min(tCenter.clientWidth/nw,tCenter.clientHeight/nh);
+  var sc=Math.min(1,Math.min(tCenter.clientWidth/nw,tCenter.clientHeight/nh));
   var dw=Math.floor(nw*sc),dh=Math.floor(nh*sc);
   var dpr=window.devicePixelRatio||1;
-  tttgCanvas.width=dw*dpr;tttgCanvas.height=dh*dpr;
+  if(window._tCSS===undefined)window._tCSS={};
+  window._tCSS.w=dw;window._tCSS.h=dh;
+  tttgCanvas.width=nw*dpr;tttgCanvas.height=nh*dpr;
   tttgCanvas.style.width=dw+'px';tttgCanvas.style.height=dh+'px';
   tWrap.style.width=dw+'px';tWrap.style.height=dh+'px';
   tC.setTransform(dpr,0,0,dpr,0,0);
@@ -1382,17 +1388,19 @@ window.favZoomReset=function(){favZ.reset();window.favDraw();};
 function favLayout(){
   var ref=favNeckImg||favCondImg;if(!ref||!ref.naturalWidth)return;
   var nw=ref.naturalWidth,nh=ref.naturalHeight;
-  var sc=Math.min(favCenter.clientWidth/nw,favCenter.clientHeight/nh);
+  var sc=Math.min(1,Math.min(favCenter.clientWidth/nw,favCenter.clientHeight/nh));
   var dw=Math.floor(nw*sc),dh=Math.floor(nh*sc);
   var dpr=window.devicePixelRatio||1;
-  favCanvas.width=dw*dpr;favCanvas.height=dh*dpr;
+  if(window._favCSS===undefined)window._favCSS={};
+  window._favCSS.w=dw;window._favCSS.h=dh;
+  favCanvas.width=nw*dpr;favCanvas.height=nh*dpr;
   favCanvas.style.width=dw+'px';favCanvas.style.height=dh+'px';
   favWrap.style.width=dw+'px';favWrap.style.height=dh+'px';
   favCtx.setTransform(dpr,0,0,dpr,0,0);
   window.favDraw();
 }
-function favW(){return favCanvas.width/(window.devicePixelRatio||1);}
-function favH(){return favCanvas.height/(window.devicePixelRatio||1);}
+function favW(){return(window._favCSS&&window._favCSS.w)||favCanvas.width/(window.devicePixelRatio||1);}
+function favH(){return(window._favCSS&&window._favCSS.h)||favCanvas.height/(window.devicePixelRatio||1);}
 function favPt(e){
   var src=e.touches?e.touches[0]:e;
   var rect=favCanvas.getBoundingClientRect();
@@ -1642,18 +1650,20 @@ window.leaZoomReset=function(){leaZ.reset();leaDraw();};
 function leaLayout(){
   if(!leaXray.naturalWidth)return;
   var nw=leaXray.naturalWidth,nh=leaXray.naturalHeight;
-  var sc=Math.min(leaCenter.clientWidth/nw,leaCenter.clientHeight/nh);
+  var sc=Math.min(1,Math.min(leaCenter.clientWidth/nw,leaCenter.clientHeight/nh));
   var dw=Math.floor(nw*sc),dh=Math.floor(nh*sc);
   var dpr=window.devicePixelRatio||1;
+  if(window._leaCSS===undefined)window._leaCSS={};
+  window._leaCSS.w=dw;window._leaCSS.h=dh;
   leaXray.style.width=dw+'px';leaXray.style.height=dh+'px';
   leaWrap.style.width=dw+'px';leaWrap.style.height=dh+'px';
-  leaCanvas.width=dw*dpr;leaCanvas.height=dh*dpr;
+  leaCanvas.width=nw*dpr;leaCanvas.height=nh*dpr;
   leaCanvas.style.width=dw+'px';leaCanvas.style.height=dh+'px';
   leaCtx.setTransform(dpr,0,0,dpr,0,0);
   leaDraw();
 }
-function leaW(){return leaCanvas.width/(window.devicePixelRatio||1);}
-function leaH(){return leaCanvas.height/(window.devicePixelRatio||1);}
+function leaW(){return(window._leaCSS&&window._leaCSS.w)||leaCanvas.width/(window.devicePixelRatio||1);}
+function leaH(){return(window._leaCSS&&window._leaCSS.h)||leaCanvas.height/(window.devicePixelRatio||1);}
 
 function leaPt(e){
   var src=e.touches?e.touches[0]:e;
