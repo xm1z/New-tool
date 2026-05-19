@@ -67,12 +67,12 @@
     /* img-wrap: the zoom target — sized to the image, centered by flexbox */
     #img-wrap{display:none;position:relative;transform-origin:center center;will-change:transform}
     #xray-img{display:block}
-    #overlay{position:absolute;top:0;left:0;touch-action:none;cursor:default;image-rendering:-webkit-optimize-contrast;image-rendering:crisp-edges}
+    #overlay{position:absolute;top:0;left:0;touch-action:none;cursor:default;image-rendering:auto}
     /* TT-TG */
     #tttg-left{width:185px;flex-shrink:0;background:#070d14;border-right:1px solid #1a2a3a;display:block;padding:8px 9px;overflow-y:scroll;-webkit-overflow-scrolling:touch;height:100%;box-sizing:border-box}
     #tttg-center{flex:1;min-width:0;background:#020608;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
     #tttg-canvas-wrap{display:none;position:relative;transform-origin:center center}
-    #tttg-canvas{display:block;touch-action:none;image-rendering:-webkit-optimize-contrast;image-rendering:crisp-edges}
+    #tttg-canvas{display:block;touch-action:none;image-rendering:auto}
     /* Zoom reset button */
     .zreset{position:absolute;top:8px;right:8px;z-index:20;background:#0a1628dd;border:1px solid #1a3a5c;color:#5a8aaa;font-family:'Courier New',monospace;font-size:9px;padding:5px 9px;border-radius:4px;cursor:pointer;display:none;letter-spacing:1px}
     /* TT-TG misc */
@@ -97,7 +97,7 @@
     #lea-left{width:200px;flex-shrink:0;background:#070d14;border-right:1px solid #1a2a3a;display:block;padding:8px 9px;overflow-y:scroll;-webkit-overflow-scrolling:touch;height:100%;box-sizing:border-box}
     #lea-center{flex:1;min-width:0;background:#020608;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
     #lea-canvas-wrap{display:none;position:relative;transform-origin:center center}
-    #lea-canvas{display:block;touch-action:none;image-rendering:-webkit-optimize-contrast;image-rendering:crisp-edges}
+    #lea-canvas{display:block;touch-action:none;image-rendering:auto}
     .lea-btn{width:100%;padding:7px 6px;border-radius:5px;border:1px solid #1a3a5c;background:#0a1420;color:#5a8aaa;font-size:9px;font-weight:700;letter-spacing:1px;display:block;transition:all 0.15s;font-family:'Courier New',monospace;cursor:pointer;text-align:left}
     .lea-btn.active-lea{border-color:#00e5ff;background:#00152a;color:#00e5ff}
     .lea-btn.done-lea{border-color:#4ade8066;background:#0a1a0a;color:#4ade80}
@@ -112,7 +112,7 @@
     #fav-left{width:190px;flex-shrink:0;background:#070d14;border-right:1px solid #1a2a3a;display:block;padding:8px 9px;overflow-y:scroll;-webkit-overflow-scrolling:touch;height:100%;box-sizing:border-box}
     #fav-center{flex:1;min-width:0;background:#020608;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
     #fav-canvas-wrap{display:none;position:relative;transform-origin:center center}
-    #fav-canvas{display:block;touch-action:none;image-rendering:-webkit-optimize-contrast;image-rendering:crisp-edges}
+    #fav-canvas{display:block;touch-action:none;image-rendering:auto}
     #fav-result{display:none;background:#00101a;border:2px solid #aa88ff55;border-radius:8px;padding:10px;text-align:center;margin-bottom:8px}
     #fav-result .fr-lbl{font-size:9px;color:#5a4a8a;letter-spacing:2px;margin-bottom:3px}
     #fav-result .fr-val{font-size:28px;font-weight:700;color:#aa88ff;text-shadow:0 0 14px #aa88ff66}
@@ -675,11 +675,9 @@ function aLayout(){
   var sc=Math.min(1,Math.min(aC.clientWidth/nw,aC.clientHeight/nh));
   var dw=Math.floor(nw*sc),dh=Math.floor(nh*sc);
   var dpr=window.devicePixelRatio||1;
-  if(window._aCSS===undefined)window._aCSS={};
-  window._aCSS.w=dw;window._aCSS.h=dh;
   imgWrap.style.width=dw+'px';imgWrap.style.height=dh+'px';
   xrayImg.style.width=dw+'px';xrayImg.style.height=dh+'px';
-  canvas.width=nw*dpr;canvas.height=nh*dpr;
+  canvas.width=dw*dpr;canvas.height=dh*dpr;
   canvas.style.width=dw+'px';canvas.style.height=dh+'px';
   ctx.setTransform(dpr,0,0,dpr,0,0);
   aRedraw();
@@ -733,8 +731,7 @@ function aLbl(txt,x,y,col){
 function aRedraw(){
   var dpr=window.devicePixelRatio||1;
   ctx.setTransform(dpr,0,0,dpr,0,0);
-  var _aw=(window._aCSS&&window._aCSS.w)||canvas.width/dpr,_ah=(window._aCSS&&window._aCSS.h)||canvas.height/dpr;
-  ctx.clearRect(0,0,_aw,_ah);
+  ctx.clearRect(0,0,canvas.width/dpr,canvas.height/dpr);
   annotations.forEach(function(a){
     if(a.type===4){
       drawPelvicAnnotation(a);
@@ -996,8 +993,7 @@ window.activateTool=function(type){
 window.clearAll=function(){
   annotations=[];placing=[];activeTool=0;aDrg=null;aBtnReset();
   var dpr=window.devicePixelRatio||1;
-  var _aw2=(window._aCSS&&window._aCSS.w)||canvas.width/dpr,_ah2=(window._aCSS&&window._aCSS.h)||canvas.height/dpr;
-ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,_aw2,_ah2);aUI();
+  ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,canvas.width/dpr,canvas.height/dpr);aUI();
 };
 window._del=function(i){annotations.splice(i,1);aRedraw();};
 
@@ -1078,8 +1074,8 @@ tZ.attachPinch(function(){ tZoomRedraw(); });
 window.tZoomReset = function(){ tZ.reset(); tZoomRedraw(); };
 
 function tZoomRedraw(){ tDraw(); }
-function tW(){return(window._tCSS&&window._tCSS.w)||tttgCanvas.width/(window.devicePixelRatio||1);}
-function tH(){return(window._tCSS&&window._tCSS.h)||tttgCanvas.height/(window.devicePixelRatio||1);}
+function tW(){return tttgCanvas.width/(window.devicePixelRatio||1);}
+function tH(){return tttgCanvas.height/(window.devicePixelRatio||1);}
 
 function tPt(e){
   var src=e.touches?e.touches[0]:e;
@@ -1092,9 +1088,7 @@ function tLayout(){
   var sc=Math.min(1,Math.min(tCenter.clientWidth/nw,tCenter.clientHeight/nh));
   var dw=Math.floor(nw*sc),dh=Math.floor(nh*sc);
   var dpr=window.devicePixelRatio||1;
-  if(window._tCSS===undefined)window._tCSS={};
-  window._tCSS.w=dw;window._tCSS.h=dh;
-  tttgCanvas.width=nw*dpr;tttgCanvas.height=nh*dpr;
+  tttgCanvas.width=dw*dpr;tttgCanvas.height=dh*dpr;
   tttgCanvas.style.width=dw+'px';tttgCanvas.style.height=dh+'px';
   tWrap.style.width=dw+'px';tWrap.style.height=dh+'px';
   tC.setTransform(dpr,0,0,dpr,0,0);
@@ -1391,16 +1385,14 @@ function favLayout(){
   var sc=Math.min(1,Math.min(favCenter.clientWidth/nw,favCenter.clientHeight/nh));
   var dw=Math.floor(nw*sc),dh=Math.floor(nh*sc);
   var dpr=window.devicePixelRatio||1;
-  if(window._favCSS===undefined)window._favCSS={};
-  window._favCSS.w=dw;window._favCSS.h=dh;
-  favCanvas.width=nw*dpr;favCanvas.height=nh*dpr;
+  favCanvas.width=dw*dpr;favCanvas.height=dh*dpr;
   favCanvas.style.width=dw+'px';favCanvas.style.height=dh+'px';
   favWrap.style.width=dw+'px';favWrap.style.height=dh+'px';
   favCtx.setTransform(dpr,0,0,dpr,0,0);
   window.favDraw();
 }
-function favW(){return(window._favCSS&&window._favCSS.w)||favCanvas.width/(window.devicePixelRatio||1);}
-function favH(){return(window._favCSS&&window._favCSS.h)||favCanvas.height/(window.devicePixelRatio||1);}
+function favW(){return favCanvas.width/(window.devicePixelRatio||1);}
+function favH(){return favCanvas.height/(window.devicePixelRatio||1);}
 function favPt(e){
   var src=e.touches?e.touches[0]:e;
   var rect=favCanvas.getBoundingClientRect();
@@ -1653,17 +1645,15 @@ function leaLayout(){
   var sc=Math.min(1,Math.min(leaCenter.clientWidth/nw,leaCenter.clientHeight/nh));
   var dw=Math.floor(nw*sc),dh=Math.floor(nh*sc);
   var dpr=window.devicePixelRatio||1;
-  if(window._leaCSS===undefined)window._leaCSS={};
-  window._leaCSS.w=dw;window._leaCSS.h=dh;
   leaXray.style.width=dw+'px';leaXray.style.height=dh+'px';
   leaWrap.style.width=dw+'px';leaWrap.style.height=dh+'px';
-  leaCanvas.width=nw*dpr;leaCanvas.height=nh*dpr;
+  leaCanvas.width=dw*dpr;leaCanvas.height=dh*dpr;
   leaCanvas.style.width=dw+'px';leaCanvas.style.height=dh+'px';
   leaCtx.setTransform(dpr,0,0,dpr,0,0);
   leaDraw();
 }
-function leaW(){return(window._leaCSS&&window._leaCSS.w)||leaCanvas.width/(window.devicePixelRatio||1);}
-function leaH(){return(window._leaCSS&&window._leaCSS.h)||leaCanvas.height/(window.devicePixelRatio||1);}
+function leaW(){return leaCanvas.width/(window.devicePixelRatio||1);}
+function leaH(){return leaCanvas.height/(window.devicePixelRatio||1);}
 
 function leaPt(e){
   var src=e.touches?e.touches[0]:e;
