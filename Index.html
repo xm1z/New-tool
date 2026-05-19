@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="apple-mobile-web-app-capable" content="yes"/>
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
   <meta name="apple-mobile-web-app-title" content="Orthopedic Angle"/>
@@ -125,6 +125,70 @@
 
     .left-panel>*,.left-panel>label{margin-bottom:7px;display:block}
     #tttg-left>*,#fav-left>*,#lea-left>*{margin-bottom:5px;display:block}
+
+    /* ── DESKTOP RESPONSIVE ── */
+    @media (min-width: 768px) {
+      .t-main{font-size:15px}
+      .t-sub{font-size:10px}
+      #title-icon{width:34px;height:34px;font-size:18px}
+      .tab{font-size:11px;padding:10px 16px;letter-spacing:1px}
+      .left-panel{width:260px;padding:14px 12px}
+      #tttg-left{width:260px;padding:14px 12px}
+      #fav-left{width:260px;padding:14px 12px}
+      #lea-left{width:280px;padding:14px 12px}
+      .left-panel>*,#tttg-left>*,#fav-left>*,#lea-left>*{margin-bottom:8px}
+      .slabel{font-size:11px;letter-spacing:2px}
+      .upload-box{padding:14px 12px}
+      .upload-box .uico{font-size:26px}
+      .upload-box .utxt{font-size:13px}
+      .upload-box .usub{font-size:11px}
+      .btn-tool{font-size:12px;padding:10px 10px;letter-spacing:1px}
+      .lea-btn{font-size:12px;padding:9px 10px}
+      .fav-btn{font-size:12px;padding:9px 10px}
+      .step-row{font-size:11px;letter-spacing:1px}
+      .badge{width:20px;height:20px;font-size:10px;line-height:20px}
+      .btn-danger{font-size:12px;padding:8px}
+      .hint-box{font-size:12px;padding:9px 12px}
+      .readout-box .rl{font-size:11px}
+      .readout-box .rv{font-size:28px}
+      .ml{font-size:12px}.mv{font-size:17px}
+      .md{font-size:14px}
+      .legend-box{font-size:11px;padding:9px}
+      .intro-txt{font-size:12px}
+      .zreset{font-size:11px;padding:7px 12px}
+      .empty-state .ei{font-size:70px}
+      .empty-state .em{font-size:14px}
+      .empty-state .es{font-size:11px}
+      #pelv-result .pr{font-size:11px}
+      #pelv-result .pn{font-size:11px}
+      #pelv-result .pv{font-size:20px}
+      #pelv-result .pi-eq{font-size:10px}
+      #tttg-result .rl{font-size:11px}
+      #lea-result .lr-label{font-size:11px}
+      #lea-result .lr-val{font-size:16px}
+      #lea-cora-box{font-size:11px}
+      #lea-deformity-box{font-size:11px}
+      #fav-result .fr-lbl{font-size:11px}
+      #fav-result .fr-val{font-size:32px}
+      #fav-result .fr-grade{font-size:13px}
+      #fav-result .fr-note{font-size:10px}
+      input[type="number"]{font-size:13px;padding:5px 8px}
+      input[type="range"]{height:6px}
+      .opacity-row{font-size:11px}
+      .sep{margin:10px 0}
+    }
+    /* Cursor for desktop canvas interactions */
+    @media (hover: hover) {
+      #overlay{cursor:crosshair}
+      #tttg-canvas{cursor:crosshair}
+      #fav-canvas{cursor:crosshair}
+      #lea-canvas{cursor:crosshair}
+    }
+    /* Mouse wheel zoom hint */
+    .zoom-hint{display:none}
+    @media (min-width:768px){
+      .zoom-hint{display:block;position:absolute;bottom:10px;right:10px;font-size:10px;color:#2a4a6a;font-family:'Courier New',monospace;pointer-events:none;z-index:10;background:#020608cc;padding:4px 8px;border-radius:4px;border:1px solid #1a2a3a}
+    }
   </style>
 </head>
 <body>
@@ -194,7 +258,7 @@
         <div class="ei">🩻</div><div class="em">NO RADIOGRAPH LOADED</div>
         <div class="es">Upload an X-ray to begin</div>
       </div>
-      <button class="zreset" id="a-zreset" onclick="aZoomReset()">⊡ RESET ZOOM</button>
+      <div class="zoom-hint">scroll to zoom · drag to pan</div>
       <div id="img-wrap">
         <img id="xray-img" alt="X-ray"/>
         <canvas id="overlay"></canvas>
@@ -260,6 +324,7 @@
         <div class="em">UPLOAD BOTH IMAGES</div>
         <div class="es">Trochlea + Tibial Tuberosity slices</div>
       </div>
+      <div class="zoom-hint">scroll to zoom · drag to pan</div>
       <button class="zreset" id="t-zreset" onclick="tZoomReset()">⊡ RESET ZOOM</button>
       <div id="tttg-canvas-wrap">
         <canvas id="tttg-canvas"></canvas>
@@ -336,6 +401,7 @@
         <div class="em">UPLOAD BOTH CT SLICES</div>
         <div class="es">Femoral neck + Posterior condyles</div>
       </div>
+      <div class="zoom-hint">scroll to zoom · drag to pan</div>
       <button class="zreset" id="fav-zreset" onclick="favZoomReset()">⊡ RESET ZOOM</button>
       <div id="fav-canvas-wrap">
         <canvas id="fav-canvas"></canvas>
@@ -415,6 +481,7 @@
         <div class="em">NO X-RAY LOADED</div>
         <div class="es">Upload full-length AP X-ray</div>
       </div>
+      <div class="zoom-hint">scroll to zoom · drag to pan</div>
       <button class="zreset" id="lea-zreset" onclick="leaZoomReset()">⊡ RESET ZOOM</button>
       <div id="lea-canvas-wrap">
         <canvas id="lea-canvas"></canvas>
@@ -478,6 +545,7 @@ ZoomState.prototype.attachPinch = function(onMove) {
   function mid(t1,t2){return{x:(t1.clientX+t2.clientX)/2,y:(t1.clientY+t2.clientY)/2};}
   function tdist(t1,t2){var dx=t1.clientX-t2.clientX,dy=t1.clientY-t2.clientY;return Math.sqrt(dx*dx+dy*dy);}
 
+  // ── Touch pinch-zoom ──
   self.center.addEventListener('touchstart', function(e){
     if(e.touches.length===2){
       e.preventDefault(); e.stopPropagation();
@@ -490,8 +558,7 @@ ZoomState.prototype.attachPinch = function(onMove) {
     if(self._pinch && e.touches.length===2){
       e.preventDefault(); e.stopPropagation();
       var t1=e.touches[0],t2=e.touches[1];
-      var d=tdist(t1,t2);
-      var m=mid(t1,t2);
+      var d=tdist(t1,t2), m=mid(t1,t2);
       var newS=Math.max(1,Math.min(8, self._pinch.s0*(d/self._pinch.d0)));
       var cr=self.center.getBoundingClientRect();
       var relX=self._pinch.m0.x-(cr.left+cr.width/2);
@@ -503,14 +570,52 @@ ZoomState.prototype.attachPinch = function(onMove) {
       var mp=(self.s-1)*Math.max(self.center.clientWidth,self.center.clientHeight)*0.55+150;
       self.tx=Math.max(-mp,Math.min(mp,self.tx));
       self.ty=Math.max(-mp,Math.min(mp,self.ty));
-      self.apply();
-      if(onMove) onMove();
+      self.apply(); if(onMove) onMove();
     }
   },{passive:false});
 
   self.center.addEventListener('touchend', function(e){
     if(e.touches.length<2) self._pinch=null;
   },{passive:false});
+
+  // ── Mouse wheel zoom (desktop) ──
+  self.center.addEventListener('wheel', function(e){
+    e.preventDefault();
+    var cr=self.center.getBoundingClientRect();
+    var mx=e.clientX-cr.left-cr.width/2;
+    var my=e.clientY-cr.top-cr.height/2;
+    var factor=e.deltaY<0?1.12:0.89;
+    var newS=Math.max(1,Math.min(8,self.s*factor));
+    var ds=newS/self.s;
+    self.tx=mx*(1-ds)+self.tx*ds;
+    self.ty=my*(1-ds)+self.ty*ds;
+    self.s=newS;
+    var mp=(self.s-1)*Math.max(self.center.clientWidth,self.center.clientHeight)*0.55+150;
+    self.tx=Math.max(-mp,Math.min(mp,self.tx));
+    self.ty=Math.max(-mp,Math.min(mp,self.ty));
+    self.apply(); if(onMove) onMove();
+  },{passive:false});
+
+  // ── Middle-mouse or space+drag pan (desktop) ──
+  self._mDrag=null;
+  self.center.addEventListener('mousedown', function(e){
+    if(e.button===1){
+      e.preventDefault();
+      self._mDrag={x:e.clientX,y:e.clientY,tx0:self.tx,ty0:self.ty};
+    }
+  });
+  window.addEventListener('mousemove', function(e){
+    if(!self._mDrag) return;
+    self.tx=self._mDrag.tx0+(e.clientX-self._mDrag.x);
+    self.ty=self._mDrag.ty0+(e.clientY-self._mDrag.y);
+    var mp=(self.s-1)*Math.max(self.center.clientWidth,self.center.clientHeight)*0.55+150;
+    self.tx=Math.max(-mp,Math.min(mp,self.tx));
+    self.ty=Math.max(-mp,Math.min(mp,self.ty));
+    self.apply(); if(onMove) onMove();
+  });
+  window.addEventListener('mouseup', function(e){
+    if(e.button===1) self._mDrag=null;
+  });
 };
 
 // ═══════════════════════════════════════════
