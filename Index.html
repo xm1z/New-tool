@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -196,9 +197,45 @@
   <div id="header">
     <div id="title-bar">
       <div id="title-icon">🦴</div>
-      <div>
+      <div style="flex:1">
         <div class="t-main">ORTHOPEDIC ANGLE TOOL</div>
         <div class="t-sub">ANGLE &amp; DISTANCE MEASUREMENT · EDUCATIONAL USE ONLY</div>
+      </div>
+      <button onclick="document.getElementById('credits-modal').style.display='flex'" style="background:none;border:1px solid #1a3a5c;border-radius:5px;color:#3a6a8a;font-size:9px;font-family:'Courier New',monospace;letter-spacing:1px;padding:4px 9px;cursor:pointer;transition:all 0.2s;flex-shrink:0" onmouseover="this.style.borderColor='#00e5ff';this.style.color='#00e5ff'" onmouseout="this.style.borderColor='#1a3a5c';this.style.color='#3a6a8a'">ℹ CREDITS</button>
+    </div>
+  </div>
+
+  <!-- Credits Modal -->
+  <div id="credits-modal" style="display:none;position:fixed;inset:0;background:#000000bb;z-index:9999;align-items:center;justify-content:center;padding:20px;box-sizing:border-box" onclick="if(event.target===this)this.style.display='none'">
+    <div style="background:linear-gradient(135deg,#070d14,#0d1f3c);border:1px solid #1a4a7a;border-radius:14px;padding:30px 28px;max-width:420px;width:100%;box-sizing:border-box;position:relative;font-family:'Courier New',monospace">
+      <button onclick="document.getElementById('credits-modal').style.display='none'" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#3a6a8a;font-size:18px;cursor:pointer;line-height:1">✕</button>
+
+      <div style="text-align:center;margin-bottom:20px">
+        <div style="font-size:36px;margin-bottom:8px">🦴</div>
+        <div style="font-size:13px;font-weight:700;letter-spacing:3px;color:#e0f0ff">ORTHOPEDIC ANGLE TOOL</div>
+        <div style="font-size:9px;color:#3a6a8a;letter-spacing:2px;margin-top:4px">VERSION 1.0 · EDUCATIONAL USE ONLY</div>
+      </div>
+
+      <div style="border-top:1px solid #1a3a5c;padding-top:18px;margin-bottom:18px">
+        <div style="font-size:9px;color:#3a6a8a;letter-spacing:2px;margin-bottom:10px">DEVELOPED BY</div>
+        <div style="font-size:16px;font-weight:700;color:#00e5ff;letter-spacing:1px">Dr. Mohammed Alzahrani</div>
+        <div style="font-size:10px;color:#5a8aaa;margin-top:4px">Orthopaedic Surgery Resident</div>
+        <div style="font-size:10px;color:#5a8aaa">McGill University · Montreal, Canada</div>
+        <a href="mailto:mohammed.alzahim@mail.McGill.ca" style="display:inline-block;margin-top:8px;font-size:10px;color:#4a9aaa;text-decoration:none;letter-spacing:0.5px">✉ mohammed.alzahim@mail.mcgill.ca</a>
+      </div>
+
+      <div style="border-top:1px solid #1a3a5c;padding-top:16px;margin-bottom:16px">
+        <div style="font-size:9px;color:#3a6a8a;letter-spacing:2px;margin-bottom:8px">ABOUT</div>
+        <div style="font-size:10px;color:#5a8aaa;line-height:1.9">
+          A clinical measurement tool for orthopaedic imaging analysis including angle measurement, TT-TG distance, femoral anteversion, and lower extremity alignment planning.
+        </div>
+      </div>
+
+      <div style="border-top:1px solid #1a3a5c;padding-top:14px">
+        <div style="font-size:9px;color:#3a6a8a;letter-spacing:2px;margin-bottom:8px">DISCLAIMER</div>
+        <div style="font-size:9px;color:#3a5a5a;line-height:1.9">
+          This tool is intended for educational and research purposes only. All measurements must be verified by a qualified clinician before use in clinical decision-making. Not a substitute for professional medical judgement.
+        </div>
       </div>
     </div>
   </div>
