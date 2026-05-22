@@ -23,7 +23,7 @@
     .tab.active{color:#00a8ff;border-bottom-color:#00a8ff;background:#00a8ff08}
     #screen-angle{display:flex;flex:1;min-height:0;overflow:hidden}
     #screen-tttg{display:none;flex:1;min-height:0;overflow:hidden}
-    .left-panel{width:185px;flex-shrink:0;background:#070d14;border-right:1px solid #1a2a3a;display:block;padding:10px 9px;overflow-y:scroll;-webkit-overflow-scrolling:touch;height:100%;box-sizing:border-box}
+    .left-panel{width:190px;flex-shrink:0;background:#070d14;border-right:1px solid #1a2a3a;display:block;padding:10px 9px 30px 9px;overflow-y:scroll;-webkit-overflow-scrolling:touch;height:100%;box-sizing:border-box;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#1a3a5c transparent}
     .slabel{font-size:9px;color:#3a6a8a;letter-spacing:2px;margin-bottom:2px}
     .upload-box{display:block;border:2px dashed #1a3a5c;border-radius:7px;padding:10px 8px;text-align:center;cursor:pointer;background:#0a1420;transition:all 0.2s}
     .upload-box.done{border-color:#4ade8066;border-style:solid;background:#0a1a0a}
@@ -69,7 +69,7 @@
     #xray-img{display:block}
     #overlay{position:absolute;top:0;left:0;touch-action:none;cursor:default;image-rendering:auto}
     /* TT-TG */
-    #tttg-left{width:185px;flex-shrink:0;background:#070d14;border-right:1px solid #1a2a3a;display:block;padding:8px 9px;overflow-y:scroll;-webkit-overflow-scrolling:touch;height:100%;box-sizing:border-box}
+    #tttg-left{width:190px;flex-shrink:0;background:#070d14;border-right:1px solid #1a2a3a;display:block;padding:8px 9px 30px 9px;overflow-y:scroll;-webkit-overflow-scrolling:touch;height:100%;box-sizing:border-box;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#1a3a5c transparent}
     #tttg-center{flex:1;min-width:0;background:#020608;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
     #tttg-canvas-wrap{display:none;position:relative;transform-origin:center center}
     #tttg-canvas{display:block;touch-action:none;image-rendering:auto}
@@ -94,7 +94,7 @@
 
     /* LEA screen */
     #screen-lea{display:none;flex:1;min-height:0;overflow:hidden}
-    #lea-left{width:200px;flex-shrink:0;background:#070d14;border-right:1px solid #1a2a3a;display:block;padding:8px 9px;overflow-y:scroll;-webkit-overflow-scrolling:touch;height:100%;box-sizing:border-box}
+    #lea-left{width:205px;flex-shrink:0;background:#070d14;border-right:1px solid #1a2a3a;display:block;padding:8px 9px 30px 9px;overflow-y:scroll;-webkit-overflow-scrolling:touch;height:100%;box-sizing:border-box;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#1a3a5c transparent}
     #lea-center{flex:1;min-width:0;background:#020608;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
     #lea-canvas-wrap{display:none;position:relative;transform-origin:center center}
     #lea-canvas{display:block;touch-action:none;image-rendering:auto}
@@ -109,7 +109,7 @@
     #lea-cora-box{display:none;background:#0a0015;border:1px solid #aa88ff44;border-radius:6px;padding:8px;margin-bottom:8px;font-size:9px;line-height:1.8;color:#6a5a8a}
     #lea-deformity-box{display:none;background:#0a000a;border:1px solid #ff88aa44;border-radius:6px;padding:8px;margin-bottom:8px;font-size:9px;line-height:1.8}
     #screen-fav{display:none;flex:1;min-height:0;overflow:hidden}
-    #fav-left{width:190px;flex-shrink:0;background:#070d14;border-right:1px solid #1a2a3a;display:block;padding:8px 9px;overflow-y:scroll;-webkit-overflow-scrolling:touch;height:100%;box-sizing:border-box}
+    #fav-left{width:190px;flex-shrink:0;background:#070d14;border-right:1px solid #1a2a3a;display:block;padding:8px 9px 30px 9px;overflow-y:scroll;-webkit-overflow-scrolling:touch;height:100%;box-sizing:border-box;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#1a3a5c transparent}
     #fav-center{flex:1;min-width:0;background:#020608;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
     #fav-canvas-wrap{display:none;position:relative;transform-origin:center center}
     #fav-canvas{display:block;touch-action:none;image-rendering:auto}
@@ -1396,8 +1396,19 @@ document.getElementById('tt-upload').addEventListener('change',function(e){
 document.getElementById('ruler-mm').addEventListener('input',function(){window.tApplyRuler();});
 
 // Prevent page scroll on single-touch
+// Prevent page scroll on canvas areas only — left panels must remain scrollable
 document.addEventListener('touchmove',function(e){
-  if(e.touches.length===1)e.preventDefault();
+  var t = e.target;
+  // Walk up the DOM to see if touch started on a canvas or canvas wrap
+  while(t && t !== document.body){
+    if(t.tagName==='CANVAS') { e.preventDefault(); return; }
+    var id = t.id||'';
+    if(id==='img-wrap'||id==='tttg-canvas-wrap'||id==='fav-canvas-wrap'||id==='lea-canvas-wrap'||
+       id==='a-center'||id==='t-center'||id==='fav-center'||id==='lea-center') {
+      e.preventDefault(); return;
+    }
+    t = t.parentElement;
+  }
 },{passive:false});
 
 // ═══════════════════════════════════════════
