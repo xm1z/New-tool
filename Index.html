@@ -2152,8 +2152,9 @@ window.addEventListener('resize',function(){if(favCanvas.width)favLayout();});
 //   If CORA is at joint line → intra-articular
 //   If CORA is >3cm above joint line → extra-articular
 
-var leaPts  = {fh:null,pf:null,fdc:null,kj:null,tpc:null,tdc:null,aj:null,fc1:null,fc2:null,tp1:null,tp2:null,cal:null,calCircle:null};
-var leaPtsL = {fh:null,pf:null,fdc:null,kj:null,tpc:null,tdc:null,aj:null,fc1:null,fc2:null,tp1:null,tp2:null,cal:null,calCircle:null};
+var leaPts  = {fh:null,pf:null,fdc:null,kj:null,tpc:null,tdc:null,aj:null,fc1:null,fc2:null,tp1:null,tp2:null};
+var leaPtsL = {fh:null,pf:null,fdc:null,kj:null,tpc:null,tdc:null,aj:null,fc1:null,fc2:null,tp1:null,tp2:null};
+var leaCal  = {cal:null,calCircle:null}; // shared between both sides
 var leaSide = 'R'; // 'R' or 'L'
 function leaActivePts(){ return leaSide==='R'?leaPts:leaPtsL; }
 window.leaSwitchSide=function(side){
@@ -2176,8 +2177,8 @@ var leaCenter = document.getElementById('lea-center');
 var leaXray   = document.createElement('img');
 
 var leaZ = new ZoomState(leaWrap, leaCenter, 'lea-zreset');
-leaZ.attachPinch(function(){ leaDraw(); if(leaPts&&leaPts.calCircle) leaUpdateCircleDiv(); });
-window.leaZoomReset=function(){leaZ.reset();leaDraw();if(leaPts.calCircle)leaUpdateCircleDiv();};
+leaZ.attachPinch(function(){ leaDraw(); if(leaCal.calCircle) leaUpdateCircleDiv(); });
+window.leaZoomReset=function(){leaZ.reset();leaDraw();if(leaCal.calCircle)leaUpdateCircleDiv();};
 
 function leaLayout(){
   if(!leaXray.naturalWidth)return;
@@ -2287,12 +2288,12 @@ function leaDraw(){
   function line(a,b,col,lw,dash){svLine(svg,a,b,col,lw,dash,wr,cr,z);}
   function extline(a,b,col,lw,dash){svExtLine(svg,a,b,col,lw,dash,wr,cr,z);}
 
-  if(p.cal){
-    line(p.cal.p1,p.cal.p2,'#ffdd00',1.5,true);
-    svTick(svg,p.cal.p1.x,p.cal.p1.y,'#ffdd00',2.5,wr,cr,z);
-    svTick(svg,p.cal.p2.x,p.cal.p2.y,'#ffdd00',2.5,wr,cr,z);
+  if(leaCal.cal){
+    line(leaCal.cal.p1,leaCal.cal.p2,'#ffdd00',1.5,true);
+    svTick(svg,leaCal.cal.p1.x,leaCal.cal.p1.y,'#ffdd00',2.5,wr,cr,z);
+    svTick(svg,leaCal.cal.p2.x,leaCal.cal.p2.y,'#ffdd00',2.5,wr,cr,z);
   }
-  if(leaActivePts().calCircle) leaUpdateCircleDiv();
+  if(leaCal.calCircle) leaUpdateCircleDiv();
   if(leaState.tmp&&leaState.mode!=='cal_circle'){
     var tmpCol={cal:'#ffdd00',fc:'#ff8844',tp:'#44ffdd'}[leaState.mode]||'#00e5ff';
     dot(leaState.tmp,tmpCol);
@@ -2647,8 +2648,9 @@ function leaUpdateBtns(){
 }
 
 window.leaReset=function(){
-  leaPts={fh:null,pf:null,fdc:null,kj:null,tpc:null,tdc:null,aj:null,fc1:null,fc2:null,tp1:null,tp2:null,cal:null,calCircle:null};
-  leaPtsL={fh:null,pf:null,fdc:null,kj:null,tpc:null,tdc:null,aj:null,fc1:null,fc2:null,tp1:null,tp2:null,cal:null,calCircle:null};
+  leaPts={fh:null,pf:null,fdc:null,kj:null,tpc:null,tdc:null,aj:null,fc1:null,fc2:null,tp1:null,tp2:null};
+  leaPtsL={fh:null,pf:null,fdc:null,kj:null,tpc:null,tdc:null,aj:null,fc1:null,fc2:null,tp1:null,tp2:null};
+  leaCal={cal:null,calCircle:null};
   leaSide='R';
   leaState={mode:null,tmp:null,pxPerMm:null,calMode:'circle'};
   leaDrg=null;
@@ -2685,9 +2687,8 @@ window.leaSetCalMode = function(mode){
 // Update the HTML circle div position and size based on canvas coords
 function leaUpdateCircleDiv(){
   var div=document.getElementById('lea-cal-circle-div');
-  var _pts=leaActivePts();
-  if(!div||!_pts.calCircle) return;
-  var cc=_pts.calCircle;
+  if(!div||!leaCal.calCircle) return;
+  var cc=leaCal.calCircle;
   // div is inside lea-center (position:relative)
   // Convert canvas coords to lea-center-relative screen coords
   var wrapRect = leaWrap.getBoundingClientRect();
@@ -2719,18 +2720,18 @@ function leaUpdateCircleDiv(){
   // ── BODY drag: move circle ──
   function bodyDown(e){
     if(e.target === knob) return; // let knob handle it
-    if(!leaPts.calCircle) return;
+    if(!leaCal.calCircle) return;
     e.preventDefault(); e.stopPropagation();
     var src = e.touches ? e.touches[0] : e;
     _move = {startX:src.clientX, startY:src.clientY,
-             cx0:leaPts.calCircle.cx, cy0:leaPts.calCircle.cy};
+             cx0:leaCal.calCircle.cx, cy0:leaCal.calCircle.cy};
   }
   function bodyMove(e){
-    if(!_move || !leaPts.calCircle) return;
+    if(!_move || !leaCal.calCircle) return;
     e.preventDefault(); e.stopPropagation();
     var src = e.touches ? e.touches[0] : e;
-    leaPts.calCircle.cx = _move.cx0 + (src.clientX - _move.startX) / leaZ.s;
-    leaPts.calCircle.cy = _move.cy0 + (src.clientY - _move.startY) / leaZ.s;
+    leaCal.calCircle.cx = _move.cx0 + (src.clientX - _move.startX) / leaZ.s;
+    leaCal.calCircle.cy = _move.cy0 + (src.clientY - _move.startY) / leaZ.s;
     leaUpdateCircleDiv();
     leaApplyRuler();
   }
@@ -2738,18 +2739,18 @@ function leaUpdateCircleDiv(){
 
   // ── KNOB drag: resize circle in fine increments ──
   function knobDown(e){
-    if(!leaPts.calCircle) return;
+    if(!leaCal.calCircle) return;
     e.preventDefault(); e.stopPropagation();
     var src = e.touches ? e.touches[0] : e;
-    _resize = {startX:src.clientX, r0:leaPts.calCircle.r};
+    _resize = {startX:src.clientX, r0:leaCal.calCircle.r};
   }
   function knobMove(e){
-    if(!_resize || !leaPts.calCircle) return;
+    if(!_resize || !leaCal.calCircle) return;
     e.preventDefault(); e.stopPropagation();
     var src = e.touches ? e.touches[0] : e;
     // Delta in screen px / zoom = canvas px; multiply by 0.5 for finer control
     var delta = (src.clientX - _resize.startX) / leaZ.s * 0.5;
-    leaPts.calCircle.r = Math.max(2, _resize.r0 + delta);
+    leaCal.calCircle.r = Math.max(2, _resize.r0 + delta);
     leaUpdateCircleDiv();
     leaApplyRuler();
   }
@@ -2757,7 +2758,7 @@ function leaUpdateCircleDiv(){
 
   cdiv.addEventListener('touchstart', bodyDown, {passive:false});
   cdiv.addEventListener('touchmove',  bodyMove, {passive:false});
-  cdiv.addEventListener('touchend',   bodyUp,   {passive:false});
+  cdiv.addEventListener('touchend', bodyUp, {passive:false});
   cdiv.addEventListener('mousedown',  bodyDown, false);
 
   knob.addEventListener('touchstart', knobDown, {passive:false});
@@ -2777,12 +2778,11 @@ function leaUpdateCircleDiv(){
 window.leaApplyRuler=function(){
   var mm=parseFloat(document.getElementById('lea-cal-mm').value)||50;
   var pxLen=0;
-  var _pts=leaActivePts();
-  if(leaState.calMode==='ruler'&&_pts.cal){
-    var dx=_pts.cal.p2.x-_pts.cal.p1.x,dy=_pts.cal.p2.y-_pts.cal.p1.y;
+  if(leaState.calMode==='ruler'&&leaCal.cal){
+    var dx=leaCal.cal.p2.x-leaCal.cal.p1.x,dy=leaCal.cal.p2.y-leaCal.cal.p1.y;
     pxLen=Math.sqrt(dx*dx+dy*dy);
-  } else if(leaState.calMode==='circle'&&_pts.calCircle){
-    pxLen=_pts.calCircle.r*2;
+  } else if(leaState.calMode==='circle'&&leaCal.calCircle){
+    pxLen=leaCal.calCircle.r*2;
   }
   if(!pxLen) return;
   leaState.pxPerMm=pxLen/mm;
@@ -2811,7 +2811,7 @@ function leaDown(e){
   }
   if(m==='cal_circle'){
     // Single tap places center — slider in left panel resizes
-    leaPts.calCircle={cx:pt.x,cy:pt.y,r:40};
+    leaCal.calCircle={cx:pt.x,cy:pt.y,r:40};
     leaState.mode=null;
     leaUpdateBtns();
     leaUpdateCircleDiv();
@@ -2824,7 +2824,7 @@ function leaDown(e){
     else{
       if(m==='fc'){leaPts.fc1=leaState.tmp;leaPts.fc2=pt;}
       else if(m==='tp'){leaPts.tp1=leaState.tmp;leaPts.tp2=pt;}
-      else if(m==='cal'){leaPts.cal={p1:leaState.tmp,p2:pt}; leaApplyRuler();}
+      else if(m==='cal'){leaCal.cal={p1:leaState.tmp,p2:pt}; leaApplyRuler();}
       leaState.tmp=null; leaState.mode=null; leaUpdateBtns(); leaDraw();
     }
     return;
@@ -2835,9 +2835,9 @@ function leaDown(e){
     {k:'fh',p:leaPts.fh},{k:'pf',p:leaPts.pf},{k:'fdc',p:leaPts.fdc},
     {k:'kj',p:leaPts.kj},{k:'tpc',p:leaPts.tpc},{k:'tdc',p:leaPts.tdc},{k:'aj',p:leaPts.aj},
     {k:'fc1',p:leaPts.fc1},{k:'fc2',p:leaPts.fc2},{k:'tp1',p:leaPts.tp1},{k:'tp2',p:leaPts.tp2},
-    {k:'cal_p1',p:leaPts.cal?leaPts.cal.p1:null},{k:'cal_p2',p:leaPts.cal?leaPts.cal.p2:null},
-    {k:'circle_c',p:leaPts.calCircle?{x:leaPts.calCircle.cx,y:leaPts.calCircle.cy}:null},
-    {k:'circle_e',p:leaPts.calCircle?{x:leaPts.calCircle.cx+leaPts.calCircle.r,y:leaPts.calCircle.cy}:null}
+    {k:'cal_p1',p:leaCal.cal?leaCal.cal.p1:null},{k:'cal_p2',p:leaCal.cal?leaCal.cal.p2:null},
+    {k:'circle_c',p:leaCal.calCircle?{x:leaCal.calCircle.cx,y:leaCal.calCircle.cy}:null},
+    {k:'circle_e',p:leaCal.calCircle?{x:leaCal.calCircle.cx+leaCal.calCircle.r,y:leaCal.calCircle.cy}:null}
   ];
   for(var i=0;i<hits.length;i++){
     if(hits[i].p&&leaDist(pt,hits[i].p)<=HIT){leaDrg=hits[i].k;return;}
@@ -2847,9 +2847,9 @@ function leaMove(e){
   if(!leaDrg)return; e.preventDefault(); e.stopPropagation();
   var pt=leaPt(e);
   var leaPts=leaActivePts(); // always use the active side
-  if(leaDrg==='cal_p1'){leaPts.cal.p1=pt;leaApplyRuler();}
-  else if(leaDrg==='cal_p2'){leaPts.cal.p2=pt;leaApplyRuler();}
-  else if(leaDrg==='circle_c'){leaPts.calCircle.cx=pt.x;leaPts.calCircle.cy=pt.y;leaUpdateCircleDiv();leaApplyRuler();}
+  if(leaDrg==='cal_p1'){leaCal.cal.p1=pt;leaApplyRuler();}
+  else if(leaDrg==='cal_p2'){leaCal.cal.p2=pt;leaApplyRuler();}
+  else if(leaDrg==='circle_c'){leaCal.calCircle.cx=pt.x;leaCal.calCircle.cy=pt.y;leaUpdateCircleDiv();leaApplyRuler();}
   else leaPts[leaDrg]=pt;
   leaDraw();
 }
