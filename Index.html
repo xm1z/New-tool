@@ -2,18 +2,30 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
   <meta name="apple-mobile-web-app-capable" content="yes"/>
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-  <meta name="apple-mobile-web-app-title" content="Orthopedic Angle"/>
+  <meta name="apple-mobile-web-app-title" content="OrthoAngle"/>
+  <meta name="mobile-web-app-capable" content="yes"/>
   <meta name="theme-color" content="#050a0e"/>
+  <meta name="description" content="Orthopaedic imaging measurement tool for angle analysis, TT-TG distance, femoral anteversion and leg alignment."/>
+  <link rel="manifest" id="pwa-manifest"/>
+  <!-- iOS Splash Screens -->
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <!-- iPhone 14 Pro Max -->
+  <link rel="apple-touch-startup-image" media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3)" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1290' height='2796'%3E%3Crect width='1290' height='2796' fill='%23050a0e'/%3E%3Ctext x='645' y='1350' text-anchor='middle' font-family='Courier New' font-size='80' fill='%23c8d8e8'%3E🦴%3C/text%3E%3Ctext x='645' y='1460' text-anchor='middle' font-family='Courier New' font-size='36' font-weight='bold' letter-spacing='4' fill='%23e0f0ff'%3EORTHOANGLE%3C/text%3E%3C/svg%3E"/>
+  <!-- iPhone 14 / 13 / 12 -->
+  <link rel="apple-touch-startup-image" media="screen and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3)" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1170' height='2532'%3E%3Crect width='1170' height='2532' fill='%23050a0e'/%3E%3Ctext x='585' y='1220' text-anchor='middle' font-family='Courier New' font-size='80' fill='%23c8d8e8'%3E🦴%3C/text%3E%3Ctext x='585' y='1330' text-anchor='middle' font-family='Courier New' font-size='36' font-weight='bold' letter-spacing='4' fill='%23e0f0ff'%3EORTHOANGLE%3C/text%3E%3C/svg%3E"/>
+  <!-- iPhone SE -->
+  <link rel="apple-touch-startup-image" media="screen and (device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='750' height='1334'%3E%3Crect width='750' height='1334' fill='%23050a0e'/%3E%3Ctext x='375' y='640' text-anchor='middle' font-family='Courier New' font-size='60' fill='%23c8d8e8'%3E🦴%3C/text%3E%3Ctext x='375' y='720' text-anchor='middle' font-family='Courier New' font-size='28' font-weight='bold' letter-spacing='3' fill='%23e0f0ff'%3EORTHOANGLE%3C/text%3E%3C/svg%3E"/>
   <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTIgMTkyIiB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiI+CiAgPHJlY3Qgd2lkdGg9IjE5MiIgaGVpZ2h0PSIxOTIiIHJ4PSIzOCIgZmlsbD0iIzBhMTYyOCIvPgogIDwhLS0gQm9uZSBzaGFwZSAtLT4KICA8ZyBmaWxsPSIjYzhkOGU4Ij4KICAgIDwhLS0gQm9uZSBzaGFmdCAtLT4KICAgIDxyZWN0IHg9Ijg4IiB5PSI1NSIgd2lkdGg9IjE2IiBoZWlnaHQ9IjgyIiByeD0iNiIvPgogICAgPCEtLSBUb3AgbGVmdCBiYWxsIC0tPgogICAgPGNpcmNsZSBjeD0iNzgiIGN5PSI1OCIgcj0iMTYiLz4KICAgIDwhLS0gVG9wIHJpZ2h0IGJhbGwgLS0+CiAgICA8Y2lyY2xlIGN4PSIxMTQiIGN5PSI1OCIgcj0iMTYiLz4KICAgIDwhLS0gQm90dG9tIGxlZnQgYmFsbCAtLT4KICAgIDxjaXJjbGUgY3g9Ijc4IiBjeT0iMTM0IiByPSIxNiIvPgogICAgPCEtLSBCb3R0b20gcmlnaHQgYmFsbCAtLT4KICAgIDxjaXJjbGUgY3g9IjExNCIgY3k9IjEzNCIgcj0iMTYiLz4KICAgIDwhLS0gU2hhZnQgb3ZlcmxheSB0byBtYWtlIGl0IGxvb2sgbGlrZSBvbmUgcGllY2UgLS0+CiAgICA8cmVjdCB4PSI3MCIgeT0iNTUiIHdpZHRoPSI1MiIgaGVpZ2h0PSI4MiIgcng9IjAiLz4KICAgIDwhLS0gSW5uZXIgY3V0b3V0IHRvIHNoYXBlIGJvbmUgLS0+CiAgICA8cmVjdCB4PSI3OCIgeT0iNjQiIHdpZHRoPSIzNiIgaGVpZ2h0PSI2NCIgcng9IjQiIGZpbGw9IiMwYTE2MjgiLz4KICA8L2c+CiAgPCEtLSBBbmdsZSBsaW5lcyBpbiB5ZWxsb3cgLS0+CiAgPGcgc3Ryb2tlPSIjZmZkZDAwIiBzdHJva2Utd2lkdGg9IjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgZmlsbD0ibm9uZSI+CiAgICA8bGluZSB4MT0iNTIiIHkxPSIxNTAiIHgyPSI5NiIgeTI9Ijk2Ii8+CiAgICA8bGluZSB4MT0iOTYiIHkxPSI5NiIgeDI9IjE1MiIgeTI9IjExMCIvPgogICAgPCEtLSBBcmMgLS0+CiAgICA8cGF0aCBkPSJNIDcyIDExOCBBIDM0IDM0IDAgMCAxIDExMiAxMDQiLz4KICA8L2c+CiAgPCEtLSBBbmdsZSBkb3QgLS0+CiAgPGNpcmNsZSBjeD0iOTYiIGN5PSI5NiIgcj0iNSIgZmlsbD0iI2ZmNjAzMCIvPgogIDwhLS0gRGVncmVlIHN5bWJvbCAtLT4KICA8dGV4dCB4PSIxMTgiIHk9Ijg4IiBmb250LWZhbWlseT0iQ291cmllciBOZXciIGZvbnQtd2VpZ2h0PSJib2xkIiBmb250LXNpemU9IjIyIiBmaWxsPSIjZmZkZDAwIj7CsDwvdGV4dD4KPC9zdmc+"/>
   <title>Orthopedic Angle Tool</title>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--sat:env(safe-area-inset-top,0px);--sab:env(safe-area-inset-bottom,0px);--sal:env(safe-area-inset-left,0px);--sar:env(safe-area-inset-right,0px)}
     html,body{width:100%;height:100%;overflow:hidden;background:#050a0e;color:#c8d8e8;font-family:'Courier New',monospace}
     #app{display:flex;flex-direction:column;width:100%;height:100%;overflow:hidden}
-    #header{flex-shrink:0;background:linear-gradient(135deg,#0a1628,#0d1f3c,#0a1628);border-bottom:2px solid #1a3a5c}
+    #header{flex-shrink:0;background:linear-gradient(135deg,#0a1628,#0d1f3c,#0a1628);border-bottom:2px solid #1a3a5c;padding-top:var(--sat)}
     #title-bar{padding:7px 14px;display:flex;align-items:center;gap:10px}
     #title-icon{width:26px;height:26px;background:radial-gradient(circle,#00a8ff,#003c6e);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:0 0 12px #00a8ff55;flex-shrink:0}
     .t-main{font-size:12px;font-weight:700;color:#e0f0ff;letter-spacing:2px}
@@ -23,7 +35,7 @@
     .tab.active{color:#00a8ff;border-bottom-color:#00a8ff;background:#00a8ff08}
     #screen-angle{display:flex;flex:1;min-height:0;overflow:hidden}
     #screen-tttg{display:none;flex:1;min-height:0;overflow:hidden}
-    .left-panel{width:190px;flex-shrink:0;background:#070d14;border-right:1px solid #1a2a3a;display:block;padding:10px 9px 30px 9px;overflow-y:scroll;-webkit-overflow-scrolling:touch;height:100%;box-sizing:border-box;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#1a3a5c transparent}
+    .left-panel{width:190px;flex-shrink:0;background:#070d14;border-right:1px solid #1a2a3a;display:block;padding:10px 9px 30px 9px;overflow-y:scroll;-webkit-overflow-scrolling:touch;height:100%;box-sizing:border-box;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#1a3a5c transparent;padding-bottom:calc(30px + var(--sab))}
     .slabel{font-size:9px;color:#3a6a8a;letter-spacing:2px;margin-bottom:2px}
     .upload-box{display:block;border:2px dashed #1a3a5c;border-radius:7px;padding:10px 8px;text-align:center;cursor:pointer;background:#0a1420;transition:all 0.2s}
     .upload-box.done{border-color:#4ade8066;border-style:solid;background:#0a1a0a}
@@ -68,8 +80,11 @@
     #img-wrap{display:none;position:relative;transform-origin:center center;will-change:transform}
     #xray-img{display:block}
     #overlay{position:absolute;top:0;left:0;touch-action:none;cursor:default;image-rendering:auto}
+    /* SVG annotation elements */
+    .sv-dot{r:5px}
+    .sv-line{fill:none;stroke-linecap:round}
     /* TT-TG */
-    #tttg-left{width:190px;flex-shrink:0;background:#070d14;border-right:1px solid #1a2a3a;display:block;padding:8px 9px 30px 9px;overflow-y:scroll;-webkit-overflow-scrolling:touch;height:100%;box-sizing:border-box;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#1a3a5c transparent}
+    #tttg-left{width:190px;flex-shrink:0;background:#070d14;border-right:1px solid #1a2a3a;display:block;padding:8px 9px 30px 9px;overflow-y:scroll;-webkit-overflow-scrolling:touch;height:100%;box-sizing:border-box;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#1a3a5c transparent;padding-bottom:calc(30px + var(--sab))}
     #tttg-center{flex:1;min-width:0;background:#020608;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
     #tttg-canvas-wrap{display:none;position:relative;transform-origin:center center}
     #tttg-canvas{display:block;touch-action:none;image-rendering:auto}
@@ -94,7 +109,7 @@
 
     /* LEA screen */
     #screen-lea{display:none;flex:1;min-height:0;overflow:hidden}
-    #lea-left{width:205px;flex-shrink:0;background:#070d14;border-right:1px solid #1a2a3a;display:block;padding:8px 9px 30px 9px;overflow-y:scroll;-webkit-overflow-scrolling:touch;height:100%;box-sizing:border-box;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#1a3a5c transparent}
+    #lea-left{width:205px;flex-shrink:0;background:#070d14;border-right:1px solid #1a2a3a;display:block;padding:8px 9px 30px 9px;overflow-y:scroll;-webkit-overflow-scrolling:touch;height:100%;box-sizing:border-box;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#1a3a5c transparent;padding-bottom:calc(30px + var(--sab))}
     #lea-center{flex:1;min-width:0;background:#020608;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
     #lea-canvas-wrap{display:none;position:relative;transform-origin:center center}
     #lea-canvas{display:block;touch-action:none;image-rendering:auto}
@@ -109,7 +124,7 @@
     #lea-cora-box{display:none;background:#0a0015;border:1px solid #aa88ff44;border-radius:6px;padding:8px;margin-bottom:8px;font-size:9px;line-height:1.8;color:#6a5a8a}
     #lea-deformity-box{display:none;background:#0a000a;border:1px solid #ff88aa44;border-radius:6px;padding:8px;margin-bottom:8px;font-size:9px;line-height:1.8}
     #screen-fav{display:none;flex:1;min-height:0;overflow:hidden}
-    #fav-left{width:190px;flex-shrink:0;background:#070d14;border-right:1px solid #1a2a3a;display:block;padding:8px 9px 30px 9px;overflow-y:scroll;-webkit-overflow-scrolling:touch;height:100%;box-sizing:border-box;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#1a3a5c transparent}
+    #fav-left{width:190px;flex-shrink:0;background:#070d14;border-right:1px solid #1a2a3a;display:block;padding:8px 9px 30px 9px;overflow-y:scroll;-webkit-overflow-scrolling:touch;height:100%;box-sizing:border-box;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#1a3a5c transparent;padding-bottom:calc(30px + var(--sab))}
     #fav-center{flex:1;min-width:0;background:#020608;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
     #fav-canvas-wrap{display:none;position:relative;transform-origin:center center}
     #fav-canvas{display:block;touch-action:none;image-rendering:auto}
@@ -189,6 +204,114 @@
     @media (min-width:768px){
       .zoom-hint{display:block;position:absolute;bottom:10px;right:10px;font-size:10px;color:#2a4a6a;font-family:'Courier New',monospace;pointer-events:none;z-index:10;background:#020608cc;padding:4px 8px;border-radius:4px;border:1px solid #1a2a3a}
     }
+
+    /* ══ LAYOUT 4: FULLSCREEN + FLOATING TOOLBAR + BOTTOM SHEET ══ */
+
+    /* Override: screens are now full-screen stacked */
+    #screen-angle,#screen-tttg,#screen-fav,#screen-lea{
+      flex-direction:column;
+    }
+    /* Hide all left panels */
+    .left-panel,#tttg-left,#fav-left,#lea-left{
+      display:none !important;
+    }
+    /* Center panels fill everything */
+    .center-panel,#tttg-center,#fav-center,#lea-center{
+      flex:1;width:100%;
+    }
+
+    /* Bottom sheet */
+    .bsheet{
+      position:fixed;bottom:0;left:0;right:0;z-index:200;
+      background:linear-gradient(180deg,#05080fee,#070d14ff);
+      border-top:1px solid #1a3a5c;
+      border-radius:16px 16px 0 0;
+      transform:translateY(100%);
+      transition:transform 0.32s cubic-bezier(0.32,0,0.2,1);
+      max-height:82vh;
+      display:flex;flex-direction:column;
+      padding-bottom:var(--sab,0px);
+    }
+    .bsheet.open{ transform:translateY(0); }
+    .bsheet-handle{
+      width:36px;height:4px;background:#1a3a5c;border-radius:2px;
+      margin:10px auto 4px;flex-shrink:0;cursor:pointer;
+    }
+    .bsheet-title{
+      font-family:'Courier New',monospace;font-size:10px;font-weight:700;
+      letter-spacing:2px;color:#3a6a8a;text-align:center;padding:4px 0 8px;
+      flex-shrink:0;
+    }
+    .bsheet-body{
+      overflow-y:scroll;-webkit-overflow-scrolling:touch;
+      padding:0 14px 20px;flex:1;
+      scrollbar-width:thin;scrollbar-color:#1a3a5c transparent;
+    }
+
+    /* Floating toolbar at bottom of image */
+    .ftoolbar{
+      position:absolute;bottom:14px;left:50%;transform:translateX(-50%);
+      z-index:100;
+      display:flex;align-items:center;gap:8px;
+      background:#05080fee;border:1px solid #1a3a5c;
+      border-radius:30px;padding:7px 12px;
+      backdrop-filter:blur(8px);
+      box-shadow:0 4px 24px #000a;
+    }
+    .ftoolbar-btn{
+      display:flex;flex-direction:column;align-items:center;gap:2px;
+      border:none;background:none;cursor:pointer;padding:3px 5px;
+      border-radius:8px;transition:background 0.15s;min-width:36px;
+    }
+    .ftoolbar-btn:active{background:#1a3a5c44;}
+    .ftoolbar-btn .ftico{font-size:18px;line-height:1;}
+    .ftoolbar-btn .ftlbl{font-size:7px;font-family:'Courier New',monospace;
+      color:#3a6a8a;letter-spacing:0.5px;white-space:nowrap;}
+    .ftoolbar-sep{width:1px;height:28px;background:#1a3a5c;}
+    .ftoolbar-btn.active-ft{background:#00152a;border-radius:8px;outline:1px solid #00e5ff44;}
+    .ftoolbar-btn.active-ft .ftlbl{color:#00e5ff;}
+    .ftoolbar-btn.active-ft .ftico{filter:drop-shadow(0 0 4px #00e5ff88);}
+    .ftoolbar-btn.done-ft .ftico{filter:drop-shadow(0 0 3px #4ade8099);}
+    .ftoolbar-btn.done-ft .ftlbl{color:#4ade80;}
+
+    /* Panel toggle button (⊙ controls) */
+    .panel-toggle-btn{
+      position:absolute;top:10px;left:10px;z-index:100;
+      background:#05080fee;border:1px solid #1a3a5c;border-radius:20px;
+      color:#5a8aaa;font-family:'Courier New',monospace;font-size:9px;
+      padding:5px 10px;cursor:pointer;letter-spacing:1px;
+      backdrop-filter:blur(8px);
+    }
+
+    /* Bsheet inner layout reuse existing slabel/lea-btn etc */
+    .bsheet-body .slabel{margin-top:10px;margin-bottom:5px;}
+    .bsheet-body .sep{margin:8px 0;}
+
+    /* Result card floating in corner */
+    .result-float{
+      position:absolute;top:10px;right:10px;z-index:100;
+      background:#020e1aee;border:1px solid #00e5ff66;border-radius:12px;
+      padding:6px 12px 10px;font-family:'Courier New',monospace;
+      min-width:130px;backdrop-filter:blur(12px);
+      display:none;cursor:move;touch-action:none;user-select:none;
+      box-shadow:0 4px 20px #000c, 0 0 0 1px #00e5ff22;
+    }
+    .result-float .rf-handle{
+      width:28px;height:3px;background:#1a4a6a;border-radius:2px;
+      margin:0 auto 6px;
+    }
+    .result-float .rf-title{
+      font-size:8px;letter-spacing:2px;color:#2a6a8a;margin-bottom:4px;text-align:center;
+    }
+    .result-float .rf-row{display:flex;justify-content:space-between;align-items:baseline;gap:10px;
+      padding:3px 0;border-bottom:1px solid #0a1a2a;}
+    .result-float .rf-label{font-size:8px;color:#4a7a9a;white-space:nowrap;}
+    .result-float .rf-val{font-size:13px;font-weight:700;color:#00e5ff;}
+    /* Sheet backdrop */
+    .bsheet-backdrop{
+      display:none;position:fixed;inset:0;z-index:199;background:#00000044;
+    }
+    .bsheet-backdrop.open{display:block;}
   </style>
 </head>
 <body>
@@ -294,9 +417,60 @@
         <div class="es">Upload an X-ray to begin</div>
       </div>
       <div class="zoom-hint">scroll to zoom · drag to pan</div>
+      <svg id="a-svg" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:hidden;z-index:5"></svg>
       <div id="img-wrap">
         <img id="xray-img" alt="X-ray"/>
-        <canvas id="overlay"></canvas>
+        <canvas id="overlay" style="position:absolute;top:0;left:0"></canvas>
+      </div>
+    </div>
+
+    <!-- Angle result float -->
+    <div class="result-float" id="a-result-float">
+      <div class="rf-handle"></div>
+      <div class="rf-title">MEASUREMENT</div>
+      <div id="a-rf-body"></div>
+    </div>
+
+    <!-- Angle floating toolbar -->
+    <div class="ftoolbar" id="a-ftoolbar" style="display:none">
+      <button class="ftoolbar-btn" onclick="document.getElementById('a-sheet').classList.toggle('open');document.getElementById('a-backdrop').classList.toggle('open')">
+        <span class="ftico">📤</span><span class="ftlbl">UPLOAD</span>
+      </button>
+      <div class="ftoolbar-sep"></div>
+      <button class="ftoolbar-btn" id="ft-supp" onclick="activateTool(1)"><span class="ftico">📐</span><span class="ftlbl">SUPPL</span></button>
+      <button class="ftoolbar-btn" id="ft-reg"  onclick="activateTool(2)"><span class="ftico">📐</span><span class="ftlbl">ANGLE</span></button>
+      <button class="ftoolbar-btn" id="ft-cobb" onclick="activateTool(3)"><span class="ftico">📏</span><span class="ftlbl">COBB</span></button>
+      <button class="ftoolbar-btn" id="ft-pelv" onclick="activateTool(4)"><span class="ftico">🦴</span><span class="ftlbl">PELVIS</span></button>
+      <div class="ftoolbar-sep"></div>
+      <button class="ftoolbar-btn" onclick="clearAll()"><span class="ftico">✕</span><span class="ftlbl">CLEAR</span></button>
+    </div>
+    <!-- Angle sheet backdrop -->
+    <div class="bsheet-backdrop" id="a-backdrop" onclick="this.classList.remove('open');document.getElementById('a-sheet').classList.remove('open')"></div>
+    <!-- Angle bottom sheet -->
+    <div class="bsheet" id="a-sheet">
+      <div class="bsheet-handle" onclick="this.closest('.bsheet').classList.remove('open');document.getElementById('a-backdrop').classList.remove('open')"></div>
+      <div class="bsheet-title">ANGLE TOOLS</div>
+      <div class="bsheet-body">
+        <div class="slabel">RADIOGRAPH INPUT</div>
+        <label class="upload-box" for="xray-upload" style="margin-bottom:8px">
+          <div class="uico">📡</div><div class="utxt" id="upload-txt2">Tap to load X-ray</div><div class="usub">JPG · PNG · WEBP</div>
+        </label>
+        <div id="tool-section-sheet" style="display:none">
+          <div class="slabel">TOOLS</div>
+          <button id="btn-supp2" class="btn-tool" onclick="activateTool(1)">📐 SUPPLEMENTARY (180°−x)</button>
+          <button id="btn-reg2"  class="btn-tool" onclick="activateTool(2)">📐 REGULAR ANGLE</button>
+          <button id="btn-cobb2" class="btn-tool" onclick="activateTool(3)">📏 COBB ANGLE</button>
+          <button id="btn-pelv2" class="btn-tool" onclick="activateTool(4)">🦴 PELVIC PARAMETERS</button>
+          <div id="hint-box2" class="hint-box" style="background:#1a1400;border:1px solid #3a3000;color:#ffdd00;margin-top:4px"></div>
+          <button id="btn-clear2" class="btn-danger" onclick="clearAll()" style="display:block;margin-top:6px">✕ CLEAR ALL</button>
+          <div id="pelv-result2" style="margin-top:8px">
+            <div class="pr">PELVIC PARAMETERS</div>
+            <div class="prow"><span class="pn">PI</span><span class="pv" id="pr-pi2">—</span></div>
+            <div class="prow"><span class="pn">SS</span><span class="pv" id="pr-ss2">—</span></div>
+            <div class="prow"><span class="pn">PT</span><span class="pv" id="pr-pt2">—</span></div>
+          </div>
+          <div id="meas-wrap2" class="meas-wrap"><div class="slabel">MEASUREMENTS</div><div id="measurements2"></div></div>
+        </div>
       </div>
     </div>
   </div>
@@ -361,9 +535,63 @@
       </div>
       <div class="zoom-hint">scroll to zoom · drag to pan</div>
       <button class="zreset" id="t-zreset" onclick="tZoomReset()">⊡ RESET ZOOM</button>
+      <svg id="t-svg" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:hidden;z-index:5"></svg>
       <div id="tttg-canvas-wrap">
         <canvas id="tttg-canvas"></canvas>
       </div>
+    </div>
+
+    <!-- TT-TG floating toolbar -->
+    <div class="ftoolbar" id="t-ftoolbar" style="display:none">
+      <button class="ftoolbar-btn" onclick="document.getElementById('t-sheet').classList.toggle('open');document.getElementById('t-backdrop').classList.toggle('open')">
+        <span class="ftico">📤</span><span class="ftlbl">IMAGES</span>
+      </button>
+      <div class="ftoolbar-sep"></div>
+      <button class="ftoolbar-btn" id="ft-ruler" onclick="tActivate('ruler')"><span class="ftico">📏</span><span class="ftlbl">RULER</span></button>
+      <button class="ftoolbar-btn" id="ft-bl"    onclick="tActivate('bl')">  <span class="ftico">➖</span><span class="ftlbl">pFCL</span></button>
+      <button class="ftoolbar-btn" id="ft-tg"    onclick="tActivate('tg')">  <span class="ftico" style="color:#4488ff">●</span><span class="ftlbl">TG</span></button>
+      <button class="ftoolbar-btn" id="ft-tt"    onclick="tActivate('tt')">  <span class="ftico" style="color:#ff6644">●</span><span class="ftlbl">TT</span></button>
+      <div class="ftoolbar-sep"></div>
+      <button class="ftoolbar-btn" onclick="tReset()"><span class="ftico">↺</span><span class="ftlbl">RESET</span></button>
+    </div>
+    <div class="bsheet-backdrop" id="t-backdrop" onclick="this.classList.remove('open');document.getElementById('t-sheet').classList.remove('open')"></div>
+    <div class="bsheet" id="t-sheet">
+      <div class="bsheet-handle" onclick="this.closest('.bsheet').classList.remove('open');document.getElementById('t-backdrop').classList.remove('open')"></div>
+      <div class="bsheet-title">TT-TG DISTANCE</div>
+      <div class="bsheet-body">
+        <div class="step-row"><div class="badge" id="b1s">1</div>TROCHLEA IMAGE</div>
+        <label class="upload-box" for="tg-upload"><div class="uico">🦴</div><div class="utxt" id="tg-txt2">Upload Trochlea MRI</div><div class="usub">Axial · TG level</div></label>
+        <input id="tg-upload2" type="file" accept="image/*" style="display:none" onchange="document.getElementById('tg-upload').files=this.files;document.getElementById('tg-upload').dispatchEvent(new Event('change'))"/>
+        <div class="step-row"><div class="badge" id="b2s">2</div>TUBEROSITY IMAGE</div>
+        <label class="upload-box" for="tt-upload"><div class="uico">🦵</div><div class="utxt" id="tt-txt2">Upload TT MRI</div><div class="usub">Axial · TT level</div></label>
+        <div id="tttg-tools-sheet" style="display:none">
+          <div class="sep"></div>
+          <div class="slabel">OVERLAY OPACITY</div>
+          <div class="opacity-row"><span style="color:#4488ff">TG</span><input type="range" id="op-sl2" min="0" max="100" value="50" oninput="document.getElementById('op-sl').value=this.value;tDraw()"/><span style="color:#ff6644">TT</span></div>
+          <div class="sep"></div>
+          <div class="step-row"><div class="badge" id="b3s">3</div>CALIBRATION</div>
+          <button id="btn-ruler2" class="btn-tool" onclick="tActivate('ruler')">📏 DRAW RULER (2 pts)</button>
+          <div style="display:flex;align-items:center;gap:5px;margin-top:4px">
+            <input type="number" id="ruler-mm2" value="10" min="1" max="500" step="0.5" style="width:60px;padding:4px 6px;font-size:10px" oninput="document.getElementById('ruler-mm').value=this.value;window.tApplyRuler()"/>
+            <span style="font-size:9px;color:#3a6a8a">mm</span>
+          </div>
+          <div class="step-row" style="margin-top:6px"><div class="badge" id="b4s">4</div>pFCL BASELINE</div>
+          <button id="btn-bl2" class="btn-tool" onclick="tActivate('bl')">📏 DRAW pFCL LINE</button>
+          <div class="step-row" style="margin-top:6px"><div class="badge" id="b5s">5</div>TROCHLEAR GROOVE</div>
+          <button id="btn-tg2" class="btn-tool" onclick="tActivate('tg')">🔵 MARK POINT A</button>
+          <div class="step-row" style="margin-top:6px"><div class="badge" id="b6s">6</div>TIBIAL TUBEROSITY</div>
+          <button id="btn-tt2" class="btn-tool" onclick="tActivate('tt')">🔴 MARK POINT B</button>
+          <div class="sep"></div>
+          <button class="btn-danger" onclick="tReset()" style="display:block">↺ RESET ALL</button>
+        </div>
+      </div>
+    </div>
+    <!-- TT-TG result float -->
+    <div class="result-float" id="tttg-result-float">
+      <div class="rf-handle"></div>
+      <div class="rf-title">TT-TG DISTANCE</div>
+      <div class="rf-row"><span class="rf-label">Distance</span><span class="rf-val" id="t-rv-float">—</span></div>
+      <div style="font-size:8px;color:#3a6a8a;margin-top:3px;text-align:center" id="t-rg-float"></div>
     </div>
   </div>
   <!-- ═══ FEMORAL ANTEVERSION SCREEN ═══ -->
@@ -438,9 +666,55 @@
       </div>
       <div class="zoom-hint">scroll to zoom · drag to pan</div>
       <button class="zreset" id="fav-zreset" onclick="favZoomReset()">⊡ RESET ZOOM</button>
+      <svg id="fav-svg" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:hidden;z-index:5"></svg>
       <div id="fav-canvas-wrap">
         <canvas id="fav-canvas"></canvas>
       </div>
+    </div>
+
+    <!-- FAV floating toolbar -->
+    <div class="ftoolbar" id="fav-ftoolbar" style="display:none">
+      <button class="ftoolbar-btn" onclick="document.getElementById('fav-sheet').classList.toggle('open');document.getElementById('fav-backdrop').classList.toggle('open')">
+        <span class="ftico">📤</span><span class="ftlbl">IMAGES</span>
+      </button>
+      <div class="ftoolbar-sep"></div>
+      <button class="ftoolbar-btn" id="ft-neck" onclick="favActivate('neck')"><span class="ftico" style="color:#aa88ff">●</span><span class="ftlbl">NECK</span></button>
+      <button class="ftoolbar-btn" id="ft-cond" onclick="favActivate('cond')"><span class="ftico" style="color:#44ffdd">●</span><span class="ftlbl">CONDYLE</span></button>
+      <div class="ftoolbar-sep"></div>
+      <button class="ftoolbar-btn" onclick="favReset()"><span class="ftico">↺</span><span class="ftlbl">RESET</span></button>
+    </div>
+    <div class="bsheet-backdrop" id="fav-backdrop" onclick="this.classList.remove('open');document.getElementById('fav-sheet').classList.remove('open')"></div>
+    <div class="bsheet" id="fav-sheet">
+      <div class="bsheet-handle" onclick="this.closest('.bsheet').classList.remove('open');document.getElementById('fav-backdrop').classList.remove('open')"></div>
+      <div class="bsheet-title">FEMORAL ANTEVERSION</div>
+      <div class="bsheet-body">
+        <div class="step-row"><div class="badge" id="fb1s">1</div>FEMORAL NECK CT</div>
+        <label class="upload-box" for="fav-neck-upload"><div class="uico">🦴</div><div class="utxt" id="fav-neck-txt2">Upload Neck Axial CT</div><div class="usub">Axial · neck level</div></label>
+        <div class="step-row"><div class="badge" id="fb2s">2</div>POSTERIOR CONDYLES CT</div>
+        <label class="upload-box" for="fav-cond-upload"><div class="uico">🦵</div><div class="utxt" id="fav-cond-txt2">Upload Condyles Axial CT</div><div class="usub">Axial · condyle level</div></label>
+        <div id="fav-tools-sheet" style="display:none">
+          <div class="sep"></div>
+          <div class="slabel">OVERLAY OPACITY</div>
+          <div class="opacity-row"><span style="color:#aa88ff;font-size:9px">Neck</span><input type="range" id="fav-op-sl2" min="0" max="100" value="50" oninput="document.getElementById('fav-op-sl').value=this.value;window.favDraw()"/><span style="color:#44ffdd;font-size:9px">Condyles</span></div>
+          <div class="sep"></div>
+          <button class="fav-btn" id="fav-btn-neck2" onclick="favActivate('neck')">🦴 FEMORAL NECK AXIS (2 pts)</button>
+          <button class="fav-btn" id="fav-btn-cond2" onclick="favActivate('cond')" style="margin-top:4px">📐 CONDYLE AXIS (2 pts)</button>
+          <div class="sep"></div>
+          <button class="btn-danger" onclick="favReset()" style="display:block">↺ RESET</button>
+          <div id="fav-result2" style="margin-top:8px">
+            <div class="fr-lbl">FEMORAL ANTEVERSION</div>
+            <div class="fr-val" id="fav-val2">—</div>
+            <div class="fr-grade" id="fav-grade2"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- FAV result float -->
+    <div class="result-float" id="fav-result-float">
+      <div class="rf-handle"></div>
+      <div class="rf-title">ANTEVERSION</div>
+      <div class="rf-row"><span class="rf-label">Angle</span><span class="rf-val" id="fav-val-float">—</span></div>
+      <div style="font-size:8px;color:#3a6a8a;margin-top:3px;text-align:center" id="fav-grade-float"></div>
     </div>
   </div>
   <!-- ═══ LOWER EXTREMITY ALIGNMENT SCREEN ═══ -->
@@ -458,10 +732,14 @@
       <div id="lea-tools" style="display:none">
         <div class="sep"></div>
         <div class="slabel">CALIBRATION</div>
-        <button class="lea-btn" id="lea-btn-cal" onclick="leaActivate('cal')">📏 DRAW RULER (2 pts)</button>
-        <div style="display:flex;align-items:center;gap:5px;margin-top:4px">
-          <input type="number" id="lea-cal-mm" value="50" min="1" max="1000" step="1" style="width:58px;padding:4px 6px;font-size:10px" oninput="leaApplyRuler()"/>
-          <span style="font-size:9px;color:#3a6a8a">mm known</span>
+        <div style="display:flex;gap:4px;margin-bottom:4px">
+          <button id="lea-cal-ruler-btn" onclick="leaSetCalMode('ruler');leaActivate('cal')" style="flex:1;padding:7px 4px;font-size:9px;font-weight:700;font-family:'Courier New',monospace;border-radius:5px;border:1px solid #1a3a5c;background:#0a1420;color:#5a8aaa;cursor:pointer">📏 2 POINTS</button>
+          <button id="lea-cal-circle-btn" onclick="leaSetCalMode('circle');leaActivate('cal_circle')" style="flex:1;padding:7px 4px;font-size:9px;font-weight:700;font-family:'Courier New',monospace;border-radius:5px;border:1px solid #1a3a5c;background:#0a1420;color:#5a8aaa;cursor:pointer">⊙ CIRCLE</button>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:5px;margin-top:2px">
+          <input type="number" id="lea-cal-mm" value="10" min="0.1" max="1000" step="0.1" style="width:58px;padding:4px 6px;font-size:10px" oninput="leaApplyRuler()"/>
+          <span style="font-size:9px;color:#3a6a8a">mm &nbsp;<span id="lea-cal-mm-label">distance</span></span>
         </div>
         <div id="lea-cal-status" style="font-size:9px;padding:3px 7px;border-radius:4px;background:#0a1400;border:1px solid #2a3a00;color:#4a6a20;display:none;margin-top:3px"></div>
 
@@ -489,6 +767,7 @@
         <!-- Results -->
         <div id="lea-result">
           <div class="lr-title">ALIGNMENT RESULTS</div>
+          <div class="lr-row"><span class="lr-label">Limb Length (MA)</span><span class="lr-val" id="lr-length" style="color:#00e5ff">—</span></div>
           <div class="lr-row"><span class="lr-label">Alignment</span><span class="lr-val" id="lr-vv" style="color:#00e5ff">—</span></div>
           <div class="lr-row"><span class="lr-label">MAD at knee</span><span class="lr-val" id="lr-off" style="color:#00e5ff">—</span></div>
           <div class="lr-row"><span class="lr-label">mLDFA</span><span class="lr-val" id="lr-ldfa" style="color:#ff8844">—</span></div>
@@ -511,6 +790,10 @@
     </div>
 
     <div id="lea-center">
+      <div id="lea-cal-circle-div" style="display:none;position:absolute;border:2.5px dashed #ffdd00;border-radius:50%;box-sizing:border-box;transform:translate(-50%,-50%);box-shadow:0 0 0 1px #000a;cursor:move;touch-action:none;z-index:10">
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:8px;height:8px;background:#ffdd00;border-radius:50%;pointer-events:none"></div>
+          <div id="lea-circle-knob" style="position:absolute;top:50%;right:-10px;transform:translateY(-50%);width:18px;height:18px;background:#ffdd00;border-radius:50%;cursor:ew-resize;touch-action:none;box-shadow:0 0 0 2px #000,0 0 6px #ffdd0088;z-index:11"></div>
+        </div>
       <div class="empty-state" id="lea-empty">
         <div class="ei">🦵</div>
         <div class="em">NO X-RAY LOADED</div>
@@ -518,11 +801,100 @@
       </div>
       <div class="zoom-hint">scroll to zoom · drag to pan</div>
       <button class="zreset" id="lea-zreset" onclick="leaZoomReset()">⊡ RESET ZOOM</button>
+      <svg id="lea-svg" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:hidden;z-index:5"></svg>
       <div id="lea-canvas-wrap">
         <canvas id="lea-canvas"></canvas>
       </div>
     </div>
   </div>
+
+    <!-- LEA floating toolbar — two compact rows -->
+    <div id="lea-ftoolbar" style="display:none;position:absolute;bottom:14px;left:50%;transform:translateX(-50%);z-index:100;flex-direction:column;gap:5px;align-items:center">
+      <!-- Row 1: landmarks -->
+      <div class="ftoolbar" style="position:static;transform:none;padding:5px 8px;gap:4px;border-radius:20px">
+        <button class="ftoolbar-btn" id="lft-fh"  onclick="leaActivate('fh')"> <span class="ftico" style="color:#4488ff;font-size:14px">●</span><span class="ftlbl">FH</span></button>
+        <button class="ftoolbar-btn" id="lft-pf"  onclick="leaActivate('pf')"> <span class="ftico" style="color:#aa88ff;font-size:14px">●</span><span class="ftlbl">PF</span></button>
+        <button class="ftoolbar-btn" id="lft-fdc" onclick="leaActivate('fdc')"><span class="ftico" style="color:#aa88ff;font-size:14px">●</span><span class="ftlbl">FDC</span></button>
+        <button class="ftoolbar-btn" id="lft-kj"  onclick="leaActivate('kj')"> <span class="ftico" style="color:#ffdd00;font-size:14px">●</span><span class="ftlbl">KJ</span></button>
+        <button class="ftoolbar-btn" id="lft-tpc" onclick="leaActivate('tpc')"><span class="ftico" style="color:#ff9944;font-size:14px">●</span><span class="ftlbl">TPC</span></button>
+        <button class="ftoolbar-btn" id="lft-tdc" onclick="leaActivate('tdc')"><span class="ftico" style="color:#ff9944;font-size:14px">●</span><span class="ftlbl">TDC</span></button>
+        <button class="ftoolbar-btn" id="lft-aj"  onclick="leaActivate('aj')"> <span class="ftico" style="color:#ff8844;font-size:14px">●</span><span class="ftlbl">AJ</span></button>
+      </div>
+      <!-- Row 2: joint lines + setup + reset -->
+      <div class="ftoolbar" style="position:static;transform:none;padding:5px 8px;gap:4px;border-radius:20px">
+        <button id="lea-side-r" onclick="leaSwitchSide('R')" style="padding:5px 10px;font-size:10px;font-weight:700;font-family:'Courier New',monospace;border-radius:8px;border:1px solid #ff6644;background:#2a0a00;color:#ff6644;cursor:pointer;letter-spacing:1px">R</button>
+        <button id="lea-side-l" onclick="leaSwitchSide('L')" style="padding:5px 10px;font-size:10px;font-weight:700;font-family:'Courier New',monospace;border-radius:8px;border:1px solid #1a3a5c;background:#0a1420;color:#5a8aaa;cursor:pointer;letter-spacing:1px">L</button>
+        <div class="ftoolbar-sep" style="height:22px"></div>
+        <button class="ftoolbar-btn" id="lft-fc" onclick="leaActivate('fc')"><span class="ftico" style="font-size:14px">📐</span><span class="ftlbl">FC</span></button>
+        <button class="ftoolbar-btn" id="lft-tp" onclick="leaActivate('tp')"><span class="ftico" style="font-size:14px">📐</span><span class="ftlbl">TP</span></button>
+        <div class="ftoolbar-sep" style="height:22px"></div>
+        <button class="ftoolbar-btn" id="lft-cal" onclick="leaSetCalMode('circle');leaActivate('cal_circle')"><span class="ftico" style="font-size:14px">⊙</span><span class="ftlbl">CAL</span></button>
+        <div class="ftoolbar-sep" style="height:22px"></div>
+        <button class="ftoolbar-btn" onclick="document.getElementById('lea-sheet').classList.toggle('open');document.getElementById('lea-backdrop').classList.toggle('open')"><span class="ftico" style="font-size:14px">⚙️</span><span class="ftlbl">SETUP</span></button>
+        <div class="ftoolbar-sep" style="height:22px"></div>
+        <button class="ftoolbar-btn" onclick="leaReset()"><span class="ftico" style="font-size:14px">↺</span><span class="ftlbl">RESET</span></button>
+      </div>
+    </div>
+    <div class="bsheet-backdrop" id="lea-backdrop" onclick="this.classList.remove('open');document.getElementById('lea-sheet').classList.remove('open')"></div>
+    <div class="bsheet" id="lea-sheet">
+      <div class="bsheet-handle" onclick="this.closest('.bsheet').classList.remove('open');document.getElementById('lea-backdrop').classList.remove('open')"></div>
+      <div class="bsheet-title">LEG ALIGNMENT</div>
+      <div class="bsheet-body">
+        <div class="step-row"><div class="badge">1</div>HIP-TO-ANKLE X-RAY</div>
+        <label class="upload-box" for="lea-upload"><div class="uico">🦴</div><div class="utxt" id="lea-upload-txt2">Upload Long-Leg X-ray</div><div class="usub">Full limb AP view</div></label>
+        <div id="lea-tools-sheet" style="display:none">
+          <div class="sep"></div>
+          <div class="slabel">CALIBRATION</div>
+          <div style="display:flex;gap:4px;margin-bottom:4px">
+            <button id="lea-cal-ruler-btn2" onclick="leaSetCalMode('ruler');leaActivate('cal')" style="flex:1;padding:7px 4px;font-size:9px;font-weight:700;font-family:'Courier New',monospace;border-radius:5px;border:1px solid #ffdd00;background:#2a2200;color:#ffdd00;cursor:pointer">📏 2 POINTS</button>
+            <button id="lea-cal-circle-btn2" onclick="leaSetCalMode('circle');leaActivate('cal_circle')" style="flex:1;padding:7px 4px;font-size:9px;font-weight:700;font-family:'Courier New',monospace;border-radius:5px;border:1px solid #1a3a5c;background:#0a1420;color:#5a8aaa;cursor:pointer">⊙ CIRCLE</button>
+          </div>
+          <div style="display:flex;align-items:center;gap:5px">
+            <input type="number" id="lea-cal-mm2" value="10" min="0.1" max="1000" step="0.1" style="width:58px;padding:4px 6px;font-size:10px" oninput="document.getElementById('lea-cal-mm').value=this.value;leaApplyRuler()"/>
+            <span style="font-size:9px;color:#3a6a8a">mm <span id="lea-cal-mm-label2">distance</span></span>
+          </div>
+          <div id="lea-cal-status2" style="font-size:9px;padding:3px 7px;border-radius:4px;background:#0a1400;border:1px solid #2a3a00;color:#4a6a20;display:none;margin-top:3px"></div>
+          <div class="sep"></div>
+          <div class="slabel">LANDMARKS</div>
+          <div id="lea-hint2" style="font-size:9px;background:#001020;border:1px solid #002040;border-radius:4px;padding:6px 8px;line-height:1.8;display:none;margin-bottom:6px;color:#00e5ff"></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px">
+            <button class="lea-btn" id="lea-btn-fh2"  onclick="leaActivate('fh')">🔵 Femoral Head Center</button>
+            <button class="lea-btn" id="lea-btn-pf2"  onclick="leaActivate('pf')">🟣 Piriformis Fossa</button>
+            <button class="lea-btn" id="lea-btn-fdc2" onclick="leaActivate('fdc')">🟣 Distal Femoral Canal</button>
+            <button class="lea-btn" id="lea-btn-kj2"  onclick="leaActivate('kj')">🟡 Knee Joint Center</button>
+            <button class="lea-btn" id="lea-btn-tpc2" onclick="leaActivate('tpc')">🔶 Proximal Tibial Center</button>
+            <button class="lea-btn" id="lea-btn-tdc2" onclick="leaActivate('tdc')">🔶 Distal Tibial Center</button>
+            <button class="lea-btn" id="lea-btn-aj2"  onclick="leaActivate('aj')">🟠 Ankle Joint Center</button>
+          </div>
+          <div class="sep"></div>
+          <div class="slabel">JOINT LINES</div>
+          <button class="lea-btn" id="lea-btn-fc2" onclick="leaActivate('fc')">📐 Distal Femoral Condyles</button>
+          <button class="lea-btn" id="lea-btn-tp2" onclick="leaActivate('tp')" style="margin-top:4px">📐 Proximal Tibial Plateau</button>
+          <div class="sep"></div>
+          <button class="btn-danger" onclick="leaReset()" style="display:block">↺ RESET ALL</button>
+          <div id="lea-result2" style="display:none;margin-top:8px">
+            <div class="lr-title">ALIGNMENT RESULTS</div>
+            <div class="lr-row"><span class="lr-label">Limb Length</span><span class="lr-val" id="lr-length2" style="color:#00e5ff">—</span></div>
+            <div class="lr-row"><span class="lr-label">Alignment</span><span class="lr-val" id="lr-vv2" style="color:#00e5ff">—</span></div>
+            <div class="lr-row"><span class="lr-label">MAD</span><span class="lr-val" id="lr-off2" style="color:#00e5ff">—</span></div>
+            <div class="lr-row"><span class="lr-label">mLDFA</span><span class="lr-val" id="lr-ldfa2" style="color:#ff8844">—</span></div>
+            <div class="lr-row"><span class="lr-label">mMPTA</span><span class="lr-val" id="lr-mpta2" style="color:#44ffdd">—</span></div>
+            <div class="lr-row"><span class="lr-label">JLCA</span><span class="lr-val" id="lr-jlca2" style="color:#ffdd00">—</span></div>
+          </div>
+          <div id="lea-cora-box2" style="display:none;background:#0a0015;border:1px solid #aa88ff44;border-radius:6px;padding:8px;margin-top:6px;font-size:9px;line-height:1.8;color:#6a5a8a">
+            <div style="color:#aa88ff;font-weight:700;margin-bottom:3px">CORA</div><div id="lr-cora-txt2">—</div>
+          </div>
+          <div id="lea-deformity-box2" style="display:none;background:#0a000a;border:1px solid #ff88aa44;border-radius:6px;padding:8px;margin-top:6px;font-size:9px;line-height:1.8">
+            <div style="color:#ff88aa;font-weight:700;margin-bottom:3px">DEFORMITY SITE</div><div id="lr-deformity-txt2">—</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- LEA result float -->
+    <div class="result-float" id="lea-result-float" style="max-width:190px">
+      <div class="rf-handle"></div>
+      <div id="lea-float-body"></div>
+    </div>
 
 </div><!-- /app -->
 
@@ -530,6 +902,147 @@
 (function(){
 
 // ═══════════════════════════════════════════
+// ═══════════════════════════════════════════
+// SVG ANNOTATION ENGINE
+// All dots, lines, arcs drawn as SVG — perfectly crisp at any zoom level.
+// ═══════════════════════════════════════════
+var NS='http://www.w3.org/2000/svg';
+function svEl(tag,attrs){var el=document.createElementNS(NS,tag);for(var k in attrs)el.setAttribute(k,attrs[k]);return el;}
+function svClear(svg){while(svg.firstChild)svg.removeChild(svg.firstChild);return svg;}
+function svDot(svg,x,y,col,r){
+  r=r||5;
+  var g=svEl('g',{});
+  g.appendChild(svEl('circle',{cx:x,cy:y,r:r+3,fill:col,opacity:'0.2'}));
+  g.appendChild(svEl('circle',{cx:x,cy:y,r:r+1,fill:'none',stroke:'#ffffff','stroke-width':'1.5'}));
+  g.appendChild(svEl('circle',{cx:x,cy:y,r:r,fill:col}));
+  svg.appendChild(g);return g;
+}
+function svLine(svg,x1,y1,x2,y2,col,lw,dash){
+  var el=svEl('line',{x1:x1,y1:y1,x2:x2,y2:y2,stroke:col,'stroke-width':lw||2,'stroke-linecap':'round','stroke-dasharray':dash?'8 4':'none'});
+  svg.appendChild(el);return el;
+}
+function svExtLine(svg,ax,ay,bx,by,col,lw,dash){
+  var dx=bx-ax,dy=by-ay,len=Math.sqrt(dx*dx+dy*dy)||1,ext=9000;
+  return svLine(svg,ax-dx/len*ext,ay-dy/len*ext,bx+dx/len*ext,by+dy/len*ext,col,lw,dash);
+}
+function svArc(svg,cx,cy,r,a1,a2,col,lw){
+  // Normalize to smaller arc
+  while(a2<a1)a2+=Math.PI*2;
+  if(a2-a1>Math.PI){var t=a1;a1=a2-Math.PI*2;a2=t;}
+  if(a2<a1){var t2=a1;a1=a2;a2=t2;}
+  var x1=cx+Math.cos(a1)*r,y1=cy+Math.sin(a1)*r;
+  var x2=cx+Math.cos(a2)*r,y2=cy+Math.sin(a2)*r;
+  var large=(a2-a1)>Math.PI?1:0;
+  if(Math.abs(a2-a1)<0.01)return;
+  var d='M '+x1.toFixed(2)+' '+y1.toFixed(2)+' A '+r+' '+r+' 0 '+large+' 1 '+x2.toFixed(2)+' '+y2.toFixed(2);
+  var el=svEl('path',{d:d,fill:'none',stroke:col,'stroke-width':lw||2,'stroke-linecap':'round',opacity:'0.8'});
+  svg.appendChild(el);return el;
+}
+function svText(svg,x,y,txt,col,sz){
+  var el=svEl('text',{x:x,y:y,fill:col,'font-family':'Courier New,monospace','font-size':sz||11,'font-weight':'bold',
+    'stroke':'#000','stroke-width':'3','stroke-linejoin':'round','paint-order':'stroke'});
+  el.textContent=txt;svg.appendChild(el);return el;
+}
+function svTick(svg,x,y,col,lw){
+  svg.appendChild(svEl('line',{x1:x,y1:y-10,x2:x,y2:y+10,stroke:col,'stroke-width':lw||2,'stroke-linecap':'round'}));
+}
+
+// ═══════════════════════════════════════════
+// SVG ANNOTATION ENGINE — placed outside zoom wrap, coords converted to screen space
+// This gives crisp vector rendering at any zoom level
+// ═══════════════════════════════════════════
+var NS='http://www.w3.org/2000/svg';
+function svEl(tag,attrs){
+  var el=document.createElementNS(NS,tag);
+  for(var k in attrs) el.setAttribute(k,attrs[k]);
+  return el;
+}
+function svClear(svg){ while(svg.firstChild) svg.removeChild(svg.firstChild); }
+
+// Convert a canvas CSS coordinate to SVG screen coordinate
+// wrap = the zoom wrap element, z = zoom scale
+function c2s(x, y, wrapRect, centerRect, z){
+  return {
+    x: (wrapRect.left - centerRect.left) + x * z,
+    y: (wrapRect.top  - centerRect.top)  + y * z
+  };
+}
+
+// Draw a dot: filled circle with white outline — crisp SVG, no pixelation
+function svDot(svg, p, col, r, wrapRect, centerRect, z){
+  // Fixed screen size — does NOT scale with zoom, stays small and precise
+  var sr = r || 4; // screen radius in px, constant regardless of zoom
+  var s = c2s(p.x, p.y, wrapRect, centerRect, z);
+  var g = svEl('g',{});
+  g.appendChild(svEl('circle',{cx:s.x,cy:s.y,r:sr+3,fill:col,opacity:'0.2'}));
+  g.appendChild(svEl('circle',{cx:s.x,cy:s.y,r:sr+1,fill:'none',stroke:'#fff','stroke-width':'1.5'}));
+  g.appendChild(svEl('circle',{cx:s.x,cy:s.y,r:sr,fill:col}));
+  svg.appendChild(g);
+  return g;
+}
+
+// Draw a line between two canvas-coord points
+function svLine(svg, a, b, col, lw, dash, wrapRect, centerRect, z){
+  var sa=c2s(a.x,a.y,wrapRect,centerRect,z);
+  var sb=c2s(b.x,b.y,wrapRect,centerRect,z);
+  var el=svEl('line',{x1:sa.x,y1:sa.y,x2:sb.x,y2:sb.y,
+    stroke:col,'stroke-width':(lw||1.5),'stroke-linecap':'round',
+    'stroke-dasharray':dash?'8 4':'none'});
+  svg.appendChild(el);
+  return el;
+}
+
+// Draw an extended line (infinite in both directions, clipped by SVG viewport)
+function svExtLine(svg, a, b, col, lw, dash, wrapRect, centerRect, z){
+  var dx=b.x-a.x, dy=b.y-a.y, len=Math.sqrt(dx*dx+dy*dy)||1, ext=9000;
+  var a2={x:a.x-dx/len*ext, y:a.y-dy/len*ext};
+  var b2={x:b.x+dx/len*ext, y:b.y+dy/len*ext};
+  return svLine(svg,a2,b2,col,lw,dash,wrapRect,centerRect,z);
+}
+
+// Draw an arc between two angles at center point (canvas coords)
+function svArc(svg, cx, cy, r, a1, a2, col, lw, wrapRect, centerRect, z){
+  var s=c2s(cx,cy,wrapRect,centerRect,z);
+  var sr=r*z;
+  while(a2<a1) a2+=Math.PI*2;
+  if(a2-a1>Math.PI){var t=a1;a1=a2-Math.PI*2;a2=t;}
+  if(a2<a1){var t2=a1;a1=a2;a2=t2;}
+  if(Math.abs(a2-a1)<0.01) return;
+  var x1=s.x+Math.cos(a1)*sr, y1=s.y+Math.sin(a1)*sr;
+  var x2=s.x+Math.cos(a2)*sr, y2=s.y+Math.sin(a2)*sr;
+  var large=(a2-a1)>Math.PI?1:0;
+  var d='M '+x1.toFixed(1)+' '+y1.toFixed(1)+' A '+sr.toFixed(1)+' '+sr.toFixed(1)+' 0 '+large+' 1 '+x2.toFixed(1)+' '+y2.toFixed(1);
+  var el=svEl('path',{d:d,fill:'none',stroke:col,'stroke-width':lw||2,'stroke-linecap':'round',opacity:'0.85'});
+  svg.appendChild(el);
+}
+
+// Draw a text label
+function svText(svg, x, y, txt, col, sz, wrapRect, centerRect, z){
+  var s=c2s(x,y,wrapRect,centerRect,z);
+  var el=svEl('text',{x:s.x,y:s.y,fill:col,'font-family':'Courier New,monospace',
+    'font-size':sz||11,'font-weight':'bold',
+    stroke:'#000','stroke-width':'3','stroke-linejoin':'round','paint-order':'stroke'});
+  el.textContent=txt;
+  svg.appendChild(el);
+}
+
+// Draw vertical tick mark (for calibration ruler)
+function svTick(svg, x, y, col, lw, wrapRect, centerRect, z){
+  var s=c2s(x,y,wrapRect,centerRect,z);
+  var h=10;
+  svg.appendChild(svEl('line',{x1:s.x,y1:s.y-h,x2:s.x,y2:s.y+h,
+    stroke:col,'stroke-width':lw||2,'stroke-linecap':'round'}));
+}
+
+// Get wrapRect and centerRect for a given wrap and center element
+function getSvgCtx(wrap, center, z){
+  return {
+    wrapRect: wrap.getBoundingClientRect(),
+    centerRect: center.getBoundingClientRect(),
+    z: z
+  };
+}
+
 // ZOOM ENGINE
 // Each panel gets its own zoom state.
 // The wrap element gets CSS transform: translate(tx,ty) scale(s)
@@ -747,10 +1260,16 @@ window.addEventListener('resize',function(){
 });
 
 function aDot(pt,col){
-  var r=DOT_R/aZ.s;
-  ctx.beginPath();ctx.arc(pt.x,pt.y,r+4/aZ.s,0,Math.PI*2);ctx.fillStyle=col+'28';ctx.fill();
-  ctx.beginPath();ctx.arc(pt.x,pt.y,r+1/aZ.s,0,Math.PI*2);ctx.strokeStyle='#000';ctx.lineWidth=2/aZ.s;ctx.stroke();
-  ctx.beginPath();ctx.arc(pt.x,pt.y,r,0,Math.PI*2);ctx.fillStyle=col;ctx.fill();
+  var z=aZ.s, r=DOT_R/z, sw=2/z;
+  // Outer glow
+  ctx.beginPath();ctx.arc(pt.x,pt.y,r+5/z,0,Math.PI*2);
+  ctx.fillStyle=col+'33';ctx.fill();
+  // White outline (SVG stroke=#FFFFFF)
+  ctx.beginPath();ctx.arc(pt.x,pt.y,r+sw*0.5,0,Math.PI*2);
+  ctx.strokeStyle='#ffffff';ctx.lineWidth=sw;ctx.stroke();
+  // Filled circle (SVG fill=color)
+  ctx.beginPath();ctx.arc(pt.x,pt.y,r,0,Math.PI*2);
+  ctx.fillStyle=col;ctx.fill();
 }
 function aLine(a,b,col,dash){
   ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);
@@ -767,40 +1286,44 @@ function aRedraw(){
   var dpr=window.devicePixelRatio||1;
   ctx.setTransform(dpr,0,0,dpr,0,0);
   ctx.clearRect(0,0,canvas.width/dpr,canvas.height/dpr);
+  var svg=document.getElementById('a-svg');
+  svClear(svg);
+  var z=aZ.s;
+  var wr=imgWrap.getBoundingClientRect();
+  var cr=aC.getBoundingClientRect();
+  function dot(p,col,r){svDot(svg,p,col,r,wr,cr,z);}
+  function line(a,b,col,lw,dash){svLine(svg,a,b,col,lw,dash,wr,cr,z);}
+  function arc(cx,cy,r,a1,a2,col,lw){svArc(svg,cx,cy,r,a1,a2,col,lw,wr,cr,z);}
+
   annotations.forEach(function(a){
     if(a.type===4){
-      drawPelvicAnnotation(a);
+      drawPelvicAnnotation(a,svg,wr,cr,z);
     } else if(a.type===3){
       var col='#ff88ff';
-      aLine(a.p1,a.p2,col,false);aLine(a.p3,a.p4,col,false);
-      [a.p1,a.p2,a.p3,a.p4].forEach(function(p){aDot(p,col);});
-        } else {
+      line(a.p1,a.p2,col,2,false);line(a.p3,a.p4,col,2,false);
+      [a.p1,a.p2,a.p3,a.p4].forEach(function(p){dot(p,col);});
+    } else {
       var col=a.type===1?'#ffdd00':'#00ffc8';
-      aLine(a.vertex,a.p1,col,false);aLine(a.vertex,a.p2,col,false);
-      var a1=Math.atan2(a.p1.y-a.vertex.y,a.p1.x-a.vertex.x),a2=Math.atan2(a.p2.y-a.vertex.y,a.p2.x-a.vertex.x);
-      ctx.beginPath();ctx.arc(a.vertex.x,a.vertex.y,24/aZ.s,a1,a2,false);ctx.strokeStyle=col+'99';ctx.lineWidth=3/aZ.s;ctx.stroke();
-      aDot(a.vertex,'#ff6030');aDot(a.p1,col);aDot(a.p2,col);
-        }
+      line(a.vertex,a.p1,col,2,false);line(a.vertex,a.p2,col,2,false);
+      var a1=Math.atan2(a.p1.y-a.vertex.y,a.p1.x-a.vertex.x);
+      var a2=Math.atan2(a.p2.y-a.vertex.y,a.p2.x-a.vertex.x);
+      arc(a.vertex.x,a.vertex.y,24,a1,a2,col+'99',2.5);
+      dot(a.vertex,'#ff6030');dot(a.p1,col);dot(a.p2,col);
+      svText(svg,a.vertex.x+30/z,a.vertex.y-6/z,a.angleDeg.toFixed(1)+'°',col,13,wr,cr,z);
+    }
   });
-  // In-progress placing dots
   var col=activeTool===1?'#ffdd00':activeTool===2?'#00ffc8':activeTool===4?'#44ffaa':'#ff88ff';
   placing.forEach(function(p,j){
     if(activeTool===4){
       var pCol=['#ff8844','#4488ff','#44ffaa','#44ffaa'][j]||'#44ffaa';
-      var lbl=['R','L','S1L','S1R'][j]||'';
-      aDot(p,pCol);
-          // Preview S1 line when both S1 corners placed
-      if(j===3) aLine(placing[2],placing[3],'#44ffaa66',true);
-      // Preview femoral axis when both heads placed
-      if(j>=1){
-        var mid={x:(placing[0].x+placing[1].x)/2,y:(placing[0].y+placing[1].y)/2};
-        aDot(mid,'#44ffaa88');
-      }
+      dot(p,pCol);
+      if(j===3) line(placing[2],placing[3],col+'66',1.5,true);
+      if(j>=1){var m2={x:(placing[0].x+placing[1].x)/2,y:(placing[0].y+placing[1].y)/2};dot(m2,'#44ffaa',3);}
     } else {
-      aDot(p,(activeTool!==3&&j===0)?'#ff6030':col);
-      if(activeTool!==3&&j>0)aLine(placing[0],p,col+'66',true);
-      if(activeTool===3&&j===1)aLine(placing[0],p,col+'66',true);
-      if(activeTool===3&&j===3)aLine(placing[2],p,col+'66',true);
+      dot(p,(activeTool!==3&&j===0)?'#ff6030':col);
+      if(activeTool!==3&&j>0) line(placing[0],p,col+'66',1.5,true);
+      if(activeTool===3&&j===1) line(placing[0],p,col+'66',1.5,true);
+      if(activeTool===3&&j===3) line(placing[2],p,col+'66',1.5,true);
     }
   });
   aUI();
@@ -865,57 +1388,31 @@ function calcPelvicParams(rFH, lFH, s1L, s1R){
   };
 }
 
-function drawPelvicAnnotation(a){
-  var z=aZ.s;
-  var r=a.rFH, l=a.lFH, s1L=a.s1L, s1R=a.s1R;
+function drawPelvicAnnotation(a,svg,wr,cr,z){
+  var r=a.rFH,l=a.lFH,s1L=a.s1L,s1R=a.s1R;
   var p=calcPelvicParams(r,l,s1L,s1R);
-  var fhM=p.fhMid, s1M=p.s1Mid;
-
+  var fhM=p.fhMid,s1M=p.s1Mid;
+  function dot(pt,col,sz){svDot(svg,pt,col,sz,wr,cr,z);}
+  function line(a2,b2,col,lw,dash){svLine(svg,a2,b2,col,lw,dash,wr,cr,z);}
   // Femoral head circles
-  var fhR=dist(r,l)*0.12; // approximate radius as ~12% of inter-head distance
-  ctx.beginPath();ctx.arc(r.x,r.y,fhR,0,Math.PI*2);
-  ctx.strokeStyle='#ff8844';ctx.lineWidth=2/z;ctx.stroke();
-  ctx.beginPath();ctx.arc(l.x,l.y,fhR,0,Math.PI*2);
-  ctx.strokeStyle='#4488ff';ctx.lineWidth=2/z;ctx.stroke();
-  aDot(r,'#ff8844'); aDot(l,'#4488ff');
-
-  // Femoral heads midpoint
-  aDot(fhM,'#44ffaa');
-  // Inter-femoral line
-  aLine(r,l,'#ffffff44',true);
-
-  // S1 endplate line (extended)
-  var s1dx=s1R.x-s1L.x, s1dy=s1R.y-s1L.y;
-  var s1len=Math.sqrt(s1dx*s1dx+s1dy*s1dy)||1;
-  var ext=20/z;
-  var es1L={x:s1L.x-s1dx/s1len*ext, y:s1L.y-s1dy/s1len*ext};
-  var es1R={x:s1R.x+s1dx/s1len*ext, y:s1R.y+s1dy/s1len*ext};
-  aLine(es1L,es1R,'#44ffaa',false);
-  aDot(s1L,'#44ffaa'); aDot(s1R,'#44ffaa');
-  aDot(s1M,'#44ffaa');
-
-  // Line from S1 midpoint to FH midpoint (PI axis)
-  aLine(s1M,fhM,'#44ffaa',false);
-
-  // S1 perpendicular (normal line)
+  var fhR=dist(r,l)*0.12;
+  var sr=c2s(r.x,r.y,wr,cr,z),sl=c2s(l.x,l.y,wr,cr,z);
+  svg.appendChild(svEl('circle',{cx:sr.x,cy:sr.y,r:fhR*z,fill:'none',stroke:'#ff8844','stroke-width':'2',opacity:'0.8'}));
+  svg.appendChild(svEl('circle',{cx:sl.x,cy:sl.y,r:fhR*z,fill:'none',stroke:'#4488ff','stroke-width':'2',opacity:'0.8'}));
+  dot(r,'#ff8844');dot(l,'#4488ff');dot(fhM,'#44ffaa',3);
+  line(r,l,'#ffffff44',1.5,true);
+  // S1 line extended
+  var s1dx=s1R.x-s1L.x,s1dy=s1R.y-s1L.y,s1len=Math.sqrt(s1dx*s1dx+s1dy*s1dy)||1,ext=20;
+  svExtLine(svg,s1L,s1R,'#44ffaa',2,false,wr,cr,z);
+  dot(s1L,'#44ffaa');dot(s1R,'#44ffaa');dot(s1M,'#44ffaa',3);
+  line(s1M,fhM,'#44ffaa',2,false);
   var normLen=dist(s1M,fhM)*0.5;
-  var normEnd={x:s1M.x+p.normX*normLen, y:s1M.y+p.normY*normLen};
-  aLine(s1M,normEnd,'#ffdd00',true);
-
-  // Vertical reference from S1 mid
-  var vLen=dist(s1M,fhM)*0.4;
-  var vertEnd={x:s1M.x, y:s1M.y-vLen};
-  aLine(s1M,vertEnd,'#ffffff55',true);
-
-  // Angle arcs at S1 mid
-  var piAng1=Math.atan2(fhM.y-s1M.y,fhM.x-s1M.x);
-  var piAng2=Math.atan2(normEnd.y-s1M.y,normEnd.x-s1M.x);
-  var arcR=20/z;
-  ctx.beginPath();ctx.arc(s1M.x,s1M.y,arcR,piAng2,piAng1,false);
-  ctx.strokeStyle='#44ffaa99';ctx.lineWidth=1.5/z;ctx.stroke();
-
-  // Labels near center
-  var lx=s1M.x+5/z, ly=s1M.y+arcR+14/z;
+  var normEnd={x:s1M.x+p.normX*normLen,y:s1M.y+p.normY*normLen};
+  line(s1M,normEnd,'#ffdd00',1.5,true);
+  line(s1M,{x:s1M.x,y:s1M.y-dist(s1M,fhM)*0.4},'#ffffff44',1,true);
+  var piAng1=Math.atan2(fhM.y-s1M.y,fhM.x-s1M.x),piAng2=Math.atan2(normEnd.y-s1M.y,normEnd.x-s1M.x);
+  svArc(svg,s1M.x,s1M.y,22,piAng2,piAng1,'#44ffaa',2,wr,cr,z);
+  svText(svg,s1M.x+8,s1M.y+40,'PI '+a.PI+'° SS '+a.SS+'° PT '+a.PT+'°','#44ffaa',11,wr,cr,z);
 }
 
 function updatePelvicResultBox(){
@@ -978,6 +1475,7 @@ function aUI(){
   canvas.style.cursor=aDrg?'grabbing':activeTool?'crosshair':any?'grab':'default';
   canvas.style.pointerEvents=(activeTool||any)?'auto':'none';
 }
+window.aUI = aUI;
 
 document.getElementById('xray-upload').addEventListener('change',function(e){
   if(e.target.files&&e.target.files[0])aLoad(e.target.files[0]);
@@ -995,7 +1493,12 @@ function aLoad(file){
       imgWrap.style.display='block';
       document.getElementById('tool-section').style.display='block';
       document.getElementById('intro').style.display='none';
-      document.getElementById('upload-txt').textContent='Tap to replace';
+      document.getElementById('upload-txt').textContent='✓ X-ray loaded';
+      // Auto-close the bottom sheet so image is visible
+      var sh=document.getElementById('a-sheet');
+      var bd=document.getElementById('a-backdrop');
+      if(sh) sh.classList.remove('open');
+      if(bd) bd.classList.remove('open');
       aLayout();
     };
     xrayImg.src=ev.target.result;
@@ -1028,7 +1531,9 @@ window.activateTool=function(type){
 window.clearAll=function(){
   annotations=[];placing=[];activeTool=0;aDrg=null;aBtnReset();
   var dpr=window.devicePixelRatio||1;
-  ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,canvas.width/dpr,canvas.height/dpr);aUI();
+  ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,canvas.width/dpr,canvas.height/dpr);
+  var asvg=document.getElementById('a-svg');if(asvg)svClear(asvg);
+  aUI();
 };
 window._del=function(i){annotations.splice(i,1);aRedraw();};
 
@@ -1137,9 +1642,9 @@ function project(P,L1,L2){
   return{x:L1.x+t*dx,y:L1.y+t*dy};
 }
 function tDot(pt,col){
-  var r=T_DOT/tZ.s;
-  tC.beginPath();tC.arc(pt.x,pt.y,r+4/tZ.s,0,Math.PI*2);tC.fillStyle=col+'28';tC.fill();
-  tC.beginPath();tC.arc(pt.x,pt.y,r+1/tZ.s,0,Math.PI*2);tC.strokeStyle='#000';tC.lineWidth=2/tZ.s;tC.stroke();
+  var z=tZ.s, r=T_DOT/z, sw=2/z;
+  tC.beginPath();tC.arc(pt.x,pt.y,r+5/z,0,Math.PI*2);tC.fillStyle=col+'33';tC.fill();
+  tC.beginPath();tC.arc(pt.x,pt.y,r+sw*0.5,0,Math.PI*2);tC.strokeStyle='#ffffff';tC.lineWidth=sw;tC.stroke();
   tC.beginPath();tC.arc(pt.x,pt.y,r,0,Math.PI*2);tC.fillStyle=col;tC.fill();
 }
 function tDotLbl(pt,col,lbl){
@@ -1159,85 +1664,64 @@ window.tDraw=function(){
   if(ttImg&&ttImg.naturalWidth){tC.globalAlpha=Math.max(0.15,op);tC.drawImage(ttImg,0,0,w,h);}
   tC.globalAlpha=1;
 
+  var svg=document.getElementById('t-svg'); svClear(svg);
+  var z=tZ.s, wr=tWrap.getBoundingClientRect(), cr=tCenter.getBoundingClientRect();
+  function dot(p,col,r){svDot(svg,p,col,r,wr,cr,z);}
+  function line(a,b,col,lw,dash){svLine(svg,a,b,col,lw,dash,wr,cr,z);}
 
-  if(tS.mode==='ruler'&&tS.tmp) tDot(tS.tmp,'#ffdd00');
-
+  if(tS.mode==='ruler'&&tS.tmp) dot(tS.tmp,'#ffdd00');
   if(tS.ruler){
     var ru1=tS.ruler.p1,ru2=tS.ruler.p2;
-    tC.beginPath();tC.moveTo(ru1.x,ru1.y);tC.lineTo(ru2.x,ru2.y);
-    tC.strokeStyle='#ffdd00';tC.lineWidth=2/tZ.s;tC.setLineDash([6/tZ.s,3/tZ.s]);tC.stroke();tC.setLineDash([]);
-    var tickH2=10/tZ.s;
-    tC.beginPath();tC.moveTo(ru1.x,ru1.y-tickH2);tC.lineTo(ru1.x,ru1.y+tickH2);tC.strokeStyle='#ffdd00';tC.lineWidth=2/tZ.s;tC.stroke();
-    tC.beginPath();tC.moveTo(ru2.x,ru2.y-tickH2);tC.lineTo(ru2.x,ru2.y+tickH2);tC.strokeStyle='#ffdd00';tC.lineWidth=2/tZ.s;tC.stroke();
+    line(ru1,ru2,'#ffdd00',2,true);
+    svTick(svg,ru1.x,ru1.y,'#ffdd00',2.5,wr,cr,z);
+    svTick(svg,ru2.x,ru2.y,'#ffdd00',2.5,wr,cr,z);
     var rmm=parseFloat(document.getElementById('ruler-mm').value)||10;
-    var rfs=Math.round(11/tZ.s);
-    tC.font='bold '+rfs+"px 'Courier New'";tC.shadowColor='#000';tC.shadowBlur=6/tZ.s;
-    tC.fillStyle='#ffdd00';
-    tC.textAlign='center';tC.fillText(rmm+'mm',((ru1.x+ru2.x)/2),((ru1.y+ru2.y)/2)+14/tZ.s);tC.textAlign='left';
-    tC.shadowBlur=0;
+    svText(svg,(ru1.x+ru2.x)/2,(ru1.y+ru2.y)/2+14/z,rmm+'mm','#ffdd00',11,wr,cr,z);
   }
   if(tS.bl){
-    var b1=tS.bl.p1,b2=tS.bl.p2;
-    var dx=b2.x-b1.x,dy=b2.y-b1.y,len=Math.sqrt(dx*dx+dy*dy);
-    if(len>0){
-      var ext=Math.max(w,h)*3;
-      var ex1={x:b1.x-dx/len*ext,y:b1.y-dy/len*ext};
-      var ex2={x:b2.x+dx/len*ext,y:b2.y+dy/len*ext};
-      tC.beginPath();tC.moveTo(ex1.x,ex1.y);tC.lineTo(ex2.x,ex2.y);
-      tC.strokeStyle='#ffffff66';tC.lineWidth=1.5/tZ.s;tC.setLineDash([8/tZ.s,5/tZ.s]);tC.stroke();tC.setLineDash([]);
-    }
-    tDot(b1,'#ffffff');tDot(b2,'#ffffff');
-    var lfs=Math.round(11/tZ.s);
-    tC.font='bold '+lfs+"px 'Courier New'";tC.fillStyle='#ffffffaa';
+    svExtLine(svg,tS.bl.p1,tS.bl.p2,'#ffffff66',1.5,true,wr,cr,z);
+    dot(tS.bl.p1,'#ffffff'); dot(tS.bl.p2,'#ffffff');
   }
-  if(tS.mode==='bl'&&tS.tmp) tDot(tS.tmp,'#ffffff');
-
+  if(tS.mode==='bl'&&tS.tmp) dot(tS.tmp,'#ffffff');
   if(tS.tgPt){
     if(tS.bl){
       var fA=project(tS.tgPt,tS.bl.p1,tS.bl.p2);
-      tC.beginPath();tC.moveTo(tS.tgPt.x,tS.tgPt.y);tC.lineTo(fA.x,fA.y);
-      tC.strokeStyle='#4488ff';tC.lineWidth=2/tZ.s;tC.setLineDash([4/tZ.s,3/tZ.s]);tC.stroke();tC.setLineDash([]);
-      draw90(fA,tS.tgPt,tS.bl,'#4488ff');
+      line(tS.tgPt,fA,'#4488ff',2,true);
+      tDraw90(svg,fA,tS.tgPt,tS.bl,'#4488ff',wr,cr,z);
     }
-    tDot(tS.tgPt,'#4488ff');
+    dot(tS.tgPt,'#4488ff');
   }
   if(tS.ttPt){
     if(tS.bl){
       var fB=project(tS.ttPt,tS.bl.p1,tS.bl.p2);
-      tC.beginPath();tC.moveTo(tS.ttPt.x,tS.ttPt.y);tC.lineTo(fB.x,fB.y);
-      tC.strokeStyle='#ff6644';tC.lineWidth=2/tZ.s;tC.setLineDash([4/tZ.s,3/tZ.s]);tC.stroke();tC.setLineDash([]);
-      draw90(fB,tS.ttPt,tS.bl,'#ff6644');
+      line(tS.ttPt,fB,'#ff6644',2,true);
+      tDraw90(svg,fB,tS.ttPt,tS.bl,'#ff6644',wr,cr,z);
     }
-    tDot(tS.ttPt,'#ff6644');
+    dot(tS.ttPt,'#ff6644');
   }
   if(tS.tgPt&&tS.ttPt&&tS.bl){
-    var fA2=project(tS.tgPt,tS.bl.p1,tS.bl.p2);
-    var fB2=project(tS.ttPt,tS.bl.p1,tS.bl.p2);
-    tC.beginPath();tC.moveTo(fA2.x,fA2.y);tC.lineTo(fB2.x,fB2.y);
-    tC.strokeStyle='#ffdd00';tC.lineWidth=3/tZ.s;tC.stroke();
-    tDot(fA2,'#4488ff');tDot(fB2,'#ff6644');
-    var px=tS.pxPerMm||1.0; // set by ruler calibration
-    var pxD=Math.sqrt(Math.pow(fB2.x-fA2.x,2)+Math.pow(fB2.y-fA2.y,2));
-    var mm=pxD/px; // pxD(canvas px) / px_per_mm = mm
-    var mx=(fA2.x+fB2.x)/2,my=(fA2.y+fB2.y)/2;
-    var mfs=Math.round(16/tZ.s);
+    var fA2=project(tS.tgPt,tS.bl.p1,tS.bl.p2),fB2=project(tS.ttPt,tS.bl.p1,tS.bl.p2);
+    line(fA2,fB2,'#ffdd00',3.5,false);
+    dot(fA2,'#4488ff'); dot(fB2,'#ff6644');
+    var px=tS.pxPerMm||1.0,pxD=Math.sqrt(Math.pow(fB2.x-fA2.x,2)+Math.pow(fB2.y-fA2.y,2)),mm=pxD/px;
     showResult(mm,px);
   }
 };
 
-function draw90(foot,apex,bl,col){
+function tDraw90(svg,foot,apex,bl,col,wr,cr,z){
   var dx=bl.p2.x-bl.p1.x,dy=bl.p2.y-bl.p1.y,len=Math.sqrt(dx*dx+dy*dy);if(!len)return;
-  var ux=dx/len,uy=dy/len,sz=7/tZ.s;
+  var ux=dx/len,uy=dy/len,sz=8;
   var adx=apex.x-foot.x,ady=apex.y-foot.y,al=Math.sqrt(adx*adx+ady*ady);if(!al)return;
   var ax=adx/al,ay=ady/al;
-  var p1x=foot.x+ux*sz,p1y=foot.y+uy*sz;
-  var p2x=p1x+ax*sz,p2y=p1y+ay*sz;
-  var p3x=foot.x+ax*sz,p3y=foot.y+ay*sz;
-  tC.beginPath();tC.moveTo(p1x,p1y);tC.lineTo(p2x,p2y);tC.lineTo(p3x,p3y);
-  tC.strokeStyle=col+'88';tC.lineWidth=1.5/tZ.s;tC.stroke();
+  var p1={x:foot.x+ux*sz,y:foot.y+uy*sz};
+  var p2={x:p1.x+ax*sz,y:p1.y+ay*sz};
+  var p3={x:foot.x+ax*sz,y:foot.y+ay*sz};
+  var s1=c2s(p1.x,p1.y,wr,cr,z),s2=c2s(p2.x,p2.y,wr,cr,z),s3=c2s(p3.x,p3.y,wr,cr,z);
+  var d='M '+s1.x+' '+s1.y+' L '+s2.x+' '+s2.y+' L '+s3.x+' '+s3.y;
+  svg.appendChild(svEl('path',{d:d,fill:'none',stroke:col,opacity:'0.7','stroke-width':'1.5','stroke-linecap':'round'}));
 }
 
-function showResult(mm,px){
+window.showResult=function showResult(mm,px){
   var r=document.getElementById('tttg-result');r.style.display='block';
   document.getElementById('t-rv').textContent=mm.toFixed(1)+' mm';
   document.getElementById('t-ri').textContent=tS.pxPerMm?'Calibrated: '+tS.pxPerMm.toFixed(2)+' px/mm':'⚠ Draw ruler to calibrate';
@@ -1247,7 +1731,7 @@ function showResult(mm,px){
   else{rg.textContent='✕ ELEVATED (>20 mm)';rg.style.background='#2a0800';rg.style.color='#ff6644';}
   // Scroll result into view
   setTimeout(function(){ r.scrollIntoView({behavior:'smooth',block:'nearest'}); }, 80);
-}
+};
 
 function tCheckReady(){
   if(tgImg&&ttImg){
@@ -1446,9 +1930,9 @@ function favPt(e){
 }
 function favDistPt(a,b){var dx=b.x-a.x,dy=b.y-a.y;return Math.sqrt(dx*dx+dy*dy);}
 function favDotF(pt,col){
-  var z=favZ.s,r=5/z;
-  favCtx.beginPath();favCtx.arc(pt.x,pt.y,r+4/z,0,Math.PI*2);favCtx.fillStyle=col+'28';favCtx.fill();
-  favCtx.beginPath();favCtx.arc(pt.x,pt.y,r+1/z,0,Math.PI*2);favCtx.strokeStyle='#000';favCtx.lineWidth=2/z;favCtx.stroke();
+  var z=favZ.s, r=5/z, sw=2/z;
+  favCtx.beginPath();favCtx.arc(pt.x,pt.y,r+5/z,0,Math.PI*2);favCtx.fillStyle=col+'33';favCtx.fill();
+  favCtx.beginPath();favCtx.arc(pt.x,pt.y,r+sw*0.5,0,Math.PI*2);favCtx.strokeStyle='#ffffff';favCtx.lineWidth=sw;favCtx.stroke();
   favCtx.beginPath();favCtx.arc(pt.x,pt.y,r,0,Math.PI*2);favCtx.fillStyle=col;favCtx.fill();
 }
 function favExtLine(a,b,col,lw){
@@ -1476,7 +1960,7 @@ function calcFAV(nl,cl){
   return Math.round((cross>=0?1:-1)*ang*10)/10;
 }
 
-function updateFAVResult(ang){
+window.updateFAVResult=function updateFAVResult(ang){
   var box=document.getElementById('fav-result');
   box.style.display='block';
   var absAng=Math.abs(ang);
@@ -1497,7 +1981,7 @@ function updateFAVResult(ang){
     grade.style.background='#2a0a00';grade.style.color='#ff6644';
   }
   setTimeout(function(){box.scrollIntoView({behavior:'smooth',block:'nearest'});},80);
-}
+};
 
 window.favDraw=function(){
   if(!favCanvas.width||(!favNeckImg&&!favCondImg))return;
@@ -1505,35 +1989,32 @@ window.favDraw=function(){
   favCtx.setTransform(dpr,0,0,dpr,0,0);
   favCtx.clearRect(0,0,favW(),favH());
   var op=parseInt(document.getElementById('fav-op-sl').value)/100;
-  var w=favW(),h=favH(),z=favZ.s;
+  var w=favW(),h=favH();
   if(favNeckImg&&favNeckImg.naturalWidth){favCtx.globalAlpha=1-op*0.6;favCtx.drawImage(favNeckImg,0,0,w,h);}
   if(favCondImg&&favCondImg.naturalWidth){favCtx.globalAlpha=Math.max(0.15,op);favCtx.drawImage(favCondImg,0,0,w,h);}
   favCtx.globalAlpha=1;
 
+  var svg=document.getElementById('fav-svg'); svClear(svg);
+  var z=favZ.s, wr=favWrap.getBoundingClientRect(), cr=favCenter.getBoundingClientRect();
+  function dot(p,col){svDot(svg,p,col,5,wr,cr,z);}
   if(favState.neckLine){
     var nl=favState.neckLine;
-    favExtLine(nl.p1,nl.p2,'#aa88ff',2.5);
-    favDotF(nl.p1,'#aa88ff');favDotF(nl.p2,'#aa88ff');
-    }
+    svExtLine(svg,nl.p1,nl.p2,'#aa88ff',2.5,false,wr,cr,z);
+    dot(nl.p1,'#aa88ff');dot(nl.p2,'#aa88ff');
+  }
   if(favState.condLine){
     var cl=favState.condLine;
-    favExtLine(cl.p1,cl.p2,'#44ffdd',2.5);
-    favDotF(cl.p1,'#44ffdd');favDotF(cl.p2,'#44ffdd');
-    }
-  if(favState.tmp) favDotF(favState.tmp,favState.mode==='neck'?'#aa88ff':'#44ffdd');
-
+    svExtLine(svg,cl.p1,cl.p2,'#44ffdd',2.5,false,wr,cr,z);
+    dot(cl.p1,'#44ffdd');dot(cl.p2,'#44ffdd');
+  }
+  if(favState.tmp) dot(favState.tmp,favState.mode==='neck'?'#aa88ff':'#44ffdd');
   if(favState.neckLine&&favState.condLine){
     var ang=calcFAV(favState.neckLine,favState.condLine);
     var nl2=favState.neckLine,cl2=favState.condLine;
-    var cx=(nl2.p1.x+nl2.p2.x+cl2.p1.x+cl2.p2.x)/4;
-    var cy=(nl2.p1.y+nl2.p2.y+cl2.p1.y+cl2.p2.y)/4;
-    var ang1=Math.atan2(nl2.p2.y-nl2.p1.y,nl2.p2.x-nl2.p1.x);
-    var ang2=Math.atan2(cl2.p2.y-cl2.p1.y,cl2.p2.x-cl2.p1.x);
-    favCtx.beginPath();favCtx.arc(cx,cy,28/z,Math.min(ang1,ang2),Math.max(ang1,ang2));
-    favCtx.strokeStyle='#ffdd0099';favCtx.lineWidth=2/z;favCtx.stroke();
-    favCtx.font='bold '+Math.round(18/z)+"px 'Courier New'";
-    favCtx.shadowColor='#000';favCtx.shadowBlur=8/z;
-    favCtx.fillStyle='#ffdd00';favCtx.textAlign='center';
+    var cx2=(nl2.p1.x+nl2.p2.x+cl2.p1.x+cl2.p2.x)/4,cy2=(nl2.p1.y+nl2.p2.y+cl2.p1.y+cl2.p2.y)/4;
+    var ang1=Math.atan2(nl2.p2.y-nl2.p1.y,nl2.p2.x-nl2.p1.x),ang2=Math.atan2(cl2.p2.y-cl2.p1.y,cl2.p2.x-cl2.p1.x);
+    svArc(svg,cx2,cy2,28,Math.min(ang1,ang2),Math.max(ang1,ang2),'#ffdd00',2,wr,cr,z);
+    svText(svg,cx2+8/z,cy2-32/z,Math.abs(ang).toFixed(1)+'°','#ffdd00',15,wr,cr,z);
     updateFAVResult(ang);
   }
 };
@@ -1672,8 +2153,22 @@ window.addEventListener('resize',function(){if(favCanvas.width)favLayout();});
 //   If CORA is at joint line → intra-articular
 //   If CORA is >3cm above joint line → extra-articular
 
-var leaPts = {fh:null,pf:null,fdc:null,kj:null,tpc:null,tdc:null,aj:null,fc1:null,fc2:null,tp1:null,tp2:null,cal:null};
-var leaState = {mode:null, tmp:null, pxPerMm:null};
+var leaPts  = {fh:null,pf:null,fdc:null,kj:null,tpc:null,tdc:null,aj:null,fc1:null,fc2:null,tp1:null,tp2:null,cal:null,calCircle:null};
+var leaPtsL = {fh:null,pf:null,fdc:null,kj:null,tpc:null,tdc:null,aj:null,fc1:null,fc2:null,tp1:null,tp2:null,cal:null,calCircle:null};
+var leaSide = 'R'; // 'R' or 'L'
+function leaActivePts(){ return leaSide==='R'?leaPts:leaPtsL; }
+window.leaSwitchSide=function(side){
+  leaSide=side;
+  // Update side buttons
+  var rb=document.getElementById('lea-side-r'), lb=document.getElementById('lea-side-l');
+  var rb2=document.getElementById('lea-side-r2'), lb2=document.getElementById('lea-side-l2');
+  [rb,rb2].forEach(function(b){if(b){b.style.background=side==='R'?'#2a0a00':'#0a1420';b.style.color=side==='R'?'#ff6644':'#5a8aaa';b.style.borderColor=side==='R'?'#ff6644':'#1a3a5c';}});
+  [lb,lb2].forEach(function(b){if(b){b.style.background=side==='L'?'#002a1a':'#0a1420';b.style.color=side==='L'?'#4ade80':'#5a8aaa';b.style.borderColor=side==='L'?'#4ade80':'#1a3a5c';}});
+  leaUpdateBtns(); leaDraw();
+};
+var leaState = {mode:null, tmp:null, pxPerMm:null, calMode:'circle'};
+// Set default calibration to circle mode on load
+document.addEventListener('DOMContentLoaded',function(){ leaSetCalMode('circle'); });
 var leaDrg = null;
 var leaCanvas = document.getElementById('lea-canvas');
 var leaCtx    = leaCanvas.getContext('2d');
@@ -1682,8 +2177,8 @@ var leaCenter = document.getElementById('lea-center');
 var leaXray   = document.createElement('img');
 
 var leaZ = new ZoomState(leaWrap, leaCenter, 'lea-zreset');
-leaZ.attachPinch(function(){ leaDraw(); });
-window.leaZoomReset=function(){leaZ.reset();leaDraw();};
+leaZ.attachPinch(function(){ leaDraw(); if(leaPts&&leaPts.calCircle) leaUpdateCircleDiv(); });
+window.leaZoomReset=function(){leaZ.reset();leaDraw();if(leaPts.calCircle)leaUpdateCircleDiv();};
 
 function leaLayout(){
   if(!leaXray.naturalWidth)return;
@@ -1743,12 +2238,12 @@ function lineIntersect(p1,p2,p3,p4){
 
 // Draw utilities
 function leaDot(pt, col, r){
-  var z=leaZ.s; r=(r||5)/z;
-  leaCtx.beginPath(); leaCtx.arc(pt.x,pt.y,r+4/z,0,Math.PI*2);
-  leaCtx.fillStyle=col+'28'; leaCtx.fill();
-  leaCtx.beginPath(); leaCtx.arc(pt.x,pt.y,r+1/z,0,Math.PI*2);
-  leaCtx.strokeStyle='#000'; leaCtx.lineWidth=2/z; leaCtx.stroke();
-  leaCtx.beginPath(); leaCtx.arc(pt.x,pt.y,r,0,Math.PI*2);
+  var z=leaZ.s, sz=(r||5)/z, sw=2/z;
+  leaCtx.beginPath(); leaCtx.arc(pt.x,pt.y,sz+5/z,0,Math.PI*2);
+  leaCtx.fillStyle=col+'33'; leaCtx.fill();
+  leaCtx.beginPath(); leaCtx.arc(pt.x,pt.y,sz+sw*0.5,0,Math.PI*2);
+  leaCtx.strokeStyle='#ffffff'; leaCtx.lineWidth=sw; leaCtx.stroke();
+  leaCtx.beginPath(); leaCtx.arc(pt.x,pt.y,sz,0,Math.PI*2);
   leaCtx.fillStyle=col; leaCtx.fill();
 }
 function leaLine(a,b,col,lw,dash){
@@ -1784,80 +2279,57 @@ function leaDraw(){
   var dpr=window.devicePixelRatio||1;
   leaCtx.setTransform(dpr,0,0,dpr,0,0);
   leaCtx.clearRect(0,0,leaW(),leaH());
-
-  // Draw X-ray
   leaCtx.drawImage(leaXray,0,0,leaW(),leaH());
 
-  var p=leaPts, z=leaZ.s;
+  var p=leaActivePts(),z=leaZ.s;
+  var svg=document.getElementById('lea-svg'); svClear(svg);
+  var wr=leaWrap.getBoundingClientRect(), cr=leaCenter.getBoundingClientRect();
+  function dot(pt,col,r){svDot(svg,pt,col,r,wr,cr,z);}
+  function line(a,b,col,lw,dash){svLine(svg,a,b,col,lw,dash,wr,cr,z);}
+  function extline(a,b,col,lw,dash){svExtLine(svg,a,b,col,lw,dash,wr,cr,z);}
 
-  // ── Calibration ruler ──
   if(p.cal){
-    leaLine(p.cal.p1,p.cal.p2,'#ffdd00',1.5,true);
-    var ltickH=10/z;
-    leaCtx.beginPath();leaCtx.moveTo(p.cal.p1.x,p.cal.p1.y-ltickH);leaCtx.lineTo(p.cal.p1.x,p.cal.p1.y+ltickH);leaCtx.strokeStyle='#ffdd00';leaCtx.lineWidth=2/z;leaCtx.stroke();
-    leaCtx.beginPath();leaCtx.moveTo(p.cal.p2.x,p.cal.p2.y-ltickH);leaCtx.lineTo(p.cal.p2.x,p.cal.p2.y+ltickH);leaCtx.strokeStyle='#ffdd00';leaCtx.lineWidth=2/z;leaCtx.stroke();
+    line(p.cal.p1,p.cal.p2,'#ffdd00',1.5,true);
+    svTick(svg,p.cal.p1.x,p.cal.p1.y,'#ffdd00',2.5,wr,cr,z);
+    svTick(svg,p.cal.p2.x,p.cal.p2.y,'#ffdd00',2.5,wr,cr,z);
   }
-
-  // ── In-progress temp point ──
-  if(leaState.tmp){
+  if(leaActivePts().calCircle) leaUpdateCircleDiv();
+  if(leaState.tmp&&leaState.mode!=='cal_circle'){
     var tmpCol={cal:'#ffdd00',fc:'#ff8844',tp:'#44ffdd'}[leaState.mode]||'#00e5ff';
-    leaDot(leaState.tmp,tmpCol);
+    dot(leaState.tmp,tmpCol);
   }
-
-  // ── Distal femoral condyle line ──
-  if(p.fc1&&p.fc2){
-    leaExtLine(p.fc1,p.fc2,'#ff8844',2,false);
-    leaDot(p.fc1,'#ff8844'); leaDot(p.fc2,'#ff8844');
-    } else if(p.fc1) leaDot(p.fc1,'#ff8844');
-
-  // ── Tibial plateau line ──
-  if(p.tp1&&p.tp2){
-    leaExtLine(p.tp1,p.tp2,'#44ffdd',2,false);
-    leaDot(p.tp1,'#44ffdd'); leaDot(p.tp2,'#44ffdd');
-    } else if(p.tp1) leaDot(p.tp1,'#44ffdd');
-
-  // ── Landmark dots (no labels on canvas) ──
-  if(p.fh)  leaDot(p.fh,'#4488ff',6);
-  if(p.pf)  leaDot(p.pf,'#aa88ff');
-  if(p.fdc) leaDot(p.fdc,'#aa88ff');
-  if(p.kj)  leaDot(p.kj,'#ffdd00',6);
-  if(p.tpc) leaDot(p.tpc,'#ff9944');
-  if(p.tdc) leaDot(p.tdc,'#ff9944');
-  if(p.aj)  leaDot(p.aj,'#ff8844');
-  if(p.aj)  leaDot(p.aj,'#ff8844');
-
-  // ── Mechanical axes ──
-  if(p.fh&&p.kj){
-    leaLine(p.fh,p.kj,'#4488ff',2,false); // Femoral Mechanical Axis
-  }
-  if(p.kj&&p.aj){
-    leaLine(p.kj,p.aj,'#44ffdd',2,false); // Tibial Mechanical Axis
-  }
-  if(p.fh&&p.aj){
-    leaLine(p.fh,p.aj,'#ffffff44',1.5,true); // Full mechanical axis dashed
-  }
-
-  // ── Femoral anatomical axis (PF → FDC extended both ways) ──
-  if(p.pf&&p.fdc){
-    leaExtLine(p.pf,p.fdc,'#aa88ff',1.5,true);
-    }
-
-  // ── Tibial anatomical axis (TPC → TDC extended both ways) ──
-  if(p.tpc&&p.tdc){
-    leaExtLine(p.tpc,p.tdc,'#ff9944',1.5,true);
-    }
-
-  // ── Compute and draw angles if we have enough points ──
-  var results = leaCalc();
-  if(results) leaDrawResults(results);
+  if(p.fc1&&p.fc2){line(p.fc1,p.fc2,'#ff8844',2,false);dot(p.fc1,'#ff8844');dot(p.fc2,'#ff8844');}
+  else if(p.fc1) dot(p.fc1,'#ff8844');
+  if(p.tp1&&p.tp2){line(p.tp1,p.tp2,'#44ffdd',2,false);dot(p.tp1,'#44ffdd');dot(p.tp2,'#44ffdd');}
+  else if(p.tp1) dot(p.tp1,'#44ffdd');
+  if(p.fh) dot(p.fh,'#4488ff',4);
+  if(p.pf) dot(p.pf,'#aa88ff');
+  if(p.fdc)dot(p.fdc,'#aa88ff');
+  if(p.kj) dot(p.kj,'#ffdd00',4);
+  if(p.tpc)dot(p.tpc,'#ff9944');
+  if(p.tdc)dot(p.tdc,'#ff9944');
+  if(p.aj) dot(p.aj,'#ff8844');
+  if(p.fh&&p.kj) line(p.fh,p.kj,'#4488ff',2,false);
+  if(p.kj&&p.aj) line(p.kj,p.aj,'#44ffdd',2,false);
+  if(p.fh&&p.aj) line(p.fh,p.aj,'#ffffff33',1.5,true);
+  if(p.pf&&p.fdc) extline(p.pf,p.fdc,'#aa88ff',1.5,true);
+  if(p.tpc&&p.tdc)extline(p.tpc,p.tdc,'#ff9944',1.5,true);
+  var results=leaCalc();
+  if(results) leaDrawResults(results,svg,wr,cr,z);
 }
 
-function leaCalc(){
-  var p=leaPts;
+function leaCalcFor(p){
   if(!p.fh||!p.kj||!p.aj) return null;
 
   var res={};
   var pxMm = leaState.pxPerMm||1;
+
+  // Limb length: FH → AJ (mechanical axis length)
+  if(p.fh&&p.aj){
+    var limbPx=leaDist(p.fh,p.aj);
+    res.limbMm=leaState.pxPerMm?Math.round(limbPx/leaState.pxPerMm)+'mm':'— (calibrate)';
+    res.limbPx=limbPx;
+  }
 
   // Mechanical axis vector: fh→aj
   var madx=p.aj.x-p.fh.x, mady=p.aj.y-p.fh.y;
@@ -1941,92 +2413,172 @@ function leaCalc(){
   return res;
 }
 
-function leaDrawResults(res){
-  var p=leaPts, z=leaZ.s;
 
-  // Draw CORA point
+function leaCalc(){
+  var p=leaActivePts();
+  if(!p.fh||!p.kj||!p.aj) return null;
+
+  var res={};
+  var pxMm = leaState.pxPerMm||1;
+
+  // Limb length: FH → AJ (mechanical axis length)
+  if(p.fh&&p.aj){
+    var limbPx=leaDist(p.fh,p.aj);
+    res.limbMm=leaState.pxPerMm?Math.round(limbPx/leaState.pxPerMm)+'mm':'— (calibrate)';
+    res.limbPx=limbPx;
+  }
+
+  // Mechanical axis vector: fh→aj
+  var madx=p.aj.x-p.fh.x, mady=p.aj.y-p.fh.y;
+
+  // Varus/valgus: signed distance of KJ from the full MA line (fh→aj)
+  // Positive = KJ is to the right of fh→aj = valgus (in standard AP left-leg)
+  var vvPx = ptToLineDist(p.kj, p.fh, p.aj);
+  res.vvMm = leaState.pxPerMm ? Math.abs(vvPx/pxMm).toFixed(1) : null;
+  res.vvDir = vvPx > 2/leaZ.s ? 'VALGUS' : vvPx < -2/leaZ.s ? 'VARUS' : 'NEUTRAL';
+  res.vvPx = vvPx;
+
+  // mLDFA: angle between Femoral Mechanical Axis (fh→kj) and condyle line (fc1→fc2)
+  // Measured as lateral angle (supplementary if needed to get the correct convention)
+  if(p.fc1&&p.fc2){
+    var fmaDx=p.kj.x-p.fh.x, fmaDy=p.kj.y-p.fh.y;
+    var fcDx=p.fc2.x-p.fc1.x, fcDy=p.fc2.y-p.fc1.y;
+    var ang=angleBetweenVecs(fmaDx,fmaDy,fcDx,fcDy);
+    // mLDFA is the lateral distal angle — normal ~87°
+    res.mLDFA = ang > 90 ? (180-ang).toFixed(1) : ang.toFixed(1);
+    res.mLDFA_val = parseFloat(res.mLDFA);
+    res.fcMid = leaMid(p.fc1,p.fc2);
+  }
+
+  // mMPTA: angle between Tibial Mechanical Axis (kj→aj) and tibial plateau line (tp1→tp2)
+  // Medial proximal angle — normal ~87°
+  if(p.tp1&&p.tp2){
+    var tmaDx=p.aj.x-p.kj.x, tmaDy=p.aj.y-p.kj.y;
+    var tpDx=p.tp2.x-p.tp1.x, tpDy=p.tp2.y-p.tp1.y;
+    var ang2=angleBetweenVecs(tmaDx,tmaDy,tpDx,tpDy);
+    res.mMPTA = ang2 > 90 ? (180-ang2).toFixed(1) : ang2.toFixed(1);
+    res.mMPTA_val = parseFloat(res.mMPTA);
+    res.tpMid = leaMid(p.tp1,p.tp2);
+  }
+
+  // JLCA: angle between condyle line and plateau line at their intersection
+  if(p.fc1&&p.fc2&&p.tp1&&p.tp2){
+    var fcDx2=p.fc2.x-p.fc1.x, fcDy2=p.fc2.y-p.fc1.y;
+    var tpDx2=p.tp2.x-p.tp1.x, tpDy2=p.tp2.y-p.tp1.y;
+    var jlcaAng=angleBetweenVecs(fcDx2,fcDy2,tpDx2,tpDy2);
+    res.JLCA = Math.min(jlcaAng,180-jlcaAng).toFixed(1);
+    res.jlcaIntersect = lineIntersect(p.fc1,p.fc2,p.tp1,p.tp2);
+  }
+
+  // ── CORA: intersection of femoral anatomical axis (PF→FDC) and tibial anatomical axis (TPC→TDC) ──
+  if(p.pf&&p.fdc&&p.tpc&&p.tdc&&p.kj){
+    var cora=lineIntersect(p.pf,p.fdc,p.tpc,p.tdc);
+    if(cora) res.CORA=cora;
+
+    if(cora&&leaState.pxPerMm){
+      // Distance from CORA to KJ (knee center) — this defines intra vs extra-articular
+      var coraToKJpx=leaDist(cora,p.kj);
+      var coraToKJmm=coraToKJpx/leaState.pxPerMm;
+      res.coraDistMm=coraToKJmm;
+
+      if(coraToKJmm<=10){
+        // CORA at knee joint — intra-articular deformity
+        res.deformity='INTRA-ARTICULAR';
+        var mag=0;
+        if(res.mLDFA_val) mag+=Math.abs(res.mLDFA_val-87);
+        if(res.mMPTA_val) mag+=Math.abs(res.mMPTA_val-87);
+        res.deformityMag=mag.toFixed(1);
+      } else if(coraToKJmm<=30){
+        // CORA close to joint — peri-articular
+        res.deformity='PERI-ARTICULAR';
+        res.deformityDist=coraToKJmm.toFixed(0);
+        res.coraAbove=cora.y<p.kj.y; // above = femoral side, below = tibial side
+      } else {
+        // CORA far from joint — extra-articular (shaft level)
+        res.deformity='EXTRA-ARTICULAR';
+        res.deformityDist=coraToKJmm.toFixed(0);
+        res.coraAbove=cora.y<p.kj.y;
+      }
+    } else if(cora&&p.kj){
+      // No calibration — classify by pixel distance
+      var cpx2=leaDist(cora,p.kj);
+      if(cpx2<20) res.deformity='INTRA-ARTICULAR (calibrate for mm)';
+      else res.deformity='EXTRA-ARTICULAR (calibrate for mm)';
+    }
+  }
+
+  return res;
+}
+
+function leaDrawResults(res,svg,wr,cr,z){
+  var p=leaPts;
+
+  // CORA
   if(res.CORA){
-    leaCtx.beginPath(); leaCtx.arc(res.CORA.x,res.CORA.y,8/z,0,Math.PI*2);
-    leaCtx.strokeStyle='#aa88ff'; leaCtx.lineWidth=2/z; leaCtx.stroke();
-    leaDot(res.CORA,'#aa88ff',3);
-    }
+    var sc2=c2s(res.CORA.x,res.CORA.y,wr,cr,z);
+    svg.appendChild(svEl('circle',{cx:sc2.x,cy:sc2.y,r:10,fill:'none',stroke:'#aa88ff','stroke-width':'2.5'}));
+    svDot(svg,res.CORA,'#aa88ff',4,wr,cr,z);
+    svText(svg,res.CORA.x+14/z,res.CORA.y-4/z,'CORA','#aa88ff',11,wr,cr,z);
+  }
 
-  // Draw varus/valgus offset line at knee
+  // MAD offset line
   if(p.fh&&p.kj&&p.aj&&Math.abs(res.vvPx)>2){
-    // Foot of perpendicular from KJ to MA line
-    var madx=p.aj.x-p.fh.x, mady=p.aj.y-p.fh.y;
-    var malen=Math.sqrt(madx*madx+mady*mady)||1;
-    var t=((p.kj.x-p.fh.x)*madx+(p.kj.y-p.fh.y)*mady)/(malen*malen);
-    var foot={x:p.fh.x+t*madx, y:p.fh.y+t*mady};
-    leaLine(p.kj,foot,'#00e5ff',2,true);
-    leaDot(foot,'#00e5ff',3);
-    if(res.vvMm){
-        }
+    var madx2=p.aj.x-p.fh.x,mady2=p.aj.y-p.fh.y;
+    var malen=Math.sqrt(madx2*madx2+mady2*mady2)||1;
+    var t2=((p.kj.x-p.fh.x)*madx2+(p.kj.y-p.fh.y)*mady2)/(malen*malen);
+    var foot={x:p.fh.x+t2*madx2,y:p.fh.y+t2*mady2};
+    svLine(svg,p.kj,foot,'#00e5ff',2,true,wr,cr,z);
+    svDot(svg,foot,'#00e5ff',3,wr,cr,z);
+    if(res.vvMm) svText(svg,foot.x+8/z,foot.y-8/z,'MAD '+res.vvMm+'mm','#00e5ff',11,wr,cr,z);
   }
 
-  // mLDFA arc at knee
+  // mLDFA arc
   if(res.mLDFA&&p.fh&&p.kj&&p.fc1&&p.fc2){
-    // Draw small arc at kj between FMA and condyle line
-    var v1={x:p.fh.x-p.kj.x,y:p.fh.y-p.kj.y}; // toward fh
-    var fcM={x:(p.fc1.x+p.fc2.x)/2,y:(p.fc1.y+p.fc2.y)/2};
-    var v2={x:fcM.x-p.kj.x,y:fcM.y-p.kj.y};
-    leaAngleArc(p.kj,{x:p.kj.x+v1.x/leaDist(p.kj,{x:p.kj.x+v1.x,y:p.kj.y+v1.y})*35,y:p.kj.y+v1.y/leaDist(p.kj,{x:p.kj.x+v1.x,y:p.kj.y+v1.y})*35},{x:p.kj.x+v2.x/Math.max(1,Math.sqrt(v2.x*v2.x+v2.y*v2.y))*35,y:p.kj.y+v2.y/Math.max(1,Math.sqrt(v2.x*v2.x+v2.y*v2.y))*35},35,'#ff8844','mLDFA\n'+res.mLDFA+'°');
+    var v1x=p.fh.x-p.kj.x,v1y=p.fh.y-p.kj.y;
+    var fcMx=(p.fc1.x+p.fc2.x)/2,fcMy=(p.fc1.y+p.fc2.y)/2;
+    var v2x=fcMx-p.kj.x,v2y=fcMy-p.kj.y;
+
   }
 
-  // mMPTA arc at kj (tibial side)
+  // mMPTA arc
   if(res.mMPTA&&p.kj&&p.aj&&p.tp1&&p.tp2){
-    var v3={x:p.aj.x-p.kj.x,y:p.aj.y-p.kj.y};
-    var tpMid2={x:(p.tp1.x+p.tp2.x)/2,y:(p.tp1.y+p.tp2.y)/2};
-    var v4={x:tpMid2.x-p.kj.x,y:tpMid2.y-p.kj.y};
-    leaAngleArc(p.kj,{x:p.kj.x+v3.x/Math.max(1,Math.sqrt(v3.x*v3.x+v3.y*v3.y))*50,y:p.kj.y+v3.y/Math.max(1,Math.sqrt(v3.x*v3.x+v3.y*v3.y))*50},{x:p.kj.x+v4.x/Math.max(1,Math.sqrt(v4.x*v4.x+v4.y*v4.y))*50,y:p.kj.y+v4.y/Math.max(1,Math.sqrt(v4.x*v4.x+v4.y*v4.y))*50},50,'#44ffdd','mMPTA\n'+res.mMPTA+'°');
+    var v3x=p.aj.x-p.kj.x,v3y=p.aj.y-p.kj.y;
+    var tpMx=(p.tp1.x+p.tp2.x)/2,tpMy=(p.tp1.y+p.tp2.y)/2;
+    var v4x=tpMx-p.kj.x,v4y=tpMy-p.kj.y;
+
   }
 
-  // JLCA at joint line intersection
+  // JLCA
   if(res.JLCA&&res.jlcaIntersect){
-    leaDot(res.jlcaIntersect,'#ffdd00',3);
-    }
-
-  // Update result boxes
-  var haveAll = p.fh&&p.kj&&p.aj;
-  document.getElementById('lea-result').style.display = haveAll?'block':'none';
-  if(haveAll){
-    var vvEl=document.getElementById('lr-vv');
-    vvEl.textContent = res.vvDir;
-    vvEl.style.color = res.vvDir==='VALGUS'?'#00e5ff':res.vvDir==='VARUS'?'#ff6644':'#4ade80';
-    document.getElementById('lr-off').textContent = res.vvMm ? res.vvMm+' mm' : '— (calibrate)';
-    document.getElementById('lr-ldfa').textContent = res.mLDFA ? res.mLDFA+'°' : '—';
-    document.getElementById('lr-mpta').textContent = res.mMPTA ? res.mMPTA+'°' : '—';
-    document.getElementById('lr-jlca').textContent = res.JLCA  ? res.JLCA+'°'  : '—';
+    svDot(svg,res.jlcaIntersect,'#ffdd00',3,wr,cr,z);
   }
 
+  // Left panel results
+  var haveAll=p.fh&&p.kj&&p.aj;
+  document.getElementById('lea-result').style.display=haveAll?'block':'none';
+  if(haveAll){
+    document.getElementById('lr-length').textContent=res.limbMm||'—';
+  var vvEl=document.getElementById('lr-vv');
+    vvEl.textContent=res.vvDir;
+    vvEl.style.color=res.vvDir==='VALGUS'?'#00e5ff':res.vvDir==='VARUS'?'#ff6644':'#4ade80';
+    document.getElementById('lr-off').textContent=res.vvMm?res.vvMm+' mm':'— (calibrate)';
+    document.getElementById('lr-ldfa').textContent=res.mLDFA?res.mLDFA+'°':'—';
+    document.getElementById('lr-mpta').textContent=res.mMPTA?res.mMPTA+'°':'—';
+    document.getElementById('lr-jlca').textContent=res.JLCA?res.JLCA+'°':'—';
+  }
   var coraBox=document.getElementById('lea-cora-box');
   if(res.CORA){
     coraBox.style.display='block';
-    var coraTxt='';
-    if(res.coraDistMm!==undefined){
-      coraTxt='Distance CORA → Knee: <span style="color:#aa88ff;font-weight:700">'+res.coraDistMm.toFixed(0)+' mm</span>';
-    } else {
-      coraTxt='Place calibration ruler for mm distance.';
-    }
+    var coraTxt=res.coraDistMm!==undefined?'CORA → Knee: <span style="color:#aa88ff;font-weight:700">'+res.coraDistMm.toFixed(0)+' mm</span>':'Calibrate ruler for mm distance.';
     document.getElementById('lr-cora-txt').innerHTML=coraTxt;
   } else coraBox.style.display='none';
-
   var defBox=document.getElementById('lea-deformity-box');
   if(res.deformity){
     defBox.style.display='block';
     var defCol=res.deformity.includes('INTRA')?'#ff4466':res.deformity.includes('EXTRA')?'#ffaa44':'#ffdd00';
     var defTxt='<span style="color:'+defCol+';font-weight:700">'+res.deformity+'</span><br/>';
-    if(res.deformity==='INTRA-ARTICULAR'){
-      defTxt+='<span style="color:#8a4a5a">CORA at knee joint.<br/>Deformity within joint.<br/>Combined magnitude: '+res.deformityMag+'°</span>';
-    } else if(res.deformity==='EXTRA-ARTICULAR'){
-      var side=res.coraAbove?'Femoral shaft':'Tibial shaft';
-      defTxt+='<span style="color:#8a6a2a">CORA is '+res.deformityDist+'mm from knee center.<br/>'+side+' level deformity.<br/>Osteotomy at CORA level.</span>';
-    } else if(res.deformity==='PERI-ARTICULAR'){
-      var side2=res.coraAbove?'Distal femur':'Proximal tibia';
-      defTxt+='<span style="color:#7a7a2a">CORA is '+res.deformityDist+'mm from knee.<br/>'+side2+' deformity.<br/>Consider osteotomy at CORA.</span>';
-    } else {
-      defTxt+='<span style="color:#5a6a2a">'+res.deformity+'</span>';
-    }
+    if(res.deformity==='INTRA-ARTICULAR') defTxt+='<span style="color:#8a4a5a">CORA at knee. Combined: '+res.deformityMag+'°</span>';
+    else if(res.deformityDist) defTxt+='<span style="color:#8a6a2a">CORA '+res.deformityDist+'mm from knee.</span>';
     document.getElementById('lr-deformity-txt').innerHTML=defTxt;
   } else defBox.style.display='none';
 }
@@ -2034,8 +2586,10 @@ function leaDrawResults(res){
 // Mode activation
 var LEA_MODES={fh:'🔵 Femoral Head Center',pf:'🟣 Piriformis Fossa',fdc:'🟣 Distal Femoral Canal',
                kj:'🟡 Knee Joint Center',tpc:'🔶 Proximal Tibial Center',tdc:'🔶 Distal Tibial Center',
-               aj:'🟠 Ankle Joint Center',fc:'📐 Distal Femoral Condyles',tp:'📐 Proximal Tibial Plateau',cal:'📏 Calibration Ruler'};
-var LEA_COLORS={fh:'#4488ff',pf:'#aa88ff',fdc:'#aa88ff',kj:'#ffdd00',tpc:'#ff9944',tdc:'#ff9944',aj:'#ff8844',fc:'#ff8844',tp:'#44ffdd',cal:'#ffdd00'};
+               aj:'🟠 Ankle Joint Center',fc:'📐 Distal Femoral Condyles',tp:'📐 Proximal Tibial Plateau',
+               cal:'📏 Calibration Ruler',cal_circle:'⊙ Calibration Circle'};
+var LEA_COLORS={fh:'#4488ff',pf:'#aa88ff',fdc:'#aa88ff',kj:'#ffdd00',tpc:'#ff9944',tdc:'#ff9944',
+                aj:'#ff8844',fc:'#ff8844',tp:'#44ffdd',cal:'#ffdd00',cal_circle:'#ffdd00'};
 var LEA_HINTS={
   fh:'Tap center of the femoral head',
   pf:'Tap the piriformis fossa (proximal femoral canal entry)',
@@ -2046,7 +2600,8 @@ var LEA_HINTS={
   aj:'Tap center of the ankle joint',
   fc:['① Tap one end of the distal femoral condyle line','② Tap the other end'],
   tp:['① Tap one end of the tibial plateau','② Tap the other end'],
-  cal:['① Tap start of known distance on ruler','② Tap end of ruler distance']
+  cal:['① Tap start of known distance on ruler','② Tap end of ruler distance'],
+  cal_circle:'Tap center of calibration circle, then drag edge to set diameter'
 };
 
 window.leaActivate=function(mode){
@@ -2057,20 +2612,34 @@ window.leaActivate=function(mode){
 
 function leaUpdateBtns(){
   var m=leaState.mode;
+  var p=leaActivePts();
   var hb=document.getElementById('lea-hint');
-  // Reset all buttons
-  ['fh','pf','fdc','kj','tpc','tdc','aj','fc','tp','cal'].forEach(function(k){
+  // Reset landmark/joint buttons
+  ['fh','pf','fdc','kj','tpc','tdc','aj','fc','tp'].forEach(function(k){
     var btn=document.getElementById('lea-btn-'+k);
     if(!btn) return;
     btn.classList.remove('active-lea','done-lea');
-    if(leaPts[k]||(k==='fc'&&leaPts.fc1&&leaPts.fc2)||(k==='tp'&&leaPts.tp1&&leaPts.tp2)||(k==='cal'&&leaPts.cal)){
+    if(p[k]||(k==='fc'&&p.fc1&&p.fc2)||(k==='tp'&&p.tp1&&p.tp2)){
       btn.classList.add('done-lea');
     }
     btn.textContent=LEA_MODES[k]||k;
   });
-  if(m){
-    var btn=document.getElementById('lea-btn-'+m);
-    if(btn){btn.classList.add('active-lea'); btn.classList.remove('done-lea');}
+  // Calibration buttons — highlight active mode, show done if calibrated
+  var rb=document.getElementById('lea-cal-ruler-btn');
+  var cb=document.getElementById('lea-cal-circle-btn');
+  var calDone = leaState.pxPerMm && leaState.pxPerMm>0;
+  if(rb){
+    rb.style.borderColor = m==='cal' ? '#00e5ff' : leaState.calMode==='ruler'&&calDone ? '#4ade80' : leaState.calMode==='ruler' ? '#ffdd00' : '#1a3a5c';
+    rb.style.background  = m==='cal' ? '#002a3a' : leaState.calMode==='ruler' ? '#2a2200' : '#0a1420';
+    rb.style.color       = m==='cal' ? '#00e5ff' : leaState.calMode==='ruler' ? '#ffdd00' : '#5a8aaa';
+  }
+  if(cb){
+    cb.style.borderColor = m==='cal_circle' ? '#00e5ff' : leaState.calMode==='circle'&&calDone ? '#4ade80' : leaState.calMode==='circle' ? '#ffdd00' : '#1a3a5c';
+    cb.style.background  = m==='cal_circle' ? '#002a3a' : leaState.calMode==='circle' ? '#2a2200' : '#0a1420';
+    cb.style.color       = m==='cal_circle' ? '#00e5ff' : leaState.calMode==='circle' ? '#ffdd00' : '#5a8aaa';
+  }
+  // Hint box
+  if(m&&LEA_HINTS[m]){
     hb.style.display='block'; hb.style.color=LEA_COLORS[m]||'#00e5ff';
     var hint=LEA_HINTS[m];
     if(Array.isArray(hint)) hb.textContent=hint[leaState.tmp?1:0];
@@ -2079,21 +2648,144 @@ function leaUpdateBtns(){
 }
 
 window.leaReset=function(){
-  leaPts={fh:null,pf:null,fdc:null,kj:null,tpc:null,tdc:null,aj:null,fc1:null,fc2:null,tp1:null,tp2:null,cal:null};
-  leaState={mode:null,tmp:null,pxPerMm:null};
+  leaPts={fh:null,pf:null,fdc:null,kj:null,tpc:null,tdc:null,aj:null,fc1:null,fc2:null,tp1:null,tp2:null,cal:null,calCircle:null};
+  leaPtsL={fh:null,pf:null,fdc:null,kj:null,tpc:null,tdc:null,aj:null,fc1:null,fc2:null,tp1:null,tp2:null,cal:null,calCircle:null};
+  leaSide='R';
+  leaState={mode:null,tmp:null,pxPerMm:null,calMode:'circle'};
   leaDrg=null;
   document.getElementById('lea-result').style.display='none';
   document.getElementById('lea-cora-box').style.display='none';
   document.getElementById('lea-deformity-box').style.display='none';
   document.getElementById('lea-cal-status').style.display='none';
+  var cd=document.getElementById('lea-cal-circle-div'); if(cd) cd.style.display='none';
+  leaSetCalMode('ruler');
   leaUpdateBtns(); leaDraw();
 };
 
+window.leaSetCalMode = function(mode){
+  leaState.calMode = mode;
+  var rb = document.getElementById('lea-cal-ruler-btn');
+  var cb = document.getElementById('lea-cal-circle-btn');
+  var lbl = document.getElementById('lea-cal-mm-label');
+  if(mode==='ruler'){
+    if(rb){rb.style.borderColor='#ffdd00';rb.style.background='#2a2200';rb.style.color='#ffdd00';}
+    if(cb){cb.style.borderColor='#1a3a5c';cb.style.background='#0a1420';cb.style.color='#5a8aaa';}
+    if(lbl) lbl.textContent='distance';
+    var mmEl=document.getElementById('lea-cal-mm');if(mmEl)mmEl.value='10';
+    // Hide circle div when switching to ruler
+    var cd=document.getElementById('lea-cal-circle-div');
+    if(cd) cd.style.display='none';
+  } else {
+    if(cb){cb.style.borderColor='#ffdd00';cb.style.background='#2a2200';cb.style.color='#ffdd00';}
+    if(rb){rb.style.borderColor='#1a3a5c';rb.style.background='#0a1420';rb.style.color='#5a8aaa';}
+    if(lbl) lbl.textContent='diameter';
+    var mmEl2=document.getElementById('lea-cal-mm');if(mmEl2)mmEl2.value='25.4';
+  }
+};
+
+// Update the HTML circle div position and size based on canvas coords
+function leaUpdateCircleDiv(){
+  var div=document.getElementById('lea-cal-circle-div');
+  var _pts=leaActivePts();
+  if(!div||!_pts.calCircle) return;
+  var cc=_pts.calCircle;
+  // div is inside lea-center (position:relative)
+  // Convert canvas coords to lea-center-relative screen coords
+  var wrapRect = leaWrap.getBoundingClientRect();
+  var centerEl = document.getElementById('lea-center');
+  var centerRect = centerEl.getBoundingClientRect();
+  var z = leaZ.s;
+  // Canvas px → screen: wrapRect.left + cx*z, wrapRect.top + cy*z
+  var sx = (wrapRect.left - centerRect.left) + cc.cx * z;
+  var sy = (wrapRect.top  - centerRect.top)  + cc.cy * z;
+  div.style.display='block';
+  div.style.left   = sx + 'px';
+  div.style.top    = sy + 'px';
+  div.style.width  = (cc.r * z * 2) + 'px';
+  div.style.height = (cc.r * z * 2) + 'px';
+}
+
+
+
+// Also hide circle div when placing (hint in hint box), show slider
+
+
+// Circle div — drag body to move, drag knob to resize
+(function(){
+  var cdiv = document.getElementById('lea-cal-circle-div');
+  var knob = document.getElementById('lea-circle-knob');
+  var _move = null; // {startX, startY, cx0, cy0}
+  var _resize = null; // {startX, r0}
+
+  // ── BODY drag: move circle ──
+  function bodyDown(e){
+    if(e.target === knob) return; // let knob handle it
+    if(!leaPts.calCircle) return;
+    e.preventDefault(); e.stopPropagation();
+    var src = e.touches ? e.touches[0] : e;
+    _move = {startX:src.clientX, startY:src.clientY,
+             cx0:leaPts.calCircle.cx, cy0:leaPts.calCircle.cy};
+  }
+  function bodyMove(e){
+    if(!_move || !leaPts.calCircle) return;
+    e.preventDefault(); e.stopPropagation();
+    var src = e.touches ? e.touches[0] : e;
+    leaPts.calCircle.cx = _move.cx0 + (src.clientX - _move.startX) / leaZ.s;
+    leaPts.calCircle.cy = _move.cy0 + (src.clientY - _move.startY) / leaZ.s;
+    leaUpdateCircleDiv();
+    leaApplyRuler();
+  }
+  function bodyUp(){ _move = null; }
+
+  // ── KNOB drag: resize circle in fine increments ──
+  function knobDown(e){
+    if(!leaPts.calCircle) return;
+    e.preventDefault(); e.stopPropagation();
+    var src = e.touches ? e.touches[0] : e;
+    _resize = {startX:src.clientX, r0:leaPts.calCircle.r};
+  }
+  function knobMove(e){
+    if(!_resize || !leaPts.calCircle) return;
+    e.preventDefault(); e.stopPropagation();
+    var src = e.touches ? e.touches[0] : e;
+    // Delta in screen px / zoom = canvas px; multiply by 0.5 for finer control
+    var delta = (src.clientX - _resize.startX) / leaZ.s * 0.5;
+    leaPts.calCircle.r = Math.max(2, _resize.r0 + delta);
+    leaUpdateCircleDiv();
+    leaApplyRuler();
+  }
+  function knobUp(){ _resize = null; }
+
+  cdiv.addEventListener('touchstart', bodyDown, {passive:false});
+  cdiv.addEventListener('touchmove',  bodyMove, {passive:false});
+  cdiv.addEventListener('touchend',   bodyUp,   {passive:false});
+  cdiv.addEventListener('mousedown',  bodyDown, false);
+
+  knob.addEventListener('touchstart', knobDown, {passive:false});
+  knob.addEventListener('touchmove',  knobMove, {passive:false});
+  knob.addEventListener('touchend',   knobUp,   {passive:false});
+  knob.addEventListener('mousedown',  knobDown, false);
+
+  window.addEventListener('mousemove', function(e){
+    if(_move)   bodyMove(e);
+    if(_resize) knobMove(e);
+  });
+  window.addEventListener('mouseup', function(){
+    _move = null; _resize = null;
+  });
+})();
+
 window.leaApplyRuler=function(){
-  if(!leaPts.cal) return;
-  var dx=leaPts.cal.p2.x-leaPts.cal.p1.x, dy=leaPts.cal.p2.y-leaPts.cal.p1.y;
-  var pxLen=Math.sqrt(dx*dx+dy*dy);
   var mm=parseFloat(document.getElementById('lea-cal-mm').value)||50;
+  var pxLen=0;
+  var _pts=leaActivePts();
+  if(leaState.calMode==='ruler'&&_pts.cal){
+    var dx=_pts.cal.p2.x-_pts.cal.p1.x,dy=_pts.cal.p2.y-_pts.cal.p1.y;
+    pxLen=Math.sqrt(dx*dx+dy*dy);
+  } else if(leaState.calMode==='circle'&&_pts.calCircle){
+    pxLen=_pts.calCircle.r*2;
+  }
+  if(!pxLen) return;
   leaState.pxPerMm=pxLen/mm;
   var el=document.getElementById('lea-cal-status');
   el.style.display='block'; el.style.background='#0a2a0a';
@@ -2112,10 +2804,20 @@ leaCanvas.addEventListener('touchend',  leaUp,{passive:false});
 function leaDown(e){
   e.preventDefault();e.stopPropagation();
   var pt=leaPt(e), m=leaState.mode, z=leaZ.s, HIT=24/z;
+  var leaPts=leaActivePts(); // always use the active side
 
   // Placement modes
   if(m==='fh'||m==='pf'||m==='fdc'||m==='kj'||m==='tpc'||m==='tdc'||m==='aj'){
     leaPts[m]=pt; leaState.mode=null; leaUpdateBtns(); leaDraw(); return;
+  }
+  if(m==='cal_circle'){
+    // Single tap places center — slider in left panel resizes
+    leaPts.calCircle={cx:pt.x,cy:pt.y,r:40};
+    leaState.mode=null;
+    leaUpdateBtns();
+    leaUpdateCircleDiv();
+    leaApplyRuler();
+    return;
   }
   if(m==='fc'||m==='tp'||m==='cal'){
     var k1=m==='fc'?'fc1':m==='tp'?'tp1':'cal_p1';
@@ -2134,7 +2836,9 @@ function leaDown(e){
     {k:'fh',p:leaPts.fh},{k:'pf',p:leaPts.pf},{k:'fdc',p:leaPts.fdc},
     {k:'kj',p:leaPts.kj},{k:'tpc',p:leaPts.tpc},{k:'tdc',p:leaPts.tdc},{k:'aj',p:leaPts.aj},
     {k:'fc1',p:leaPts.fc1},{k:'fc2',p:leaPts.fc2},{k:'tp1',p:leaPts.tp1},{k:'tp2',p:leaPts.tp2},
-    {k:'cal_p1',p:leaPts.cal?leaPts.cal.p1:null},{k:'cal_p2',p:leaPts.cal?leaPts.cal.p2:null}
+    {k:'cal_p1',p:leaPts.cal?leaPts.cal.p1:null},{k:'cal_p2',p:leaPts.cal?leaPts.cal.p2:null},
+    {k:'circle_c',p:leaPts.calCircle?{x:leaPts.calCircle.cx,y:leaPts.calCircle.cy}:null},
+    {k:'circle_e',p:leaPts.calCircle?{x:leaPts.calCircle.cx+leaPts.calCircle.r,y:leaPts.calCircle.cy}:null}
   ];
   for(var i=0;i<hits.length;i++){
     if(hits[i].p&&leaDist(pt,hits[i].p)<=HIT){leaDrg=hits[i].k;return;}
@@ -2143,12 +2847,17 @@ function leaDown(e){
 function leaMove(e){
   if(!leaDrg)return; e.preventDefault(); e.stopPropagation();
   var pt=leaPt(e);
+  var leaPts=leaActivePts(); // always use the active side
   if(leaDrg==='cal_p1'){leaPts.cal.p1=pt;leaApplyRuler();}
   else if(leaDrg==='cal_p2'){leaPts.cal.p2=pt;leaApplyRuler();}
+  else if(leaDrg==='circle_c'){leaPts.calCircle.cx=pt.x;leaPts.calCircle.cy=pt.y;leaUpdateCircleDiv();leaApplyRuler();}
   else leaPts[leaDrg]=pt;
   leaDraw();
 }
-function leaUp(e){if(e){e.preventDefault();e.stopPropagation();}leaDrg=null;}
+function leaUp(e){
+  if(e){e.preventDefault();e.stopPropagation();}
+  leaDrg=null;
+}
 
 // Image upload
 document.getElementById('lea-upload').addEventListener('change',function(e){
@@ -2172,7 +2881,373 @@ document.getElementById('lea-upload').addEventListener('change',function(e){
 document.getElementById('lea-cal-mm').addEventListener('input',function(){leaApplyRuler();});
 window.addEventListener('resize',function(){if(leaCanvas.width)leaLayout();});
 
+// ── LAYOUT 4: Sync sheet/toolbar with existing logic ──
+
+// Make each result float card draggable
+(function(){
+  ['a-result-float','tttg-result-float','fav-result-float','lea-result-float'].forEach(function(id){
+    var el = document.getElementById(id);
+    if(!el) return;
+    var _drag = null;
+    function down(e){
+      e.preventDefault(); e.stopPropagation();
+      var src = e.touches ? e.touches[0] : e;
+      var rect = el.getBoundingClientRect();
+      var parent = el.offsetParent || el.parentElement;
+      var pr = parent.getBoundingClientRect();
+      _drag = {
+        sx: src.clientX, sy: src.clientY,
+        x0: rect.left - pr.left, y0: rect.top - pr.top
+      };
+    }
+    function move(e){
+      if(!_drag) return;
+      e.preventDefault();
+      var src = e.touches ? e.touches[0] : e;
+      var nx = _drag.x0 + (src.clientX - _drag.sx);
+      var ny = _drag.y0 + (src.clientY - _drag.sy);
+      // Clamp within parent
+      var parent = el.offsetParent || el.parentElement;
+      var pr = parent.getBoundingClientRect();
+      nx = Math.max(0, Math.min(pr.width  - el.offsetWidth,  nx));
+      ny = Math.max(0, Math.min(pr.height - el.offsetHeight, ny));
+      el.style.left = nx + 'px'; el.style.top = ny + 'px';
+      el.style.right = 'auto';
+    }
+    function up(){ _drag = null; }
+    el.addEventListener('touchstart', down, {passive:false});
+    el.addEventListener('touchmove',  move, {passive:false});
+    el.addEventListener('touchend',   up,   {passive:false});
+    el.addEventListener('mousedown',  down, false);
+    window.addEventListener('mousemove', move, false);
+    window.addEventListener('mouseup',   up,   false);
+  });
 })();
+
+// Hide all floats when switching tabs — only show on their own screen
+var _origSwitchMode = window.switchMode;
+window.switchMode = function(mode){
+  _origSwitchMode(mode);
+  // Show only the toolbar for the active screen
+  var tbMap = {angle:'a-ftoolbar', tttg:'t-ftoolbar', fav:'fav-ftoolbar', lea:'lea-ftoolbar'};
+  Object.keys(tbMap).forEach(function(k){
+    var el = document.getElementById(tbMap[k]);
+    if(el) el.style.display = (k===mode) ? 'flex' : 'none';
+  });
+  // Show only the float card for the active screen
+  document.getElementById('a-result-float').style.display  = 'none';
+  document.getElementById('tttg-result-float').style.display = 'none';
+  document.getElementById('fav-result-float').style.display  = 'none';
+  document.getElementById('lea-result-float').style.display  = 'none';
+  if(mode==='angle'&& annotations&&annotations.length>0) document.getElementById('a-result-float').style.display='block';
+  if(mode==='tttg' && tS && tS.tgPt && tS.ttPt && tS.bl) document.getElementById('tttg-result-float').style.display='block';
+  if(mode==='fav'  && favState && favState.neckLine && favState.condLine) document.getElementById('fav-result-float').style.display='block';
+  if(mode==='lea'  && leaPts && leaPts.fh && leaPts.kj && leaPts.aj) document.getElementById('lea-result-float').style.display='block';
+};
+// Show angle toolbar on initial load
+document.getElementById('a-ftoolbar').style.display='flex';
+
+
+// Show lea-tools-sheet when image loaded
+var _origLeaLayout = leaLayout;
+leaLayout = function(){
+  _origLeaLayout();
+  var ts=document.getElementById('lea-tools-sheet'); if(ts) ts.style.display='block';
+};
+var _origTLayout = tLayout;
+tLayout = function(){
+  _origTLayout();
+  var ts=document.getElementById('tttg-tools-sheet'); if(ts) ts.style.display='block';
+};
+var _origFavLayout = favLayout;
+favLayout = function(){
+  _origFavLayout();
+  var ts=document.getElementById('fav-tools-sheet'); if(ts) ts.style.display='block';
+};
+
+// Mirror xray load to sheet
+xrayImg.addEventListener('load', function(){
+  var t2=document.getElementById('upload-txt2'); if(t2) t2.textContent='✓ X-ray loaded';
+  var ts=document.getElementById('tool-section-sheet'); if(ts) ts.style.display='block';
+});
+
+// Mirror leaUpdateBtns to toolbar dots + sheet btns
+var _origLeaUpdateBtns = leaUpdateBtns;
+leaUpdateBtns = function(){
+  _origLeaUpdateBtns();
+  var m=leaState.mode;
+  var _ap=leaActivePts();
+  ['fh','pf','fdc','kj','tpc','tdc','aj','fc','tp'].forEach(function(k){
+    var ftb=document.getElementById('lft-'+k); if(!ftb) return;
+    ftb.classList.remove('active-ft','done-ft');
+    var done=_ap[k]||(k==='fc'&&_ap.fc1&&_ap.fc2)||(k==='tp'&&_ap.tp1&&_ap.tp2);
+    if(done) ftb.classList.add('done-ft');
+    // Also ring the dot icon itself
+    var ico=ftb.querySelector('.ftico');
+    if(ico){ ico.style.outline=m===k?'2px solid #00e5ff':'none'; ico.style.borderRadius='50%'; }
+    if(m===k) ftb.classList.add('active-ft');
+    var sb=document.getElementById('lea-btn-'+k+'2'), orig=document.getElementById('lea-btn-'+k);
+    if(sb&&orig) sb.className=orig.className;
+  });
+  var h2=document.getElementById('lea-hint2'), h1=document.getElementById('lea-hint');
+  if(h2&&h1){ h2.style.display=h1.style.display; h2.textContent=h1.textContent; h2.style.color=h1.style.color; }
+};
+
+// Mirror leaApplyRuler status to sheet
+var _origLeaApplyRuler = window.leaApplyRuler;
+window.leaApplyRuler = function(){
+  _origLeaApplyRuler();
+  var s2=document.getElementById('lea-cal-status2'), s1=document.getElementById('lea-cal-status');
+  if(s2&&s1){ s2.style.display=s1.style.display; s2.textContent=s1.textContent;
+    s2.style.background=s1.style.background; s2.style.color=s1.style.color; s2.style.borderColor=s1.style.borderColor; }
+};
+
+// Mirror leaSetCalMode to sheet buttons
+var _origLeaSetCalMode = window.leaSetCalMode;
+window.leaSetCalMode = function(mode){
+  _origLeaSetCalMode(mode);
+  var rb2=document.getElementById('lea-cal-ruler-btn2'),cb2=document.getElementById('lea-cal-circle-btn2');
+  var lbl2=document.getElementById('lea-cal-mm-label2'),mm2=document.getElementById('lea-cal-mm2');
+  if(mode==='ruler'){
+    if(rb2){rb2.style.borderColor='#ffdd00';rb2.style.background='#2a2200';rb2.style.color='#ffdd00';}
+    if(cb2){cb2.style.borderColor='#1a3a5c';cb2.style.background='#0a1420';cb2.style.color='#5a8aaa';}
+    if(lbl2) lbl2.textContent='distance'; if(mm2) mm2.value='10';
+  } else {
+    if(cb2){cb2.style.borderColor='#ffdd00';cb2.style.background='#2a2200';cb2.style.color='#ffdd00';}
+    if(rb2){rb2.style.borderColor='#1a3a5c';rb2.style.background='#0a1420';rb2.style.color='#5a8aaa';}
+    if(lbl2) lbl2.textContent='diameter'; if(mm2) mm2.value='25.4';
+  }
+};
+
+// Mirror TT-TG result to float card
+var _origShowResult = window.showResult;
+window.showResult = function(mm, px){
+  _origShowResult(mm, px);
+  var fl=document.getElementById('tttg-result-float');
+  if(!fl) return;
+  fl.style.display='block';
+  fl.style.right='10px'; fl.style.top='10px';
+  var rvf=document.getElementById('t-rv-float');
+  var rgf=document.getElementById('t-rg-float');
+  // Use mm directly — more reliable than reading from DOM
+  if(rvf) rvf.textContent=mm.toFixed(1)+' mm';
+  // Grade
+  if(rgf){
+    var grade=mm<10?'Normal (<10mm)':mm<20?'Borderline (10-20mm)':'Elevated (>20mm)';
+    var col=mm<10?'#4ade80':mm<20?'#ffdd00':'#ff6644';
+    rgf.innerHTML='<span style="color:'+col+'">'+grade+'</span>';
+  }
+};
+
+// Mirror FAV result to float card
+var _origUpdateFAVResult = window.updateFAVResult;
+window.updateFAVResult = function(ang){
+  _origUpdateFAVResult(ang);
+  var fl=document.getElementById('fav-result-float');
+  var vv=document.getElementById('fav-val'), gr=document.getElementById('fav-grade');
+  if(fl&&vv){ fl.style.display='block'; fl.style.right='10px'; fl.style.top='10px';
+    var vvf=document.getElementById('fav-val-float'); if(vvf) vvf.textContent=vv.textContent;
+    var grf=document.getElementById('fav-grade-float'); if(grf) grf.textContent=gr?gr.textContent:''; }
+};
+
+// Mirror LEA results to float card and sheet
+var _origLeaDrawResults = leaDrawResults;
+leaDrawResults = function(res, svg, wr, cr, z){
+  _origLeaDrawResults(res, svg, wr, cr, z);
+  var haveAll=leaPts.fh&&leaPts.kj&&leaPts.aj;
+  var fl=document.getElementById('lea-result-float');
+  function leaFloatRow(lbl,val,col){return '<div class="rf-row"><span class="rf-label">'+lbl+'</span><span class="rf-val"'+(col?' style="color:'+col+'"':'')+'>'+val+'</span></div>';}
+  function leaSideResult(pts,sideLbl,sideCol){
+    var r2=leaCalcFor?leaCalcFor(pts):null;
+    if(!r2||!(pts&&pts.fh&&pts.kj&&pts.aj)) return '';
+    var html='<div style="font-size:8px;font-weight:700;color:'+sideCol+';letter-spacing:2px;padding:3px 0 1px">'+sideLbl+'</div>';
+    html+=leaFloatRow('Length',r2.limbMm||'—',sideCol);
+    html+=leaFloatRow('Align',r2.vvDir||'—',r2.vvDir==='VALGUS'?'#00e5ff':r2.vvDir==='VARUS'?'#ff6644':'#4ade80');
+    if(r2.vvMm) html+=leaFloatRow('MAD',r2.vvMm+'mm',null);
+    if(r2.mLDFA) html+=leaFloatRow('mLDFA',r2.mLDFA+'°','#ff8844');
+    if(r2.mMPTA) html+=leaFloatRow('mMPTA',r2.mMPTA+'°','#44ffdd');
+    if(r2.JLCA)  html+=leaFloatRow('JLCA', r2.JLCA+'°', '#ffdd00');
+    return html;
+  }
+  if(fl){
+    var rHtml=leaSideResult(leaPts,'RIGHT','#ff6644');
+    var lHtml=leaSideResult(leaPtsL,'LEFT','#4ade80');
+    var fbody=document.getElementById('lea-float-body');
+    if(fbody) fbody.innerHTML=(rHtml||lHtml)?'<div style="font-size:8px;letter-spacing:2px;color:#2a6a8a;text-align:center;margin-bottom:3px">ALIGNMENT</div>'+rHtml+lHtml:'';
+    fl.style.display=(rHtml||lHtml)?'block':'none';
+  }
+  var lr2=document.getElementById('lea-result2');
+  if(lr2&&haveAll){ lr2.style.display='block';
+    var e2=function(id,v){var el=document.getElementById(id);if(el)el.textContent=v;};
+    e2('lr-length2',res.limbMm||'—'); e2('lr-off2',res.vvMm?res.vvMm+' mm':'—');
+    e2('lr-ldfa2',res.mLDFA?res.mLDFA+'°':'—'); e2('lr-mpta2',res.mMPTA?res.mMPTA+'°':'—');
+    e2('lr-jlca2',res.JLCA?res.JLCA+'°':'—');
+    var vv2=document.getElementById('lr-vv2'); if(vv2){ vv2.textContent=res.vvDir||'—';
+      vv2.style.color=res.vvDir==='VALGUS'?'#00e5ff':res.vvDir==='VARUS'?'#ff6644':'#4ade80'; }
+  }
+  var cb2=document.getElementById('lea-cora-box2'),db2=document.getElementById('lea-deformity-box2');
+  if(cb2) cb2.style.display=res.CORA?'block':'none';
+  if(db2) db2.style.display=res.deformity?'block':'none';
+  var ct2=document.getElementById('lr-cora-txt2'),ct1=document.getElementById('lr-cora-txt');
+  if(ct2&&ct1) ct2.innerHTML=ct1.innerHTML;
+  var dt2=document.getElementById('lr-deformity-txt2'),dt1=document.getElementById('lr-deformity-txt');
+  if(dt2&&dt1) dt2.innerHTML=dt1.innerHTML;
+};
+
+
+// ── Active state for ALL toolbar buttons ──
+
+// Helper: clear active state from a set of toolbar button IDs
+function ftClear(ids){
+  ids.forEach(function(id){
+    var el=document.getElementById(id);
+    if(el) el.classList.remove('active-ft');
+  });
+}
+
+// Angle tool active state — hook into activateTool
+var _origActivateTool = window.activateTool;
+window.activateTool = function(type){
+  _origActivateTool(type);
+  ftClear(['ft-supp','ft-reg','ft-cobb','ft-pelv']);
+  var map={1:'ft-supp',2:'ft-reg',3:'ft-cobb',4:'ft-pelv'};
+  var el=document.getElementById(map[type]);
+  if(el) el.classList.add('active-ft');
+};
+
+// TT-TG active state — hook into tActivate
+var _origTActivate = window.tActivate;
+window.tActivate = function(mode){
+  _origTActivate(mode);
+  ftClear(['ft-ruler','ft-bl','ft-tg','ft-tt']);
+  var map={ruler:'ft-ruler',bl:'ft-bl',tg:'ft-tg',tt:'ft-tt'};
+  var el=document.getElementById(map[mode]);
+  if(el) el.classList.add('active-ft');
+};
+
+// FAV active state — hook into favActivate
+var _origFavActivate = window.favActivate;
+window.favActivate = function(mode){
+  _origFavActivate(mode);
+  ftClear(['ft-neck','ft-cond']);
+  var map={neck:'ft-neck',cond:'ft-cond'};
+  var el=document.getElementById(map[mode]);
+  if(el) el.classList.add('active-ft');
+};
+
+// Clear active states when reset
+var _origTReset = window.tReset;
+window.tReset = function(){
+  _origTReset();
+  ftClear(['ft-ruler','ft-bl','ft-tg','ft-tt']);
+  document.getElementById('tttg-result-float').style.display='none';
+};
+var _origFavReset = window.favReset;
+window.favReset = function(){
+  _origFavReset();
+  ftClear(['ft-neck','ft-cond']);
+  document.getElementById('fav-result-float').style.display='none';
+};
+var _origClearAll = window.clearAll;
+window.clearAll = function(){
+  _origClearAll();
+  ftClear(['ft-supp','ft-reg','ft-cobb','ft-pelv']);
+};
+
+// Angle result — show float card when pelvic params or angle measured
+var _origAUI = aUI;
+aUI = function(){
+  _origAUI();
+  var fl=document.getElementById('a-result-float');
+  if(!fl) return;
+  if(annotations.length>0){
+    fl.style.display='block';
+    var lastPelv=null,lastAng=null;
+    for(var i=annotations.length-1;i>=0;i--){
+      if(annotations[i].type===4&&!lastPelv) lastPelv=annotations[i];
+      if(annotations[i].type!==4&&!lastAng) lastAng=annotations[i];
+      if(lastPelv&&lastAng) break;
+    }
+    var rfBody=document.getElementById('a-rf-body');
+    if(rfBody){
+      var html='';
+      if(lastAng){
+        var lbl2=lastAng.type===1?'SUPPL':lastAng.type===3?'COBB':'ANGLE';
+        html+='<div class="rf-row"><span class="rf-label">'+lbl2+'</span><span class="rf-val" style="color:#ffdd00">'+lastAng.angleDeg.toFixed(1)+'°</span></div>';
+      }
+      if(lastPelv){
+        html+='<div class="rf-row"><span class="rf-label">PI</span><span class="rf-val" style="color:#44ffaa">'+lastPelv.PI+'°</span></div>';
+        html+='<div class="rf-row"><span class="rf-label">SS</span><span class="rf-val" style="color:#ffdd00">'+lastPelv.SS+'°</span></div>';
+        html+='<div class="rf-row"><span class="rf-label">PT</span><span class="rf-val" style="color:#ff8844">'+lastPelv.PT+'°</span></div>';
+      }
+      rfBody.innerHTML=html;
+    }
+  } else {
+    fl.style.display='none';
+  }
+};
+})();
+
+
+// ── PWA: Manifest + Service Worker ──
+(function(){
+  // Inline manifest
+  var manifest = {
+    name: "Orthopedic Angle Tool",
+    short_name: "OrthoAngle",
+    description: "Orthopaedic imaging measurement tool",
+    start_url: "./",
+    display: "standalone",
+    orientation: "portrait-primary",
+    background_color: "#050a0e",
+    theme_color: "#050a0e",
+    categories: ["medical","education"],
+    icons: [
+      {src: document.getElementById('title-link') ? document.getElementById('title-link').href : "data:image/png;base64,iVBORw0KGgo=", sizes:"192x192", type:"image/png"},
+    ]
+  };
+
+  // Build icon from the existing apple-touch-icon link tag SVG
+  var iconLink = document.querySelector('link[rel="apple-touch-icon"]');
+  var iconHref = iconLink ? iconLink.href : "";
+
+  manifest.icons = [
+    {src: iconHref, sizes:"192x192", type:"image/svg+xml", purpose:"any maskable"},
+    {src: iconHref, sizes:"512x512", type:"image/svg+xml", purpose:"any maskable"}
+  ];
+
+  var blob = new Blob([JSON.stringify(manifest)], {type:'application/manifest+json'});
+  var url = URL.createObjectURL(blob);
+  document.getElementById('pwa-manifest').setAttribute('href', url);
+
+  // Register inline service worker for offline support
+  if('serviceWorker' in navigator){
+    var swCode = `
+const CACHE = 'orthoangle-v1';
+self.addEventListener('install', e => {
+  self.skipWaiting();
+  e.waitUntil(caches.open(CACHE).then(cache => cache.addAll([self.location.href])));
+});
+self.addEventListener('activate', e => {
+  e.waitUntil(clients.claim());
+});
+self.addEventListener('fetch', e => {
+  e.respondWith(
+    caches.match(e.request).then(r => r || fetch(e.request).then(res => {
+      var rc = res.clone();
+      caches.open(CACHE).then(c => c.put(e.request, rc));
+      return res;
+    }))
+  );
+});
+`;
+    var swBlob = new Blob([swCode], {type:'application/javascript'});
+    var swUrl = URL.createObjectURL(swBlob);
+    navigator.serviceWorker.register(swUrl).catch(function(){});
+  }
+})();
+
+
 </script>
 </body>
 </html>
