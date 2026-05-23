@@ -2200,8 +2200,8 @@ function leaH(){return leaCanvas.height/(window.devicePixelRatio||1);}
 
 function leaPt(e){
   var src=e.touches?e.touches[0]:e;
-  var rect=leaCanvas.getBoundingClientRect();
-  return {x:(src.clientX-rect.left)/(rect.width/leaW()), y:(src.clientY-rect.top)/(rect.height/leaH())};
+  var rect=leaWrap.getBoundingClientRect();
+  return {x:(src.clientX-rect.left)/leaZ.s, y:(src.clientY-rect.top)/leaZ.s};
 }
 function leaDist(a,b){ var dx=b.x-a.x,dy=b.y-a.y; return Math.sqrt(dx*dx+dy*dy); }
 function leaMid(a,b){ return {x:(a.x+b.x)/2, y:(a.y+b.y)/2}; }
@@ -2317,11 +2317,13 @@ function leaDraw(){
   if(p.pf&&p.fdc) extline(p.pf,p.fdc,'#aa88ff',1.5,true);
   if(p.tpc&&p.tdc)extline(p.tpc,p.tdc,'#ff9944',1.5,true);
   var results=leaCalc();
-  if(results) leaDrawResults(results,svg,wr,cr,z);
+  if(results){try{leaDrawResults(results,svg,wr,cr,z);}catch(e){console.error('leaDrawResults error:',e.message,e.stack);}}
 }
 
-function leaCalcFor(p){
-  if(!p.fh||!p.kj||!p.aj) return null;
+function leaCalcFor(p, side){
+  side = side||'R';
+  if(!p||!p.fh||!p.kj||!p.aj) return null;
+  try{
 
   var res={};
   var pxMm = leaState.pxPerMm||1;
@@ -2337,10 +2339,14 @@ function leaCalcFor(p){
   var madx=p.aj.x-p.fh.x, mady=p.aj.y-p.fh.y;
 
   // Varus/valgus: signed distance of KJ from the full MA line (fh→aj)
-  // Positive = KJ is to the right of fh→aj = valgus (in standard AP left-leg)
+  // Positive cross product = KJ right of fh→aj
+  // R leg: right of axis = lateral = VALGUS
+  // L leg: right of axis = medial = VARUS (flip sign)
   var vvPx = ptToLineDist(p.kj, p.fh, p.aj);
+  if(side==='L') vvPx = -vvPx;
   res.vvMm = leaState.pxPerMm ? Math.abs(vvPx/pxMm).toFixed(1) : null;
-  res.vvDir = vvPx > 2/leaZ.s ? 'VALGUS' : vvPx < -2/leaZ.s ? 'VARUS' : 'NEUTRAL';
+  var threshold = leaZ ? 2/leaZ.s : 2;
+  res.vvDir = vvPx > threshold ? 'VALGUS' : vvPx < -threshold ? 'VARUS' : 'NEUTRAL';
   res.vvPx = vvPx;
 
   // mLDFA: angle between Femoral Mechanical Axis (fh→kj) and condyle line (fc1→fc2)
@@ -2413,10 +2419,12 @@ function leaCalcFor(p){
   }
 
   return res;
+  }catch(e){console.error('leaCalcFor error:',e.message);return null;}
 }
 
 
 function leaCalc(){
+  try{
   var p=leaActivePts();
   if(!p.fh||!p.kj||!p.aj) return null;
 
@@ -2434,10 +2442,14 @@ function leaCalc(){
   var madx=p.aj.x-p.fh.x, mady=p.aj.y-p.fh.y;
 
   // Varus/valgus: signed distance of KJ from the full MA line (fh→aj)
-  // Positive = KJ is to the right of fh→aj = valgus (in standard AP left-leg)
+  // Positive cross product = KJ right of fh→aj
+  // R leg: right of axis = lateral = VALGUS
+  // L leg: right of axis = medial = VARUS (flip sign)
   var vvPx = ptToLineDist(p.kj, p.fh, p.aj);
+  if(leaSide==='L') vvPx = -vvPx;
   res.vvMm = leaState.pxPerMm ? Math.abs(vvPx/pxMm).toFixed(1) : null;
-  res.vvDir = vvPx > 2/leaZ.s ? 'VALGUS' : vvPx < -2/leaZ.s ? 'VARUS' : 'NEUTRAL';
+  var threshold = leaZ ? 2/leaZ.s : 2;
+  res.vvDir = vvPx > threshold ? 'VALGUS' : vvPx < -threshold ? 'VARUS' : 'NEUTRAL';
   res.vvPx = vvPx;
 
   // mLDFA: angle between Femoral Mechanical Axis (fh→kj) and condyle line (fc1→fc2)
@@ -2510,10 +2522,11 @@ function leaCalc(){
   }
 
   return res;
+  }catch(e){console.error('leaCalc error:',e.message,e.stack);return null;}
 }
 
 function leaDrawResults(res,svg,wr,cr,z){
-  var p=leaPts;
+  var p=leaActivePts();
 
   // CORA
   if(res.CORA){
@@ -3056,12 +3069,12 @@ window.updateFAVResult = function(ang){
 // Mirror LEA results to float card and sheet
 var _origLeaDrawResults = leaDrawResults;
 leaDrawResults = function(res, svg, wr, cr, z){
-  _origLeaDrawResults(res, svg, wr, cr, z);
-  var haveAll=leaPts.fh&&leaPts.kj&&leaPts.aj;
+  try{ _origLeaDrawResults(res, svg, wr, cr, z); }catch(e){ console.error("leaDrawResults err:",e.message,e.stack); }
+  var haveAll=leaActivePts().fh&&leaActivePts().kj&&leaActivePts().aj;
   var fl=document.getElementById('lea-result-float');
   function leaFloatRow(lbl,val,col){return '<div class="rf-row"><span class="rf-label">'+lbl+'</span><span class="rf-val"'+(col?' style="color:'+col+'"':'')+'>'+val+'</span></div>';}
   function leaSideResult(pts,sideLbl,sideCol){
-    var r2=leaCalcFor?leaCalcFor(pts):null;
+    var r2=leaCalcFor?leaCalcFor(pts,sideLbl==='RIGHT'?'R':'L'):null;
     if(!r2||!(pts&&pts.fh&&pts.kj&&pts.aj)) return '';
     var html='<div style="font-size:8px;font-weight:700;color:'+sideCol+';letter-spacing:2px;padding:3px 0 1px">'+sideLbl+'</div>';
     html+=leaFloatRow('Length',r2.limbMm||'—',sideCol);
@@ -3073,8 +3086,9 @@ leaDrawResults = function(res, svg, wr, cr, z){
     return html;
   }
   if(fl){
-    var rHtml=leaSideResult(leaPts,'RIGHT','#ff6644');
-    var lHtml=leaSideResult(leaPtsL,'LEFT','#4ade80');
+    var rHtml,lHtml;
+    try{rHtml=leaSideResult(leaPts,'RIGHT','#ff6644');}catch(e){console.error("R side err:",e.message);rHtml='';}
+    try{lHtml=leaSideResult(leaPtsL,'LEFT','#4ade80');}catch(e){console.error("L side err:",e.message);lHtml='';}
     var fbody=document.getElementById('lea-float-body');
     if(fbody) fbody.innerHTML=(rHtml||lHtml)?'<div style="font-size:8px;letter-spacing:2px;color:#2a6a8a;text-align:center;margin-bottom:3px">ALIGNMENT</div>'+rHtml+lHtml:'';
     fl.style.display=(rHtml||lHtml)?'block':'none';
