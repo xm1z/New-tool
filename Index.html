@@ -2165,6 +2165,8 @@ window.leaSwitchSide=function(side){
   [rb,rb2].forEach(function(b){if(b){b.style.background=side==='R'?'#2a0a00':'#0a1420';b.style.color=side==='R'?'#ff6644':'#5a8aaa';b.style.borderColor=side==='R'?'#ff6644':'#1a3a5c';}});
   [lb,lb2].forEach(function(b){if(b){b.style.background=side==='L'?'#002a1a':'#0a1420';b.style.color=side==='L'?'#4ade80':'#5a8aaa';b.style.borderColor=side==='L'?'#4ade80':'#1a3a5c';}});
   leaUpdateBtns(); leaDraw();
+  // Re-show calibration circle if it exists — it persists across sides
+  if(leaCal.calCircle) leaUpdateCircleDiv();
 };
 var leaState = {mode:null, tmp:null, pxPerMm:null, calMode:'circle'};
 // Set default calibration to circle mode on load
@@ -2673,9 +2675,11 @@ window.leaSetCalMode = function(mode){
     if(cb){cb.style.borderColor='#1a3a5c';cb.style.background='#0a1420';cb.style.color='#5a8aaa';}
     if(lbl) lbl.textContent='distance';
     var mmEl=document.getElementById('lea-cal-mm');if(mmEl)mmEl.value='10';
-    // Hide circle div when switching to ruler
-    var cd=document.getElementById('lea-cal-circle-div');
-    if(cd) cd.style.display='none';
+    // Only hide circle div if no circle has been placed yet
+    if(!leaCal.calCircle){
+      var cd=document.getElementById('lea-cal-circle-div');
+      if(cd) cd.style.display='none';
+    }
   } else {
     if(cb){cb.style.borderColor='#ffdd00';cb.style.background='#2a2200';cb.style.color='#ffdd00';}
     if(rb){rb.style.borderColor='#1a3a5c';rb.style.background='#0a1420';rb.style.color='#5a8aaa';}
