@@ -616,6 +616,12 @@
       <div id="fav-tools" style="display:none">
         <div class="sep"></div>
 
+        <div class="slabel">SIDE</div>
+        <div style="display:flex;gap:6px;margin-bottom:4px">
+          <button id="fav-side-r" onclick="favSetSide('R')" style="flex:1;padding:7px;font-size:10px;font-weight:700;font-family:'Courier New',monospace;border-radius:6px;border:1px solid #ff6644;background:#2a0a00;color:#ff6644;cursor:pointer;letter-spacing:1px">RIGHT</button>
+          <button id="fav-side-l" onclick="favSetSide('L')" style="flex:1;padding:7px;font-size:10px;font-weight:700;font-family:'Courier New',monospace;border-radius:6px;border:1px solid #1a3a5c;background:#0a1420;color:#5a8aaa;cursor:pointer;letter-spacing:1px">LEFT</button>
+        </div>
+
         <div class="slabel">OVERLAY OPACITY</div>
         <div class="opacity-row">
           <span style="color:#aa88ff;font-size:9px">Neck</span>
@@ -639,15 +645,11 @@
         <button class="btn-danger" onclick="favReset()" style="display:block">↺ RESET</button>
 
         <div id="fav-result">
-          <div class="fr-lbl">FEMORAL ANTEVERSION</div>
+          <div class="fr-lbl">FEMORAL VERSION</div>
           <div class="fr-val" id="fav-val">—</div>
+          <div id="fav-direction" style="font-size:13px;font-weight:700;letter-spacing:2px;margin:4px 0 2px;text-align:center;color:#5a8aaa">—</div>
           <div class="fr-grade" id="fav-grade"></div>
-          <div class="fr-note">
-            Normal adult: 10–20°<br/>
-            Children: up to 40°<br/>
-            &gt;20° = Anteversion<br/>
-            &lt;0° = Retroversion
-          </div>
+          <div id="fav-sub" style="font-size:9px;margin-top:5px;letter-spacing:0.5px;text-align:center;opacity:0.75;color:#5a8aaa">normal range: 10–20° anteversion</div>
         </div>
       </div>
 
@@ -677,6 +679,9 @@
         <span class="ftico">📤</span><span class="ftlbl">IMAGES</span>
       </button>
       <div class="ftoolbar-sep"></div>
+      <button id="fav-ft-r" onclick="favSetSide('R')" style="padding:5px 8px;font-size:9px;font-weight:700;font-family:'Courier New',monospace;border-radius:8px;border:1px solid #ff6644;background:#2a0a00;color:#ff6644;cursor:pointer;letter-spacing:1px">R</button>
+      <button id="fav-ft-l" onclick="favSetSide('L')" style="padding:5px 8px;font-size:9px;font-weight:700;font-family:'Courier New',monospace;border-radius:8px;border:1px solid #1a3a5c;background:#0a1420;color:#5a8aaa;cursor:pointer;letter-spacing:1px">L</button>
+      <div class="ftoolbar-sep"></div>
       <button class="ftoolbar-btn" id="ft-neck" onclick="favActivate('neck')"><span class="ftico" style="color:#aa88ff">●</span><span class="ftlbl">NECK</span></button>
       <button class="ftoolbar-btn" id="ft-cond" onclick="favActivate('cond')"><span class="ftico" style="color:#44ffdd">●</span><span class="ftlbl">CONDYLE</span></button>
       <div class="ftoolbar-sep"></div>
@@ -693,6 +698,11 @@
         <label class="upload-box" for="fav-cond-upload"><div class="uico">🦵</div><div class="utxt" id="fav-cond-txt2">Upload Condyles Axial CT</div><div class="usub">Axial · condyle level</div></label>
         <div id="fav-tools-sheet" style="display:none">
           <div class="sep"></div>
+          <div class="slabel">SIDE</div>
+          <div style="display:flex;gap:6px;margin-bottom:6px">
+            <button id="fav-side-r2" onclick="favSetSide('R')" style="flex:1;padding:7px;font-size:10px;font-weight:700;font-family:'Courier New',monospace;border-radius:6px;border:1px solid #ff6644;background:#2a0a00;color:#ff6644;cursor:pointer;letter-spacing:1px">RIGHT</button>
+            <button id="fav-side-l2" onclick="favSetSide('L')" style="flex:1;padding:7px;font-size:10px;font-weight:700;font-family:'Courier New',monospace;border-radius:6px;border:1px solid #1a3a5c;background:#0a1420;color:#5a8aaa;cursor:pointer;letter-spacing:1px">LEFT</button>
+          </div>
           <div class="slabel">OVERLAY OPACITY</div>
           <div class="opacity-row"><span style="color:#aa88ff;font-size:9px">Neck</span><input type="range" id="fav-op-sl2" min="0" max="100" value="50" oninput="document.getElementById('fav-op-sl').value=this.value;window.favDraw()"/><span style="color:#44ffdd;font-size:9px">Condyles</span></div>
           <div class="sep"></div>
@@ -704,6 +714,7 @@
             <div class="fr-lbl">FEMORAL ANTEVERSION</div>
             <div class="fr-val" id="fav-val2">—</div>
             <div class="fr-grade" id="fav-grade2"></div>
+            <div id="fav-side-display2" style="font-size:9px;color:#5a8aaa;letter-spacing:1px;margin-top:4px;text-align:center">SIDE: RIGHT</div>
           </div>
         </div>
       </div>
@@ -769,9 +780,13 @@
           <div class="lr-row"><span class="lr-label">Limb Length (MA)</span><span class="lr-val" id="lr-length" style="color:#00e5ff">—</span></div>
           <div class="lr-row"><span class="lr-label">Alignment</span><span class="lr-val" id="lr-vv" style="color:#00e5ff">—</span></div>
           <div class="lr-row"><span class="lr-label">MAD at knee</span><span class="lr-val" id="lr-off" style="color:#00e5ff">—</span></div>
+          <div class="lr-row"><span class="lr-label">HKA angle</span><span class="lr-val" id="lr-hka" style="color:#00e5ff">—</span></div>
           <div class="lr-row"><span class="lr-label">mLDFA</span><span class="lr-val" id="lr-ldfa" style="color:#ff8844">—</span></div>
           <div class="lr-row"><span class="lr-label">mMPTA</span><span class="lr-val" id="lr-mpta" style="color:#44ffdd">—</span></div>
           <div class="lr-row"><span class="lr-label">JLCA</span><span class="lr-val" id="lr-jlca" style="color:#ffdd00">—</span></div>
+          <div class="lr-row"><span class="lr-label">AMA angle</span><span class="lr-val" id="lr-ama" style="color:#ff88ff">—</span></div>
+          <div class="lr-row" id="lr-fcora-row" style="display:none"><span class="lr-label">Femoral CORA</span><span class="lr-val" id="lr-fcora" style="color:#ffaa00">—</span></div>
+          <div class="lr-row" id="lr-tcora-row" style="display:none"><span class="lr-label">Tibial CORA</span><span class="lr-val" id="lr-tcora" style="color:#00ffcc">—</span></div>
         </div>
 
         <div id="lea-cora-box">
@@ -876,9 +891,13 @@
             <div class="lr-row"><span class="lr-label">Limb Length</span><span class="lr-val" id="lr-length2" style="color:#00e5ff">—</span></div>
             <div class="lr-row"><span class="lr-label">Alignment</span><span class="lr-val" id="lr-vv2" style="color:#00e5ff">—</span></div>
             <div class="lr-row"><span class="lr-label">MAD</span><span class="lr-val" id="lr-off2" style="color:#00e5ff">—</span></div>
+            <div class="lr-row"><span class="lr-label">HKA angle</span><span class="lr-val" id="lr-hka2" style="color:#00e5ff">—</span></div>
             <div class="lr-row"><span class="lr-label">mLDFA</span><span class="lr-val" id="lr-ldfa2" style="color:#ff8844">—</span></div>
             <div class="lr-row"><span class="lr-label">mMPTA</span><span class="lr-val" id="lr-mpta2" style="color:#44ffdd">—</span></div>
             <div class="lr-row"><span class="lr-label">JLCA</span><span class="lr-val" id="lr-jlca2" style="color:#ffdd00">—</span></div>
+            <div class="lr-row"><span class="lr-label">AMA angle</span><span class="lr-val" id="lr-ama2" style="color:#ff88ff">—</span></div>
+            <div class="lr-row" id="lr-fcora-row2" style="display:none"><span class="lr-label">Femoral CORA</span><span class="lr-val" id="lr-fcora2" style="color:#ffaa00">—</span></div>
+            <div class="lr-row" id="lr-tcora-row2" style="display:none"><span class="lr-label">Tibial CORA</span><span class="lr-val" id="lr-tcora2" style="color:#00ffcc">—</span></div>
           </div>
           <div id="lea-cora-box2" style="display:none;background:#0a0015;border:1px solid #aa88ff44;border-radius:6px;padding:8px;margin-top:6px;font-size:9px;line-height:1.8;color:#6a5a8a">
             <div style="color:#aa88ff;font-weight:700;margin-bottom:3px">CORA</div><div id="lr-cora-txt2">—</div>
@@ -1949,36 +1968,114 @@ function favLbl(txt,x,y,col){
   favCtx.fillStyle=col;favCtx.fillText(txt,x,y);favCtx.shadowBlur=0;
 }
 
+// Femoral side: 'R' = right, 'L' = left
+var favSide = 'R';
+
+window.favSetSide = function(side){
+  favSide = side;
+  // Update button styles
+  var rb=document.getElementById('fav-side-r'), lb=document.getElementById('fav-side-l');
+  var rb2=document.getElementById('fav-side-r2'), lb2=document.getElementById('fav-side-l2');
+  [rb,rb2].forEach(function(b){if(b){
+    b.style.background=side==='R'?'#2a0a00':'#0a1420';
+    b.style.color=side==='R'?'#ff6644':'#5a8aaa';
+    b.style.borderColor=side==='R'?'#ff6644':'#1a3a5c';
+  }});
+  [lb,lb2].forEach(function(b){if(b){
+    b.style.background=side==='L'?'#002a1a':'#0a1420';
+    b.style.color=side==='L'?'#4ade80':'#5a8aaa';
+    b.style.borderColor=side==='L'?'#4ade80':'#1a3a5c';
+  }});
+  // Sync toolbar buttons
+  var ftr=document.getElementById('fav-ft-r'),ftl=document.getElementById('fav-ft-l');
+  if(ftr){ftr.style.background=side==='R'?'#2a0a00':'#0a1420';ftr.style.color=side==='R'?'#ff6644':'#5a8aaa';ftr.style.borderColor=side==='R'?'#ff6644':'#1a3a5c';}
+  if(ftl){ftl.style.background=side==='L'?'#002a1a':'#0a1420';ftl.style.color=side==='L'?'#4ade80':'#5a8aaa';ftl.style.borderColor=side==='L'?'#4ade80':'#1a3a5c';}
+  // Update side label in result box
+  ['fav-side-display','fav-side-display2'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el) el.textContent='SIDE: '+(side==='R'?'RIGHT':'LEFT');
+  });
+  // Redraw with new side
+  if(favState.neckLine&&favState.condLine) window.favDraw();
+};
+
 function calcFAV(nl,cl){
-  var dx1=nl.p2.x-nl.p1.x,dy1=nl.p2.y-nl.p1.y;
-  var dx2=cl.p2.x-cl.p1.x,dy2=cl.p2.y-cl.p1.y;
-  var len1=Math.sqrt(dx1*dx1+dy1*dy1)||1,len2=Math.sqrt(dx2*dx2+dy2*dy2)||1;
+  var dx1=nl.p2.x-nl.p1.x, dy1=nl.p2.y-nl.p1.y;
+  var dx2=cl.p2.x-cl.p1.x, dy2=cl.p2.y-cl.p1.y;
+  var len1=Math.sqrt(dx1*dx1+dy1*dy1)||1, len2=Math.sqrt(dx2*dx2+dy2*dy2)||1;
   var cross=(dx1/len1)*(dy2/len2)-(dy1/len1)*(dx2/len2);
   var dot  =(dx1/len1)*(dx2/len2)+(dy1/len1)*(dy2/len2);
   var ang=Math.atan2(Math.abs(cross),Math.abs(dot))*180/Math.PI;
-  return Math.round((cross>=0?1:-1)*ang*10)/10;
+  // For axial CT: right femur → positive cross = anteversion
+  //               left femur  → sign is flipped (mirror image)
+  var signed = (cross>=0?1:-1)*ang;
+  if(favSide==='L') signed = -signed;
+  return Math.round(signed*10)/10;
+}
+
+function favGrade(ang){
+  var absAng=Math.abs(ang);
+  var direction = ang>=0 ? 'ANTEVERSION' : 'RETROVERSION';
+  var dirCol    = ang>=0 ? '#00cfff'     : '#ff7700';
+
+  var grade, gradeCol, gradeBg;
+  if(absAng>=10&&absAng<=20&&ang>=0){
+    grade='✓ TYPICAL VERSION'; gradeCol='#22dd66'; gradeBg='#002a10';
+  } else if(absAng>35||(ang<0&&absAng>=35)){
+    grade='SEVERE MALVERSION'; gradeCol='#ff2222'; gradeBg='#2a0000';
+  } else {
+    grade='MALVERSION'; gradeCol='#ff7700'; gradeBg='#2a1000';
+  }
+
+  return {direction:direction, dirCol:dirCol, grade:grade, gradeCol:gradeCol, gradeBg:gradeBg};
 }
 
 window.updateFAVResult=function updateFAVResult(ang){
   var box=document.getElementById('fav-result');
   box.style.display='block';
-  var absAng=Math.abs(ang);
-  document.getElementById('fav-val').textContent=absAng.toFixed(1)+'°';
-  document.getElementById('fav-val').style.color=ang<0?'#ff6644':'#aa88ff';
-  var grade=document.getElementById('fav-grade');
-  if(ang<0){
-    grade.textContent='RETROVERSION ('+ang.toFixed(1)+'°)';
-    grade.style.background='#2a0800';grade.style.color='#ff6644';
-  } else if(absAng<=20){
-    grade.textContent='✓ NORMAL ('+ang.toFixed(1)+'°)';
-    grade.style.background='#0a2a0a';grade.style.color='#4ade80';
-  } else if(absAng<=40){
-    grade.textContent='⚡ INCREASED ('+ang.toFixed(1)+'°)';
-    grade.style.background='#2a2000';grade.style.color='#ffdd00';
-  } else {
-    grade.textContent='⚠ SEVERE >40° ('+ang.toFixed(1)+'°)';
-    grade.style.background='#2a0a00';grade.style.color='#ff6644';
+  var g=favGrade(ang);
+
+  // Big degree value — color matches direction
+  var valEl=document.getElementById('fav-val');
+  valEl.textContent=Math.abs(ang).toFixed(1)+'°';
+  valEl.style.color=g.dirCol;
+  valEl.style.textShadow='0 0 18px '+g.dirCol+'66';
+
+  // Direction label — ANTEVERSION or RETROVERSION (prominent)
+  var dirEl=document.getElementById('fav-direction');
+  if(!dirEl){
+    dirEl=document.createElement('div');
+    dirEl.id='fav-direction';
+    dirEl.style.cssText='font-size:13px;font-weight:700;letter-spacing:2px;margin:4px 0 2px;text-align:center';
+    valEl.parentNode.insertBefore(dirEl,valEl.nextSibling);
   }
+  dirEl.textContent=g.direction;
+  dirEl.style.color=g.dirCol;
+
+  // Grade pill — TYPICAL / MALVERSION / SEVERE
+  var grade=document.getElementById('fav-grade');
+  grade.textContent=g.grade;
+  grade.style.background=g.gradeBg;
+  grade.style.color=g.gradeCol;
+  grade.style.border='1px solid '+g.gradeCol+'55';
+  grade.style.marginTop='6px';
+
+  // Sub-label: exact value + note
+  var sub=document.getElementById('fav-sub');
+  if(!sub){
+    sub=document.createElement('div');
+    sub.id='fav-sub';
+    sub.style.cssText='font-size:9px;margin-top:5px;letter-spacing:0.5px;text-align:center;opacity:0.75';
+    grade.parentNode.insertBefore(sub,grade.nextSibling);
+  }
+  sub.textContent=ang.toFixed(1)+'°   (normal range: 10–20° anteversion)';
+  sub.style.color=g.gradeCol;
+
+  // Mirror to sheet
+  var val2=document.getElementById('fav-val2'), grade2=document.getElementById('fav-grade2');
+  if(val2){ val2.textContent=Math.abs(ang).toFixed(1)+'°'; val2.style.color=g.dirCol; val2.style.textShadow='0 0 14px '+g.dirCol+'66'; }
+  if(grade2){ grade2.textContent=g.direction+' — '+g.grade; grade2.style.background=g.gradeBg; grade2.style.color=g.gradeCol; }
+
   setTimeout(function(){box.scrollIntoView({behavior:'smooth',block:'nearest'});},80);
 };
 
@@ -2152,8 +2249,8 @@ window.addEventListener('resize',function(){if(favCanvas.width)favLayout();});
 //   If CORA is at joint line → intra-articular
 //   If CORA is >3cm above joint line → extra-articular
 
-var leaPts  = {fh:null,pf:null,fdc:null,kj:null,tpc:null,tdc:null,aj:null,fc1:null,fc2:null,tp1:null,tp2:null,cal:null,calCircle:null};
-var leaPtsL = {fh:null,pf:null,fdc:null,kj:null,tpc:null,tdc:null,aj:null,fc1:null,fc2:null,tp1:null,tp2:null,cal:null,calCircle:null};
+var leaPts  = {fh:null,pf:null,fdc:null,kj:null,tpc:null,tdc:null,aj:null,fc1:null,fc2:null,tp1:null,tp2:null,cal:null,calCircle:null,fCoraPt:null,tCoraPt:null};
+var leaPtsL = {fh:null,pf:null,fdc:null,kj:null,tpc:null,tdc:null,aj:null,fc1:null,fc2:null,tp1:null,tp2:null,cal:null,calCircle:null,fCoraPt:null,tCoraPt:null};
 var leaSide = 'R'; // 'R' or 'L'
 function leaActivePts(){ return leaSide==='R'?leaPts:leaPtsL; }
 window.leaSwitchSide=function(side){
@@ -2319,41 +2416,29 @@ function leaDraw(){
 
 function leaCalcFor(p){
   if(!p.fh||!p.kj||!p.aj) return null;
-
   var res={};
   var pxMm = leaState.pxPerMm||1;
-
-  // Limb length: FH → AJ (mechanical axis length)
   if(p.fh&&p.aj){
     var limbPx=leaDist(p.fh,p.aj);
     res.limbMm=leaState.pxPerMm?Math.round(limbPx/leaState.pxPerMm)+'mm':'— (calibrate)';
     res.limbPx=limbPx;
   }
-
-  // Mechanical axis vector: fh→aj
-  var madx=p.aj.x-p.fh.x, mady=p.aj.y-p.fh.y;
-
-  // Varus/valgus: signed distance of KJ from the full MA line (fh→aj)
-  // Positive = KJ is to the right of fh→aj = valgus (in standard AP left-leg)
   var vvPx = ptToLineDist(p.kj, p.fh, p.aj);
   res.vvMm = leaState.pxPerMm ? Math.abs(vvPx/pxMm).toFixed(1) : null;
   res.vvDir = vvPx > 2/leaZ.s ? 'VALGUS' : vvPx < -2/leaZ.s ? 'VARUS' : 'NEUTRAL';
   res.vvPx = vvPx;
-
-  // mLDFA: angle between Femoral Mechanical Axis (fh→kj) and condyle line (fc1→fc2)
-  // Measured as lateral angle (supplementary if needed to get the correct convention)
+  // HKA supplementary
+  var hkaRaw = angleAtVertex(p.fh, p.kj, p.aj);
+  res.HKA = (180 - hkaRaw).toFixed(1);
+  res.HKA_val = 180 - hkaRaw;
   if(p.fc1&&p.fc2){
     var fmaDx=p.kj.x-p.fh.x, fmaDy=p.kj.y-p.fh.y;
     var fcDx=p.fc2.x-p.fc1.x, fcDy=p.fc2.y-p.fc1.y;
     var ang=angleBetweenVecs(fmaDx,fmaDy,fcDx,fcDy);
-    // mLDFA is the lateral distal angle — normal ~87°
     res.mLDFA = ang > 90 ? (180-ang).toFixed(1) : ang.toFixed(1);
     res.mLDFA_val = parseFloat(res.mLDFA);
     res.fcMid = leaMid(p.fc1,p.fc2);
   }
-
-  // mMPTA: angle between Tibial Mechanical Axis (kj→aj) and tibial plateau line (tp1→tp2)
-  // Medial proximal angle — normal ~87°
   if(p.tp1&&p.tp2){
     var tmaDx=p.aj.x-p.kj.x, tmaDy=p.aj.y-p.kj.y;
     var tpDx=p.tp2.x-p.tp1.x, tpDy=p.tp2.y-p.tp1.y;
@@ -2362,8 +2447,6 @@ function leaCalcFor(p){
     res.mMPTA_val = parseFloat(res.mMPTA);
     res.tpMid = leaMid(p.tp1,p.tp2);
   }
-
-  // JLCA: angle between condyle line and plateau line at their intersection
   if(p.fc1&&p.fc2&&p.tp1&&p.tp2){
     var fcDx2=p.fc2.x-p.fc1.x, fcDy2=p.fc2.y-p.fc1.y;
     var tpDx2=p.tp2.x-p.tp1.x, tpDy2=p.tp2.y-p.tp1.y;
@@ -2371,52 +2454,49 @@ function leaCalcFor(p){
     res.JLCA = Math.min(jlcaAng,180-jlcaAng).toFixed(1);
     res.jlcaIntersect = lineIntersect(p.fc1,p.fc2,p.tp1,p.tp2);
   }
-
-  // ── CORA: intersection of femoral anatomical axis (PF→FDC) and tibial anatomical axis (TPC→TDC) ──
-  if(p.pf&&p.fdc&&p.tpc&&p.tdc&&p.kj){
-    var cora=lineIntersect(p.pf,p.fdc,p.tpc,p.tdc);
-    if(cora) res.CORA=cora;
-
-    if(cora&&leaState.pxPerMm){
-      // Distance from CORA to KJ (knee center) — this defines intra vs extra-articular
-      var coraToKJpx=leaDist(cora,p.kj);
-      var coraToKJmm=coraToKJpx/leaState.pxPerMm;
-      res.coraDistMm=coraToKJmm;
-
-      if(coraToKJmm<=10){
-        // CORA at knee joint — intra-articular deformity
-        res.deformity='INTRA-ARTICULAR';
-        var mag=0;
-        if(res.mLDFA_val) mag+=Math.abs(res.mLDFA_val-87);
-        if(res.mMPTA_val) mag+=Math.abs(res.mMPTA_val-87);
-        res.deformityMag=mag.toFixed(1);
-      } else if(coraToKJmm<=30){
-        // CORA close to joint — peri-articular
-        res.deformity='PERI-ARTICULAR';
-        res.deformityDist=coraToKJmm.toFixed(0);
-        res.coraAbove=cora.y<p.kj.y; // above = femoral side, below = tibial side
-      } else {
-        // CORA far from joint — extra-articular (shaft level)
-        res.deformity='EXTRA-ARTICULAR';
-        res.deformityDist=coraToKJmm.toFixed(0);
-        res.coraAbove=cora.y<p.kj.y;
-      }
-    } else if(cora&&p.kj){
-      // No calibration — classify by pixel distance
-      var cpx2=leaDist(cora,p.kj);
-      if(cpx2<20) res.deformity='INTRA-ARTICULAR (calibrate for mm)';
-      else res.deformity='EXTRA-ARTICULAR (calibrate for mm)';
-    }
+  // AMA at FDC
+  if(p.fh&&p.fdc&&p.pf){
+    res.AMA = angleAtVertex(p.fh, p.fdc, p.pf).toFixed(1);
   }
-
+  // Femoral CORA — supplementary, only if dragged (>0.5°)
+  if(p.pf&&p.fdc&&p.fCoraPt){
+    var fCoraInt = angleAtVertex(p.pf, p.fCoraPt, p.fdc);
+    var fCoraAng = 180 - fCoraInt;
+    if(fCoraAng > 0.5) res.fCoraAngle = fCoraAng.toFixed(1);
+  }
+  // Tibial CORA — supplementary, only if dragged (>0.5°)
+  if(p.tpc&&p.tdc&&p.tCoraPt){
+    var tCoraInt = angleAtVertex(p.tpc, p.tCoraPt, p.tdc);
+    var tCoraAng = 180 - tCoraInt;
+    if(tCoraAng > 0.5) res.tCoraAngle = tCoraAng.toFixed(1);
+  }
   return res;
 }
+// Auto-place CORA points at midpoint of PF-FDC and TPC-TDC
+function leaAutoCoraPts(){
+  var p=leaActivePts();
+  if(p.pf&&p.fdc&&!p.fCoraPt){
+    p.fCoraPt={x:(p.pf.x+p.fdc.x)/2,y:(p.pf.y+p.fdc.y)/2};
+  }
+  if(p.tpc&&p.tdc&&!p.tCoraPt){
+    p.tCoraPt={x:(p.tpc.x+p.tdc.x)/2,y:(p.tpc.y+p.tdc.y)/2};
+  }
+}
 
+// Angle at vertex B between rays B→A and B→C (0-180)
+function angleAtVertex(A,B,C){
+  var ax=A.x-B.x,ay=A.y-B.y;
+  var cx=C.x-B.x,cy=C.y-B.y;
+  return angleBetweenVecs(ax,ay,cx,cy);
+}
 
 function leaCalc(){
   var p=leaActivePts();
   if(!p.fh||!p.kj||!p.aj) return null;
 
+  // Auto-place CORA midpoints if not yet set
+  leaAutoCoraPts();
+
   var res={};
   var pxMm = leaState.pxPerMm||1;
 
@@ -2427,30 +2507,30 @@ function leaCalc(){
     res.limbPx=limbPx;
   }
 
-  // Mechanical axis vector: fh→aj
-  var madx=p.aj.x-p.fh.x, mady=p.aj.y-p.fh.y;
-
-  // Varus/valgus: signed distance of KJ from the full MA line (fh→aj)
-  // Positive = KJ is to the right of fh→aj = valgus (in standard AP left-leg)
+  // Varus/valgus MAD: signed distance of KJ from full MA line (fh→aj)
   var vvPx = ptToLineDist(p.kj, p.fh, p.aj);
   res.vvMm = leaState.pxPerMm ? Math.abs(vvPx/pxMm).toFixed(1) : null;
   res.vvDir = vvPx > 2/leaZ.s ? 'VALGUS' : vvPx < -2/leaZ.s ? 'VARUS' : 'NEUTRAL';
   res.vvPx = vvPx;
 
-  // mLDFA: angle between Femoral Mechanical Axis (fh→kj) and condyle line (fc1→fc2)
-  // Measured as lateral angle (supplementary if needed to get the correct convention)
+  // ── HKA angle (supplementary): 180 − angle at KJ between FH and AJ ──
+  // When leg is straight → raw≈180° → HKA≈0°; valgus/varus gives positive deviation
+  var hkaRaw = angleAtVertex(p.fh, p.kj, p.aj);
+  var hkaSuppl = 180 - hkaRaw;
+  res.HKA = hkaSuppl.toFixed(1);
+  res.HKA_val = hkaSuppl;
+
+  // mLDFA
   if(p.fc1&&p.fc2){
     var fmaDx=p.kj.x-p.fh.x, fmaDy=p.kj.y-p.fh.y;
     var fcDx=p.fc2.x-p.fc1.x, fcDy=p.fc2.y-p.fc1.y;
     var ang=angleBetweenVecs(fmaDx,fmaDy,fcDx,fcDy);
-    // mLDFA is the lateral distal angle — normal ~87°
     res.mLDFA = ang > 90 ? (180-ang).toFixed(1) : ang.toFixed(1);
     res.mLDFA_val = parseFloat(res.mLDFA);
     res.fcMid = leaMid(p.fc1,p.fc2);
   }
 
-  // mMPTA: angle between Tibial Mechanical Axis (kj→aj) and tibial plateau line (tp1→tp2)
-  // Medial proximal angle — normal ~87°
+  // mMPTA
   if(p.tp1&&p.tp2){
     var tmaDx=p.aj.x-p.kj.x, tmaDy=p.aj.y-p.kj.y;
     var tpDx=p.tp2.x-p.tp1.x, tpDy=p.tp2.y-p.tp1.y;
@@ -2460,7 +2540,7 @@ function leaCalc(){
     res.tpMid = leaMid(p.tp1,p.tp2);
   }
 
-  // JLCA: angle between condyle line and plateau line at their intersection
+  // JLCA
   if(p.fc1&&p.fc2&&p.tp1&&p.tp2){
     var fcDx2=p.fc2.x-p.fc1.x, fcDy2=p.fc2.y-p.fc1.y;
     var tpDx2=p.tp2.x-p.tp1.x, tpDy2=p.tp2.y-p.tp1.y;
@@ -2469,87 +2549,56 @@ function leaCalc(){
     res.jlcaIntersect = lineIntersect(p.fc1,p.fc2,p.tp1,p.tp2);
   }
 
-  // ── CORA: intersection of femoral anatomical axis (PF→FDC) and tibial anatomical axis (TPC→TDC) ──
-  if(p.pf&&p.fdc&&p.tpc&&p.tdc&&p.kj){
-    var cora=lineIntersect(p.pf,p.fdc,p.tpc,p.tdc);
-    if(cora) res.CORA=cora;
-
-    if(cora&&leaState.pxPerMm){
-      // Distance from CORA to KJ (knee center) — this defines intra vs extra-articular
-      var coraToKJpx=leaDist(cora,p.kj);
-      var coraToKJmm=coraToKJpx/leaState.pxPerMm;
-      res.coraDistMm=coraToKJmm;
-
-      if(coraToKJmm<=10){
-        // CORA at knee joint — intra-articular deformity
-        res.deformity='INTRA-ARTICULAR';
-        var mag=0;
-        if(res.mLDFA_val) mag+=Math.abs(res.mLDFA_val-87);
-        if(res.mMPTA_val) mag+=Math.abs(res.mMPTA_val-87);
-        res.deformityMag=mag.toFixed(1);
-      } else if(coraToKJmm<=30){
-        // CORA close to joint — peri-articular
-        res.deformity='PERI-ARTICULAR';
-        res.deformityDist=coraToKJmm.toFixed(0);
-        res.coraAbove=cora.y<p.kj.y; // above = femoral side, below = tibial side
-      } else {
-        // CORA far from joint — extra-articular (shaft level)
-        res.deformity='EXTRA-ARTICULAR';
-        res.deformityDist=coraToKJmm.toFixed(0);
-        res.coraAbove=cora.y<p.kj.y;
-      }
-    } else if(cora&&p.kj){
-      // No calibration — classify by pixel distance
-      var cpx2=leaDist(cora,p.kj);
-      if(cpx2<20) res.deformity='INTRA-ARTICULAR (calibrate for mm)';
-      else res.deformity='EXTRA-ARTICULAR (calibrate for mm)';
+  // ── Femoral CORA angle: at fCoraPt between rays toward PF and toward FDC ──
+  // Deformity angle = 180 - interior angle (supplementary)
+  if(p.pf&&p.fdc&&p.fCoraPt){
+    var fCoraInterior = angleAtVertex(p.pf, p.fCoraPt, p.fdc);
+    var fCoraAngle = 180 - fCoraInterior;
+    if(fCoraAngle > 0.5){
+      res.fCoraAngle = fCoraAngle.toFixed(1);
     }
+    res.fCoraPtCoord = p.fCoraPt;
+  }
+
+  // ── Tibial CORA angle: at tCoraPt between rays toward TPC and toward TDC ──
+  if(p.tpc&&p.tdc&&p.tCoraPt){
+    var tCoraInterior = angleAtVertex(p.tpc, p.tCoraPt, p.tdc);
+    var tCoraAngle = 180 - tCoraInterior;
+    if(tCoraAngle > 0.5){
+      res.tCoraAngle = tCoraAngle.toFixed(1);
+    }
+    res.tCoraPtCoord = p.tCoraPt;
+  }
+
+  // ── AMA angle: angle at FDC between FDC→FH and FDC→PF ──
+  if(p.fh&&p.fdc&&p.pf){
+    var amaAngle = angleAtVertex(p.fh, p.fdc, p.pf);
+    res.AMA = amaAngle.toFixed(1);
   }
 
   return res;
 }
 
 function leaDrawResults(res,svg,wr,cr,z){
-  var p=leaPts;
+  var p=leaActivePts();
 
-  // CORA
-  if(res.CORA){
-    var sc2=c2s(res.CORA.x,res.CORA.y,wr,cr,z);
-    svg.appendChild(svEl('circle',{cx:sc2.x,cy:sc2.y,r:10,fill:'none',stroke:'#aa88ff','stroke-width':'2.5'}));
-    svDot(svg,res.CORA,'#aa88ff',4,wr,cr,z);
-    svText(svg,res.CORA.x+14/z,res.CORA.y-4/z,'CORA','#aa88ff',11,wr,cr,z);
-  }
-
-  // MAD offset line
-  if(p.fh&&p.kj&&p.aj&&Math.abs(res.vvPx)>2){
-    var madx2=p.aj.x-p.fh.x,mady2=p.aj.y-p.fh.y;
-    var malen=Math.sqrt(madx2*madx2+mady2*mady2)||1;
-    var t2=((p.kj.x-p.fh.x)*madx2+(p.kj.y-p.fh.y)*mady2)/(malen*malen);
-    var foot={x:p.fh.x+t2*madx2,y:p.fh.y+t2*mady2};
-    svLine(svg,p.kj,foot,'#00e5ff',2,true,wr,cr,z);
-    svDot(svg,foot,'#00e5ff',3,wr,cr,z);
-    if(res.vvMm) svText(svg,foot.x+8/z,foot.y-8/z,'MAD '+res.vvMm+'mm','#00e5ff',11,wr,cr,z);
-  }
-
-  // mLDFA arc
-  if(res.mLDFA&&p.fh&&p.kj&&p.fc1&&p.fc2){
-    var v1x=p.fh.x-p.kj.x,v1y=p.fh.y-p.kj.y;
-    var fcMx=(p.fc1.x+p.fc2.x)/2,fcMy=(p.fc1.y+p.fc2.y)/2;
-    var v2x=fcMx-p.kj.x,v2y=fcMy-p.kj.y;
-
-  }
-
-  // mMPTA arc
-  if(res.mMPTA&&p.kj&&p.aj&&p.tp1&&p.tp2){
-    var v3x=p.aj.x-p.kj.x,v3y=p.aj.y-p.kj.y;
-    var tpMx=(p.tp1.x+p.tp2.x)/2,tpMy=(p.tp1.y+p.tp2.y)/2;
-    var v4x=tpMx-p.kj.x,v4y=tpMy-p.kj.y;
-
-  }
-
-  // JLCA
+  // JLCA dot
   if(res.JLCA&&res.jlcaIntersect){
     svDot(svg,res.jlcaIntersect,'#ffdd00',3,wr,cr,z);
+  }
+
+  // Femoral CORA — two segments PF→dot→FDC, bends when dragged
+  if(p.fCoraPt&&p.pf&&p.fdc){
+    svLine(svg,p.pf,p.fCoraPt,'#ffaa00',2,false,wr,cr,z);
+    svLine(svg,p.fCoraPt,p.fdc,'#ffaa00',2,false,wr,cr,z);
+    svDot(svg,p.fCoraPt,'#ffaa00',5,wr,cr,z);
+  }
+
+  // Tibial CORA — two segments TPC→dot→TDC, bends when dragged
+  if(p.tCoraPt&&p.tpc&&p.tdc){
+    svLine(svg,p.tpc,p.tCoraPt,'#00ffcc',2,false,wr,cr,z);
+    svLine(svg,p.tCoraPt,p.tdc,'#00ffcc',2,false,wr,cr,z);
+    svDot(svg,p.tCoraPt,'#00ffcc',5,wr,cr,z);
   }
 
   // Left panel results
@@ -2557,29 +2606,50 @@ function leaDrawResults(res,svg,wr,cr,z){
   document.getElementById('lea-result').style.display=haveAll?'block':'none';
   if(haveAll){
     document.getElementById('lr-length').textContent=res.limbMm||'—';
-  var vvEl=document.getElementById('lr-vv');
+    var vvEl=document.getElementById('lr-vv');
     vvEl.textContent=res.vvDir;
     vvEl.style.color=res.vvDir==='VALGUS'?'#00e5ff':res.vvDir==='VARUS'?'#ff6644':'#4ade80';
     document.getElementById('lr-off').textContent=res.vvMm?res.vvMm+' mm':'— (calibrate)';
+    // HKA (supplementary — deviation from neutral; 0° = neutral)
+    var lrHka=document.getElementById('lr-hka');
+    if(lrHka){
+      var hkaLabel=res.HKA_val>1?res.HKA+'° ('+res.vvDir+')':res.HKA+'° (NEUTRAL)';
+      lrHka.textContent=res.HKA?hkaLabel:'—';
+      lrHka.style.color=res.vvDir==='VALGUS'?'#00e5ff':res.vvDir==='VARUS'?'#ff6644':'#4ade80';
+    }
     document.getElementById('lr-ldfa').textContent=res.mLDFA?res.mLDFA+'°':'—';
     document.getElementById('lr-mpta').textContent=res.mMPTA?res.mMPTA+'°':'—';
     document.getElementById('lr-jlca').textContent=res.JLCA?res.JLCA+'°':'—';
+    // HKA — results panel only
+    var lrHka=document.getElementById('lr-hka');
+    if(lrHka){
+      var hkaLabel=res.HKA_val!=null?(res.HKA+'° ('+(res.HKA_val>1?res.vvDir:'NEUTRAL')+')'):'—';
+      lrHka.textContent=hkaLabel;
+      lrHka.style.color=res.vvDir==='VALGUS'?'#00e5ff':res.vvDir==='VARUS'?'#ff6644':'#4ade80';
+    }
+    // AMA — results panel only
+    var lrAma=document.getElementById('lr-ama');
+    if(lrAma) lrAma.textContent=res.AMA?res.AMA+'°':'—';
+    // Femoral CORA — only show if point was moved (angle > 0.5°)
+    var fcRow=document.getElementById('lr-fcora-row');
+    var lrFcora=document.getElementById('lr-fcora');
+    if(fcRow&&lrFcora){
+      fcRow.style.display=res.fCoraAngle?'flex':'none';
+      lrFcora.textContent=res.fCoraAngle?res.fCoraAngle+'°':'—';
+    }
+    // Tibial CORA — only show if point was moved (angle > 0.5°)
+    var tcRow=document.getElementById('lr-tcora-row');
+    var lrTcora=document.getElementById('lr-tcora');
+    if(tcRow&&lrTcora){
+      tcRow.style.display=res.tCoraAngle?'flex':'none';
+      lrTcora.textContent=res.tCoraAngle?res.tCoraAngle+'°':'—';
+    }
   }
+  // Hide old CORA/deformity boxes
   var coraBox=document.getElementById('lea-cora-box');
-  if(res.CORA){
-    coraBox.style.display='block';
-    var coraTxt=res.coraDistMm!==undefined?'CORA → Knee: <span style="color:#aa88ff;font-weight:700">'+res.coraDistMm.toFixed(0)+' mm</span>':'Calibrate ruler for mm distance.';
-    document.getElementById('lr-cora-txt').innerHTML=coraTxt;
-  } else coraBox.style.display='none';
+  if(coraBox) coraBox.style.display='none';
   var defBox=document.getElementById('lea-deformity-box');
-  if(res.deformity){
-    defBox.style.display='block';
-    var defCol=res.deformity.includes('INTRA')?'#ff4466':res.deformity.includes('EXTRA')?'#ffaa44':'#ffdd00';
-    var defTxt='<span style="color:'+defCol+';font-weight:700">'+res.deformity+'</span><br/>';
-    if(res.deformity==='INTRA-ARTICULAR') defTxt+='<span style="color:#8a4a5a">CORA at knee. Combined: '+res.deformityMag+'°</span>';
-    else if(res.deformityDist) defTxt+='<span style="color:#8a6a2a">CORA '+res.deformityDist+'mm from knee.</span>';
-    document.getElementById('lr-deformity-txt').innerHTML=defTxt;
-  } else defBox.style.display='none';
+  if(defBox) defBox.style.display='none';
 }
 
 // Mode activation
@@ -2647,8 +2717,8 @@ function leaUpdateBtns(){
 }
 
 window.leaReset=function(){
-  leaPts={fh:null,pf:null,fdc:null,kj:null,tpc:null,tdc:null,aj:null,fc1:null,fc2:null,tp1:null,tp2:null,cal:null,calCircle:null};
-  leaPtsL={fh:null,pf:null,fdc:null,kj:null,tpc:null,tdc:null,aj:null,fc1:null,fc2:null,tp1:null,tp2:null,cal:null,calCircle:null};
+  leaPts={fh:null,pf:null,fdc:null,kj:null,tpc:null,tdc:null,aj:null,fc1:null,fc2:null,tp1:null,tp2:null,cal:null,calCircle:null,fCoraPt:null,tCoraPt:null};
+  leaPtsL={fh:null,pf:null,fdc:null,kj:null,tpc:null,tdc:null,aj:null,fc1:null,fc2:null,tp1:null,tp2:null,cal:null,calCircle:null,fCoraPt:null,tCoraPt:null};
   leaSide='R';
   leaState={mode:null,tmp:null,pxPerMm:null,calMode:'circle'};
   leaDrg=null;
@@ -2807,7 +2877,11 @@ function leaDown(e){
 
   // Placement modes
   if(m==='fh'||m==='pf'||m==='fdc'||m==='kj'||m==='tpc'||m==='tdc'||m==='aj'){
-    leaPts[m]=pt; leaState.mode=null; leaUpdateBtns(); leaDraw(); return;
+    leaPts[m]=pt;
+    // Reset CORA midpoints when parent landmarks change so they re-auto-place
+    if(m==='pf'||m==='fdc') leaPts.fCoraPt=null;
+    if(m==='tpc'||m==='tdc') leaPts.tCoraPt=null;
+    leaState.mode=null; leaUpdateBtns(); leaDraw(); return;
   }
   if(m==='cal_circle'){
     // Single tap places center — slider in left panel resizes
@@ -2837,7 +2911,8 @@ function leaDown(e){
     {k:'fc1',p:leaPts.fc1},{k:'fc2',p:leaPts.fc2},{k:'tp1',p:leaPts.tp1},{k:'tp2',p:leaPts.tp2},
     {k:'cal_p1',p:leaPts.cal?leaPts.cal.p1:null},{k:'cal_p2',p:leaPts.cal?leaPts.cal.p2:null},
     {k:'circle_c',p:leaPts.calCircle?{x:leaPts.calCircle.cx,y:leaPts.calCircle.cy}:null},
-    {k:'circle_e',p:leaPts.calCircle?{x:leaPts.calCircle.cx+leaPts.calCircle.r,y:leaPts.calCircle.cy}:null}
+    {k:'circle_e',p:leaPts.calCircle?{x:leaPts.calCircle.cx+leaPts.calCircle.r,y:leaPts.calCircle.cy}:null},
+    {k:'fCoraPt',p:leaPts.fCoraPt},{k:'tCoraPt',p:leaPts.tCoraPt}
   ];
   for(var i=0;i<hits.length;i++){
     if(hits[i].p&&leaDist(pt,hits[i].p)<=HIT){leaDrg=hits[i].k;return;}
@@ -3063,9 +3138,13 @@ leaDrawResults = function(res, svg, wr, cr, z){
     html+=leaFloatRow('Length',r2.limbMm||'—',sideCol);
     html+=leaFloatRow('Align',r2.vvDir||'—',r2.vvDir==='VALGUS'?'#00e5ff':r2.vvDir==='VARUS'?'#ff6644':'#4ade80');
     if(r2.vvMm) html+=leaFloatRow('MAD',r2.vvMm+'mm',null);
+    if(r2.HKA)  html+=leaFloatRow('HKA', r2.HKA+'°', '#00e5ff');
     if(r2.mLDFA) html+=leaFloatRow('mLDFA',r2.mLDFA+'°','#ff8844');
     if(r2.mMPTA) html+=leaFloatRow('mMPTA',r2.mMPTA+'°','#44ffdd');
     if(r2.JLCA)  html+=leaFloatRow('JLCA', r2.JLCA+'°', '#ffdd00');
+    if(r2.AMA)   html+=leaFloatRow('AMA',  r2.AMA+'°',  '#ff88ff');
+    if(r2.fCoraAngle) html+=leaFloatRow('F-CORA',r2.fCoraAngle+'°','#ffaa00');
+    if(r2.tCoraAngle) html+=leaFloatRow('T-CORA',r2.tCoraAngle+'°','#00ffcc');
     return html;
   }
   if(fl){
@@ -3081,16 +3160,20 @@ leaDrawResults = function(res, svg, wr, cr, z){
     e2('lr-length2',res.limbMm||'—'); e2('lr-off2',res.vvMm?res.vvMm+' mm':'—');
     e2('lr-ldfa2',res.mLDFA?res.mLDFA+'°':'—'); e2('lr-mpta2',res.mMPTA?res.mMPTA+'°':'—');
     e2('lr-jlca2',res.JLCA?res.JLCA+'°':'—');
+    e2('lr-ama2',res.AMA?res.AMA+'°':'—');
+    var hka2El=document.getElementById('lr-hka2');
+    if(hka2El){ hka2El.textContent=res.HKA?res.HKA+'° ('+(res.HKA_val>1?res.vvDir:'NEUTRAL')+')':'—';
+      hka2El.style.color=res.vvDir==='VALGUS'?'#00e5ff':res.vvDir==='VARUS'?'#ff6644':'#4ade80'; }
     var vv2=document.getElementById('lr-vv2'); if(vv2){ vv2.textContent=res.vvDir||'—';
       vv2.style.color=res.vvDir==='VALGUS'?'#00e5ff':res.vvDir==='VARUS'?'#ff6644':'#4ade80'; }
+    var fc2row=document.getElementById('lr-fcora-row2'),fc2val=document.getElementById('lr-fcora2');
+    if(fc2row&&fc2val){fc2row.style.display=res.fCoraAngle?'flex':'none';fc2val.textContent=res.fCoraAngle?res.fCoraAngle+'°':'—';}
+    var tc2row=document.getElementById('lr-tcora-row2'),tc2val=document.getElementById('lr-tcora2');
+    if(tc2row&&tc2val){tc2row.style.display=res.tCoraAngle?'flex':'none';tc2val.textContent=res.tCoraAngle?res.tCoraAngle+'°':'—';}
   }
   var cb2=document.getElementById('lea-cora-box2'),db2=document.getElementById('lea-deformity-box2');
-  if(cb2) cb2.style.display=res.CORA?'block':'none';
-  if(db2) db2.style.display=res.deformity?'block':'none';
-  var ct2=document.getElementById('lr-cora-txt2'),ct1=document.getElementById('lr-cora-txt');
-  if(ct2&&ct1) ct2.innerHTML=ct1.innerHTML;
-  var dt2=document.getElementById('lr-deformity-txt2'),dt1=document.getElementById('lr-deformity-txt');
-  if(dt2&&dt1) dt2.innerHTML=dt1.innerHTML;
+  if(cb2) cb2.style.display='none';
+  if(db2) db2.style.display='none';
 };
 
 
