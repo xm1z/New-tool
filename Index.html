@@ -2417,6 +2417,8 @@ function leaCalcFor(p){
     res.limbPx=limbPx;
   }
   var vvPx = ptToLineDist(p.kj, p.fh, p.aj);
+  // For left side the image is mirrored — flip sign so varus/valgus is correct
+  if(leaSide==='L') vvPx = -vvPx;
   res.vvMm = leaState.pxPerMm ? Math.abs(vvPx/pxMm).toFixed(1) : null;
   res.vvDir = vvPx > 2/leaZ.s ? 'VALGUS' : vvPx < -2/leaZ.s ? 'VARUS' : 'NEUTRAL';
   res.vvPx = vvPx;
@@ -2502,6 +2504,8 @@ function leaCalc(){
 
   // Varus/valgus MAD: signed distance of KJ from full MA line (fh→aj)
   var vvPx = ptToLineDist(p.kj, p.fh, p.aj);
+  // For left side the image is mirrored — flip sign so varus/valgus is correct
+  if(leaSide==='L') vvPx = -vvPx;
   res.vvMm = leaState.pxPerMm ? Math.abs(vvPx/pxMm).toFixed(1) : null;
   res.vvDir = vvPx > 2/leaZ.s ? 'VALGUS' : vvPx < -2/leaZ.s ? 'VARUS' : 'NEUTRAL';
   res.vvPx = vvPx;
@@ -3326,3 +3330,4 @@ self.addEventListener('fetch', e => {
 </script>
 </body>
 </html>
+
