@@ -314,6 +314,56 @@
       display:none;position:fixed;inset:0;z-index:199;background:#00000044;
     }
     .bsheet-backdrop.open{display:block;}
+    /* ══ DESKTOP SCALE-UP for fullscreen layout ══ */
+    @media (min-width: 900px) {
+      /* Tabs bigger */
+      .tab{ font-size:14px; padding:14px 26px; letter-spacing:1.5px; }
+      .t-main{ font-size:18px; letter-spacing:3px; }
+
+      /* Floating toolbar buttons much larger */
+      .ftoolbar{ padding:11px 18px; gap:12px; border-radius:38px; bottom:24px; }
+      .ftoolbar-btn{ padding:6px 10px; min-width:54px; border-radius:12px; }
+      .ftoolbar-btn .ftico{ font-size:26px; }
+      .ftoolbar-btn .ftlbl{ font-size:11px; letter-spacing:1px; }
+      .ftoolbar-sep{ height:40px; }
+
+      /* LEA dual-row toolbar buttons (R/L, side toggles) */
+      #lea-ftoolbar button[id^="lea-side"],
+      #fav-ft-r, #fav-ft-l{ padding:8px 16px !important; font-size:14px !important; }
+
+      /* Bottom sheet wider + bigger controls on desktop */
+      .bsheet{ max-width:560px; left:50%; transform:translate(-50%,100%); border-radius:18px 18px 0 0; }
+      .bsheet.open{ transform:translate(-50%,0); }
+      .bsheet-title{ font-size:14px; letter-spacing:3px; padding:6px 0 12px; }
+      .bsheet-body{ padding:0 22px 28px; }
+      .bsheet-body .slabel{ font-size:12px; letter-spacing:2px; }
+      .bsheet-body .btn-tool,
+      .bsheet-body .lea-btn,
+      .bsheet-body .fav-btn{ font-size:13px; padding:11px 12px; }
+      .bsheet-body .upload-box .uico{ font-size:26px; }
+      .bsheet-body .upload-box .utxt{ font-size:14px; }
+      .bsheet-body input[type=number]{ font-size:14px; padding:7px 10px; }
+      .bsheet-body .step-row{ font-size:12px; }
+      .bsheet-body .badge{ width:20px; height:20px; font-size:11px; line-height:20px; }
+
+      /* Panel toggle / reset-zoom / credits buttons bigger */
+      .panel-toggle-btn{ font-size:12px; padding:8px 14px; }
+      .zreset{ font-size:13px; padding:9px 15px; }
+
+      /* Result float card bigger */
+      .result-float{ min-width:180px; padding:10px 16px 14px; border-radius:14px; }
+      .result-float .rf-title{ font-size:10px; letter-spacing:2px; }
+      .result-float .rf-label{ font-size:11px; }
+      .result-float .rf-val{ font-size:17px; }
+
+      /* Anteversion + leg-alignment result boxes scale */
+      #fav-result .fr-val{ font-size:40px; }
+      #fav-result #fav-direction{ font-size:17px; }
+      #fav-result .fr-grade{ font-size:14px; padding:5px 14px; }
+      #lea-result .lr-label{ font-size:12px; }
+      #lea-result .lr-val{ font-size:17px; }
+      #tttg-result .rv{ font-size:36px; }
+    }
   </style>
 </head>
 <body>
@@ -2867,6 +2917,79 @@ leaCanvas.addEventListener('touchstart',function(e){if(e.touches.length===1)leaD
 leaCanvas.addEventListener('touchmove', function(e){if(e.touches.length===1)leaMove(e);},{passive:false});
 leaCanvas.addEventListener('touchend',  leaUp,{passive:false});
 
+// ═══════════════════════════════════════════
+// CALIBRATION AUTO-DETECT — image analysis helpers
+// detectBallOn: cast rays from a tap point, find the circular blob edge (Zimmer ball)
+// snapEdgeOn:   snap a point to the strongest nearby edge (ruler marking)
+// ═══════════════════════════════════════════
+function detectBallOn(ctx, canvas, cx, cy){
+  var dpr=window.devicePixelRatio||1;
+  var W=canvas.width, H=canvas.height;
+  if(!W) return null;
+  var img;
+  try{ img=ctx.getImageData(0,0,W,H); }catch(e){ return null; }
+  var data=img.data;
+  function bri(px,py){ if(px<0||py<0||px>=W||py>=H) return -1; var i=(py*W+px)*4; return (data[i]+data[i+1]+data[i+2])/3; }
+  var bx=Math.round(cx*dpr), by=Math.round(cy*dpr);
+  var c0=bri(bx,by);
+  if(c0<0) return null;
+  var dirs=24, maxR=Math.round(Math.min(W,H)*0.30);
+  // Estimate background brightness at outer ring
+  var bgSum=0,bgN=0;
+  for(var d=0; d<dirs; d++){
+    var ang=d/dirs*6.283185;
+    var b=bri(Math.round(bx+Math.cos(ang)*maxR*0.8), Math.round(by+Math.sin(ang)*maxR*0.8));
+    if(b>=0){ bgSum+=b; bgN++; }
+  }
+  var bg = bgN ? bgSum/bgN : c0;
+  if(Math.abs(c0-bg) < 18) return null; // not enough contrast → no clear ball
+  var thresh=(c0+bg)/2, bright=c0>bg, edges=[];
+  for(var d2=0; d2<dirs; d2++){
+    var ang2=d2/dirs*6.283185, ca=Math.cos(ang2), sa=Math.sin(ang2), edge=null;
+    for(var r=3; r<maxR; r++){
+      var b2=bri(Math.round(bx+ca*r), Math.round(by+sa*r));
+      if(b2<0) break;
+      if(bright ? (b2<thresh) : (b2>thresh)){ edge=r; break; }
+    }
+    if(edge) edges.push({r:edge,ca:ca,sa:sa});
+  }
+  if(edges.length < dirs*0.5) return null;
+  var rs=edges.map(function(e){return e.r;}).sort(function(a,b){return a-b;});
+  var medR=rs[Math.floor(rs.length/2)];
+  // Keep edges close to the median, discard outliers
+  var good=edges.filter(function(e){ return e.r<medR*1.6 && e.r>medR*0.5; });
+  if(good.length < dirs*0.4) good=edges;
+  var sx=0,sy=0; good.forEach(function(e){ sx+=bx+e.ca*e.r; sy+=by+e.sa*e.r; });
+  var rs2=good.map(function(e){return e.r;}).sort(function(a,b){return a-b;});
+  var fr=rs2[Math.floor(rs2.length/2)];
+  return { cx:(sx/good.length)/dpr, cy:(sy/good.length)/dpr, r:fr/dpr };
+}
+
+function snapEdgeOn(ctx, canvas, x, y){
+  var dpr=window.devicePixelRatio||1;
+  var W=canvas.width, H=canvas.height;
+  if(!W) return {x:x,y:y};
+  var img;
+  try{ img=ctx.getImageData(0,0,W,H); }catch(e){ return {x:x,y:y}; }
+  var data=img.data;
+  function bri(px,py){ var i=(py*W+px)*4; return (data[i]+data[i+1]+data[i+2])/3; }
+  var bx=Math.round(x*dpr), by=Math.round(y*dpr);
+  var rad=Math.round(14*dpr), best=null, bestG=-1;
+  for(var dy=-rad; dy<=rad; dy++){
+    var py=by+dy; if(py<1||py>=H-1) continue;
+    for(var dx=-rad; dx<=rad; dx++){
+      var px=bx+dx; if(px<1||px>=W-1) continue;
+      if(dx*dx+dy*dy>rad*rad) continue;
+      var gx=bri(px+1,py)-bri(px-1,py);
+      var gy=bri(px,py+1)-bri(px,py-1);
+      var g=Math.abs(gx)+Math.abs(gy);
+      if(g>bestG){ bestG=g; best={x:px,y:py}; }
+    }
+  }
+  if(best && bestG>30) return { x:best.x/dpr, y:best.y/dpr };
+  return {x:x,y:y};
+}
+
 function leaDown(e){
   e.preventDefault();e.stopPropagation();
   var pt=leaPt(e), m=leaState.mode, z=leaZ.s, HIT=24/z;
@@ -2881,8 +3004,9 @@ function leaDown(e){
     leaState.mode=null; leaUpdateBtns(); leaDraw(); return;
   }
   if(m==='cal_circle'){
-    // Single tap places center — slider in left panel resizes
-    leaState.calCircle={cx:pt.x,cy:pt.y,r:40};
+    // Tap → auto-detect the Zimmer ball; fall back to default circle if none found
+    var det=detectBallOn(leaCtx, leaCanvas, pt.x, pt.y);
+    leaState.calCircle = det ? {cx:det.cx, cy:det.cy, r:det.r} : {cx:pt.x, cy:pt.y, r:40};
     leaState.mode=null;
     leaUpdateBtns();
     leaUpdateCircleDiv();
@@ -2890,7 +3014,6 @@ function leaDown(e){
     return;
   }
   if(m==='fc'||m==='tp'||m==='cal'){
-    var k1=m==='fc'?'fc1':m==='tp'?'tp1':'cal_p1';
     if(!leaState.tmp){leaState.tmp=pt; leaUpdateBtns(); leaDraw();}
     else{
       if(m==='fc'){leaPts.fc1=leaState.tmp;leaPts.fc2=pt;}
@@ -3330,4 +3453,3 @@ self.addEventListener('fetch', e => {
 </script>
 </body>
 </html>
-
