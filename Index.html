@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -2457,8 +2458,9 @@ function leaDraw(){
   if(results) leaDrawResults(results,svg,wr,cr,z);
 }
 
-function leaCalcFor(p){
+function leaCalcFor(p, forSide){
   if(!p.fh||!p.kj||!p.aj) return null;
+  var sideForCalc = forSide || leaSide;
   var res={};
   var pxMm = leaState.pxPerMm||1;
   if(p.fh&&p.aj){
@@ -2468,7 +2470,7 @@ function leaCalcFor(p){
   }
   var vvPx = ptToLineDist(p.kj, p.fh, p.aj);
   // For left side the image is mirrored — flip sign so varus/valgus is correct
-  if(leaSide==='L') vvPx = -vvPx;
+  if(sideForCalc==='L') vvPx = -vvPx;
   res.vvMm = leaState.pxPerMm ? Math.abs(vvPx/pxMm).toFixed(1) : null;
   res.vvDir = vvPx > 2/leaZ.s ? 'VALGUS' : vvPx < -2/leaZ.s ? 'VARUS' : 'NEUTRAL';
   res.vvPx = vvPx;
@@ -3251,8 +3253,8 @@ leaDrawResults = function(res, svg, wr, cr, z){
   var haveAll=leaPts.fh&&leaPts.kj&&leaPts.aj;
   var fl=document.getElementById('lea-result-float');
   function leaFloatRow(lbl,val,col){return '<div class="rf-row"><span class="rf-label">'+lbl+'</span><span class="rf-val"'+(col?' style="color:'+col+'"':'')+'>'+val+'</span></div>';}
-  function leaSideResult(pts,sideLbl,sideCol){
-    var r2=leaCalcFor?leaCalcFor(pts):null;
+  function leaSideResult(pts,sideLbl,sideCol,sideKey){
+    var r2=leaCalcFor?leaCalcFor(pts,sideKey):null;
     if(!r2||!(pts&&pts.fh&&pts.kj&&pts.aj)) return '';
     var html='<div style="font-size:8px;font-weight:700;color:'+sideCol+';letter-spacing:2px;padding:3px 0 1px">'+sideLbl+'</div>';
     html+=leaFloatRow('Length',r2.limbMm||'—',sideCol);
@@ -3268,8 +3270,8 @@ leaDrawResults = function(res, svg, wr, cr, z){
     return html;
   }
   if(fl){
-    var rHtml=leaSideResult(leaPts,'RIGHT','#ff6644');
-    var lHtml=leaSideResult(leaPtsL,'LEFT','#4ade80');
+    var rHtml=leaSideResult(leaPts,'RIGHT','#ff6644','R');
+    var lHtml=leaSideResult(leaPtsL,'LEFT','#4ade80','L');
     var fbody=document.getElementById('lea-float-body');
     if(fbody) fbody.innerHTML=(rHtml||lHtml)?'<div style="font-size:8px;letter-spacing:2px;color:#2a6a8a;text-align:center;margin-bottom:3px">ALIGNMENT</div>'+rHtml+lHtml:'';
     fl.style.display=(rHtml||lHtml)?'block':'none';
