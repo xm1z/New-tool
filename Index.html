@@ -801,6 +801,7 @@
         <div class="usub">Full limb AP view</div>
       </label>
       <input id="lea-upload" type="file" accept="image/*" style="display:none"/>
+      <input id="lea-case-input" type="file" accept="application/json,.json" style="display:none"/>
 
       <div id="lea-tools" style="display:none">
         <div class="sep"></div>
@@ -965,6 +966,12 @@
         <button class="ftoolbar-btn" id="lft-cal" onclick="leaSetCalMode('circle');leaActivate('cal_circle')"><span class="ftico" style="font-size:14px">⊙</span><span class="ftlbl">CAL</span></button>
         <div class="ftoolbar-sep" style="height:22px"></div>
         <button class="ftoolbar-btn" id="lft-correct" onclick="leaCorEnter()" style="display:none"><span class="ftico" style="font-size:14px;color:#aa88ff">🦴</span><span class="ftlbl" style="color:#aa88ff">OSTEOTOMY</span></button>
+        <button class="ftoolbar-btn" id="lft-cora" onclick="leaCoraSuggest()"><span class="ftico" style="font-size:14px;color:#ffd24d">◎</span><span class="ftlbl" style="color:#ffd24d">CORA</span></button>
+        <div class="ftoolbar-sep" style="height:22px"></div>
+        <button class="ftoolbar-btn" onclick="leaImgTools()"><span class="ftico" style="font-size:14px">🎚</span><span class="ftlbl">IMAGE</span></button>
+        <button class="ftoolbar-btn" onclick="leaSaveCase()"><span class="ftico" style="font-size:14px">💾</span><span class="ftlbl">SAVE</span></button>
+        <button class="ftoolbar-btn" onclick="leaLoadCase()"><span class="ftico" style="font-size:14px">📂</span><span class="ftlbl">LOAD</span></button>
+        <button class="ftoolbar-btn" onclick="leaRefCard()"><span class="ftico" style="font-size:14px">📋</span><span class="ftlbl">REF</span></button>
         <div class="ftoolbar-sep" style="height:22px"></div>
         <button class="ftoolbar-btn" onclick="document.getElementById('lea-sheet').classList.toggle('open');document.getElementById('lea-backdrop').classList.toggle('open')"><span class="ftico" style="font-size:14px">⚙️</span><span class="ftlbl">SETUP</span></button>
         <div class="ftoolbar-sep" style="height:22px"></div>
@@ -2571,6 +2578,10 @@ function leaCalcFor(p, forSide){
     res.mMPTA = ang2 > 90 ? (180-ang2).toFixed(1) : ang2.toFixed(1);
     res.mMPTA_val = parseFloat(res.mMPTA);
     res.tpMid = leaMid(p.tp1,p.tp2);
+    if(p.fh&&p.aj){
+      var _X=lineIntersect(p.fh,p.aj,p.tp1,p.tp2);
+      if(_X){ var _pw=leaDist(p.tp1,p.tp2)||1; var _tpdx=p.tp2.x-p.tp1.x,_tpdy=p.tp2.y-p.tp1.y; var _t=((_X.x-p.tp1.x)*_tpdx+(_X.y-p.tp1.y)*_tpdy)/(_pw*_pw); res.wbl=Math.max(0,Math.min(100,_t*100)); res.wblPt=_X; }
+    }
   }
   if(p.at1&&p.at2&&p.kj&&p.aj){
     var tmaDx3=p.aj.x-p.kj.x, tmaDy3=p.aj.y-p.kj.y;
@@ -3247,7 +3258,15 @@ function leaCorDraw(){
     var pxPerMm = (leaState && leaState.pxPerMm) ? leaState.pxPerMm : null;
     if(wlWrap) wlWrap.style.display='flex';
     if(wlEl){
-      if(pxPerMm){ wlEl.textContent='Wedge base: '+(pxLen/pxPerMm).toFixed(1)+' mm'; }
+      if(pxPerMm){
+        var gapMm=pxLen/pxPerMm;
+        var hint='';
+        if(gapMm>0.5){
+          var graft = gapMm<7?'autograft/wedge spacer':gapMm<12?'structural allograft or wedge':'large structural graft';
+          hint=' · graft: '+graft;
+        }
+        wlEl.textContent='Wedge base: '+gapMm.toFixed(1)+' mm'+hint;
+      }
       else { wlEl.textContent='Wedge base: '+pxLen.toFixed(0)+' px (calibrate for mm)'; }
     }
   } else if(wlWrap){ wlWrap.style.display='none'; }
@@ -3484,6 +3503,10 @@ function leaCalc(){
   if(p.tp1&&p.tp2){
     var tmaDx=p.aj.x-p.kj.x, tmaDy=p.aj.y-p.kj.y;
     var tpDx=p.tp2.x-p.tp1.x, tpDy=p.tp2.y-p.tp1.y;
+    if(p.fh&&p.aj){
+      var _X=lineIntersect(p.fh,p.aj,p.tp1,p.tp2);
+      if(_X){ var _pw=leaDist(p.tp1,p.tp2)||1; var _tpdx=p.tp2.x-p.tp1.x,_tpdy=p.tp2.y-p.tp1.y; var _t=((_X.x-p.tp1.x)*_tpdx+(_X.y-p.tp1.y)*_tpdy)/(_pw*_pw); res.wbl=Math.max(0,Math.min(100,_t*100)); res.wblPt=_X; }
+    }
     var ang2=angleBetweenVecs(tmaDx,tmaDy,tpDx,tpDy);
     res.mMPTA = ang2 > 90 ? (180-ang2).toFixed(1) : ang2.toFixed(1);
     res.mMPTA_val = parseFloat(res.mMPTA);
@@ -3845,6 +3868,52 @@ leaCanvas.addEventListener('touchstart',function(e){if(e.touches.length===1)leaD
 leaCanvas.addEventListener('touchmove', function(e){if(e.touches.length===1)leaMove(e);},{passive:false});
 leaCanvas.addEventListener('touchend',  leaUp,{passive:false});
 
+// ════════════════════════════════════════════════════════════
+//  MAGNIFIER LOUPE — zoomed circular view for precise placement
+// ════════════════════════════════════════════════════════════
+var leaLoupe=null, leaLoupeCtx=null;
+function leaEnsureLoupe(){
+  if(leaLoupe) return;
+  leaLoupe=document.createElement('canvas');
+  leaLoupe.width=160; leaLoupe.height=160;
+  leaLoupe.style.cssText='position:fixed;width:140px;height:140px;border-radius:50%;border:2px solid #00e5ff;box-shadow:0 4px 20px #000c;z-index:9998;pointer-events:none;display:none;background:#000';
+  document.body.appendChild(leaLoupe);
+  leaLoupeCtx=leaLoupe.getContext('2d');
+}
+function leaShowLoupe(clientX, clientY){
+  leaEnsureLoupe();
+  if(!leaXray.width) return;
+  var ZOOM=2.5, R=80; // source radius in CSS px of the canvas
+  var rect=leaCanvas.getBoundingClientRect();
+  var cxCss=clientX-rect.left, cyCss=clientY-rect.top;       // pos in displayed canvas
+  // map to source image pixels (canvas shows leaXray scaled to rect)
+  var sx=cxCss/rect.width*leaXray.width;
+  var sy=cyCss/rect.height*leaXray.height;
+  var srcR=R/rect.width*leaXray.width/ZOOM;
+  leaLoupeCtx.clearRect(0,0,160,160);
+  leaLoupeCtx.save();
+  leaLoupeCtx.beginPath(); leaLoupeCtx.arc(80,80,78,0,7); leaLoupeCtx.clip();
+  // apply same filter as the image
+  leaLoupeCtx.filter='brightness('+leaImgAdj.bright+'%) contrast('+leaImgAdj.contrast+'%) invert('+leaImgAdj.invert+'%)';
+  try{
+    leaLoupeCtx.drawImage(leaXray, sx-srcR, sy-srcR, srcR*2, srcR*2, 0,0,160,160);
+  }catch(e){}
+  leaLoupeCtx.filter='none';
+  // crosshair
+  leaLoupeCtx.strokeStyle='#00e5ff'; leaLoupeCtx.lineWidth=1;
+  leaLoupeCtx.beginPath(); leaLoupeCtx.moveTo(80,40);leaLoupeCtx.lineTo(80,120);leaLoupeCtx.moveTo(40,80);leaLoupeCtx.lineTo(120,80); leaLoupeCtx.stroke();
+  leaLoupeCtx.fillStyle='#ff4466'; leaLoupeCtx.beginPath(); leaLoupeCtx.arc(80,80,3,0,7); leaLoupeCtx.fill();
+  leaLoupeCtx.restore();
+  // position above-left of finger so it's not covered
+  var lx=clientX-70, ly=clientY-160;
+  if(ly<8) ly=clientY+24;
+  lx=Math.max(8,Math.min(window.innerWidth-148,lx));
+  leaLoupe.style.left=lx+'px'; leaLoupe.style.top=ly+'px';
+  leaLoupe.style.display='block';
+}
+function leaHideLoupe(){ if(leaLoupe) leaLoupe.style.display='none'; }
+
+
 // ═══════════════════════════════════════════
 // CALIBRATION AUTO-DETECT — image analysis helpers
 // detectBallOn: cast rays from a tap point, find the circular blob edge (Zimmer ball)
@@ -3969,7 +4038,9 @@ function leaDown(e){
     {k:'fCoraPt',p:leaPts.fCoraPt},{k:'tCoraPt',p:leaPts.tCoraPt}
   ];
   for(var i=0;i<hits.length;i++){
-    if(hits[i].p&&leaDist(pt,hits[i].p)<=HIT){leaDrg=hits[i].k;return;}
+    if(hits[i].p&&leaDist(pt,hits[i].p)<=HIT){leaDrg=hits[i].k;
+      var src0=e.touches?e.touches[0]:e; leaShowLoupe(src0.clientX,src0.clientY);
+      return;}
   }
 }
 function leaMove(e){
@@ -3981,12 +4052,13 @@ function leaMove(e){
   else if(leaDrg==='cal_p2'){leaState.cal.p2=pt;leaApplyRuler();}
   else if(leaDrg==='circle_c'){leaState.calCircle.cx=pt.x;leaState.calCircle.cy=pt.y;leaUpdateCircleDiv();leaApplyRuler();}
   else leaPts[leaDrg]=pt;
+  var srcM=e.touches?e.touches[0]:e; leaShowLoupe(srcM.clientX,srcM.clientY);
   leaDraw();
 }
 function leaUp(e){
-  if(leaCor.active){ leaCorPointerUp(); if(e){e.preventDefault();e.stopPropagation();} return; }
+  if(leaCor.active){ leaCorPointerUp(); if(e){e.preventDefault();e.stopPropagation();} leaHideLoupe(); return; }
   if(e){e.preventDefault();e.stopPropagation();}
-  leaDrg=null;
+  leaDrg=null; leaHideLoupe();
 }
 
 // Image upload
@@ -4008,11 +4080,204 @@ document.getElementById('lea-upload').addEventListener('change',function(e){
       leaZ.reset(); leaReset(); leaLayout();
     };
     leaXray.src=ev.target.result;
+    window.leaXraySrc=ev.target.result;
   };
   r.readAsDataURL(e.target.files[0]);
 });
 document.getElementById('lea-cal-mm').addEventListener('input',function(){leaApplyRuler();});
 window.addEventListener('resize',function(){if(leaCanvas.width)leaLayout();});
+
+// ════════════════════════════════════════════════════════════
+//  NORMAL RANGES (for flags + reference card)
+// ════════════════════════════════════════════════════════════
+var LEA_NORMS={
+  HKA:{lo:-3,hi:3,unit:'°',label:'HKA (deviation)',normal:'0° ± 3'},
+  mLDFA:{lo:85,hi:90,unit:'°',label:'mLDFA',normal:'85–90°'},
+  mMPTA:{lo:85,hi:90,unit:'°',label:'mMPTA',normal:'85–90°'},
+  LDTA:{lo:86,hi:92,unit:'°',label:'LDTA',normal:'86–92°'},
+  NSA:{lo:125,hi:140,unit:'°',label:'NSA',normal:'125–140°'},
+  JLCA:{lo:0,hi:3,unit:'°',label:'JLCA',normal:'0–3°'}
+};
+function leaNormColor(key,val){
+  var n=LEA_NORMS[key]; if(!n||val==null||isNaN(val)) return '#cfe';
+  return (val>=n.lo&&val<=n.hi)?'#44ff88':'#ff8844';
+}
+
+// ════════════════════════════════════════════════════════════
+//  SAVE / LOAD CASE
+// ════════════════════════════════════════════════════════════
+window.leaSaveCase=function(){
+  var data={
+    v:1, ts:new Date().toISOString(),
+    side:leaSide,
+    pxPerMm:leaState.pxPerMm,
+    ptsR:leaPts, ptsL:leaPtsL,
+    cal:leaState.cal, calCircle:leaState.calCircle,
+    img:window.leaXraySrc||null,
+    history:(leaCor&&leaCor.history)?leaCor.history:[]
+  };
+  var json=JSON.stringify(data);
+  var url='data:application/json;charset=utf-8,'+encodeURIComponent(json);
+  // show overlay so the user can save/share (sandbox-safe)
+  var ov=leaMakeOverlay('SAVE CASE');
+  var info=document.createElement('div');
+  info.style.cssText='color:#88aacc;font-size:12px;font-family:monospace;text-align:center;margin:10px;max-width:90%';
+  info.innerHTML='Your case (landmarks, calibration, osteotomies, image) is packaged below.<br>Tap <b>DOWNLOAD</b> to save the .json file, then LOAD it later to restore.';
+  ov.appendChild(info);
+  var btn=document.createElement('a');
+  btn.href=url; btn.download='orthocase-'+Date.now()+'.json';
+  btn.textContent='⬇ DOWNLOAD CASE';
+  btn.style.cssText='padding:10px 18px;border-radius:10px;border:1px solid #44ff88;background:#002a14;color:#44ff88;font-weight:700;font-family:monospace;text-decoration:none;margin:6px';
+  ov.appendChild(btn);
+};
+window.leaLoadCase=function(){ document.getElementById('lea-case-input').click(); };
+document.getElementById('lea-case-input').addEventListener('change',function(e){
+  if(!e.target.files||!e.target.files[0])return;
+  var r=new FileReader();
+  r.onload=function(ev){
+    try{
+      var d=JSON.parse(ev.target.result);
+      function restore(){
+        if(d.ptsR) leaPts=d.ptsR;
+        if(d.ptsL) leaPtsL=d.ptsL;
+        leaSide=d.side||'R';
+        leaState.pxPerMm=d.pxPerMm||null;
+        leaState.cal=d.cal||null; leaState.calCircle=d.calCircle||null;
+        if(leaCor&&d.history) leaCor.history=d.history;
+        leaLayout(); leaDraw(); leaUpdateBtns();
+        alert('Case loaded.');
+      }
+      if(d.img){
+        leaXray.onload=function(){
+          window.leaXraySrc=d.img;
+          document.getElementById('lea-empty').style.display='none';
+          leaWrap.style.display='block';
+          document.getElementById('lea-tools').style.display='block';
+          document.getElementById('lea-intro').style.display='none';
+          leaZ.reset(); restore();
+        };
+        leaXray.src=d.img;
+      } else restore();
+    }catch(err){ alert('Could not read this case file.'); }
+  };
+  r.readAsText(e.target.files[0]);
+});
+
+// ════════════════════════════════════════════════════════════
+//  Generic centered overlay helper
+// ════════════════════════════════════════════════════════════
+function leaMakeOverlay(title){
+  var ov=document.getElementById('lea-generic-overlay');
+  if(ov) ov.remove();
+  ov=document.createElement('div'); ov.id='lea-generic-overlay';
+  ov.style.cssText='position:fixed;inset:0;z-index:9999;background:#000d;backdrop-filter:blur(4px);display:flex;flex-direction:column;align-items:center;justify-content:flex-start;overflow:auto;padding:16px';
+  var hdr=document.createElement('div');
+  hdr.style.cssText='display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;margin-bottom:8px;width:100%';
+  hdr.innerHTML='<span style="color:#ffd24d;font-family:monospace;font-weight:700;font-size:14px;letter-spacing:1px">'+title+'</span>';
+  var close=document.createElement('button');
+  close.textContent='✕ CLOSE';
+  close.style.cssText='padding:7px 14px;border-radius:8px;border:1px solid #ff6644;background:#2a0800;color:#ff6644;font-weight:700;font-family:monospace;cursor:pointer';
+  close.onclick=function(){ ov.remove(); };
+  hdr.appendChild(close);
+  ov.appendChild(hdr);
+  document.body.appendChild(ov);
+  return ov;
+}
+
+// ════════════════════════════════════════════════════════════
+//  REFERENCE CARD
+// ════════════════════════════════════════════════════════════
+window.leaRefCard=function(){
+  var ov=leaMakeOverlay('REFERENCE — NORMAL VALUES');
+  var box=document.createElement('div');
+  box.style.cssText='max-width:520px;width:100%;font-family:monospace;color:#cfe;font-size:13px;line-height:1.6';
+  box.innerHTML=
+    '<div style="background:#0a1420;border:1px solid #1a3a5c;border-radius:10px;padding:12px;margin-bottom:10px">'+
+    '<div style="color:#ffd24d;font-weight:700;margin-bottom:6px">Joint orientation angles</div>'+
+    row('mLDFA','85–90°','lateral distal femoral — distal femur')+
+    row('mMPTA','85–90°','medial proximal tibial — proximal tibia')+
+    row('LDTA','86–92°','lateral distal tibial — distal tibia')+
+    row('NSA','125–140°','neck-shaft — proximal femur')+
+    row('JLCA','0–3°','joint line convergence')+
+    row('HKA','0° ± 3','hip-knee-ankle mechanical deviation')+
+    '</div>'+
+    '<div style="background:#0a1420;border:1px solid #1a3a5c;border-radius:10px;padding:12px">'+
+    '<div style="color:#ffd24d;font-weight:700;margin-bottom:6px">Which osteotomy for which deformity</div>'+
+    row2('Distal femur (mLDFA)','valgus from femur → corrects distal femoral angle')+
+    row2('Proximal tibia (mMPTA)','varus from tibia → most common HTO site')+
+    row2('Distal tibia (LDTA)','ankle-level tibial deformity')+
+    row2('Proximal femur (NSA)','coxa vara/valga — neck-shaft correction')+
+    '</div>'+
+    '<div style="background:#0a1420;border:1px solid #1a3a5c;border-radius:10px;padding:12px;margin-top:10px">'+
+    '<div style="color:#ffd24d;font-weight:700;margin-bottom:6px">Weight-bearing line (Fujisawa)</div>'+
+    '<div>Mechanical axis normally crosses the knee near center. For valgus-producing HTO in medial OA, a common target is ~62% across the plateau (lateral side). Use the WBL readout to aim.</div>'+
+    '</div>'+
+    '<div style="color:#5a7a8a;font-size:10px;margin-top:10px;text-align:center">Planning aid only — verify against standards and clinical judgement.</div>';
+  function row(a,b,c){return '<div style="display:flex;justify-content:space-between;gap:8px;padding:2px 0;border-bottom:1px solid #ffffff11"><span style="color:#fff;font-weight:700;min-width:64px">'+a+'</span><span style="color:#44ff88">'+b+'</span><span style="color:#7a98aa;flex:1;text-align:right;font-size:11px">'+c+'</span></div>';}
+  function row2(a,c){return '<div style="padding:3px 0;border-bottom:1px solid #ffffff11"><span style="color:#fff;font-weight:700">'+a+'</span><div style="color:#7a98aa;font-size:11px">'+c+'</div></div>';}
+  ov.appendChild(box);
+};
+
+// ════════════════════════════════════════════════════════════
+//  IMAGE CONTROLS (brightness / contrast / invert)
+// ════════════════════════════════════════════════════════════
+var leaImgAdj={bright:100,contrast:100,invert:0};
+function leaApplyImgFilter(){
+  var f='brightness('+leaImgAdj.bright+'%) contrast('+leaImgAdj.contrast+'%) invert('+leaImgAdj.invert+'%)';
+  leaCanvas.style.filter=f;
+  if(leaCorCanvas) leaCorCanvas.style.filter=f;
+}
+window.leaImgTools=function(){
+  var ov=leaMakeOverlay('IMAGE CONTROLS');
+  var box=document.createElement('div');
+  box.style.cssText='max-width:360px;width:100%;font-family:monospace;color:#cfe;font-size:12px';
+  function sl(id,lbl,min,max,val){
+    return '<div style="margin:12px 0"><div style="display:flex;justify-content:space-between"><span>'+lbl+'</span><span id="'+id+'v">'+val+'</span></div>'+
+      '<input type="range" id="'+id+'" min="'+min+'" max="'+max+'" value="'+val+'" style="width:100%;accent-color:#00e5ff"></div>';
+  }
+  box.innerHTML=sl('img-bright','Brightness',20,200,leaImgAdj.bright)+
+                sl('img-contrast','Contrast',20,250,leaImgAdj.contrast)+
+                '<label style="display:flex;align-items:center;gap:8px;margin:12px 0"><input type="checkbox" id="img-invert" '+(leaImgAdj.invert?'checked':'')+'> Invert (negative)</label>'+
+                '<button id="img-reset" style="padding:8px 14px;border-radius:8px;border:1px solid #5a8aaa;background:#0a1420;color:#9cf;font-family:monospace;cursor:pointer;width:100%">Reset</button>';
+  ov.appendChild(box);
+  function bind(id,key){var el=document.getElementById(id);el.addEventListener('input',function(){leaImgAdj[key]=+el.value;var v=document.getElementById(id+'v');if(v)v.textContent=el.value;leaApplyImgFilter();});}
+  bind('img-bright','bright'); bind('img-contrast','contrast');
+  document.getElementById('img-invert').addEventListener('change',function(){leaImgAdj.invert=this.checked?100:0;leaApplyImgFilter();});
+  document.getElementById('img-reset').addEventListener('click',function(){leaImgAdj={bright:100,contrast:100,invert:0};leaApplyImgFilter();ov.remove();});
+};
+
+// ════════════════════════════════════════════════════════════
+//  CORA AUTO-SUGGEST — propose hinge that corrects the axis
+// ════════════════════════════════════════════════════════════
+window.leaCoraSuggest=function(){
+  var p=leaActivePts();
+  if(!(p.fh&&p.kj&&p.aj)){ alert('Place hip, knee and ankle first.'); return; }
+  var res=(typeof leaCalc==='function')?leaCalc():null;
+  var msg='';
+  var hka=res&&res.HKA_val!=null?res.HKA_val:null;
+  // Decide which segment is deforming using LDFA/MPTA deviation from 88
+  var ldfaDev=res&&res.mLDFA_val!=null?Math.abs(res.mLDFA_val-88):null;
+  var mptaDev=res&&res.mMPTA_val!=null?Math.abs(res.mMPTA_val-88):null;
+  var suggestion='';
+  if(ldfaDev!=null||mptaDev!=null){
+    if((ldfaDev||0)>=(mptaDev||0)) suggestion='Femoral-side deformity dominant → consider DISTAL FEMUR osteotomy. Place hinge at the femoral CORA (where the proximal & distal mechanical axes intersect, near the deformity apex).';
+    else suggestion='Tibial-side deformity dominant → consider PROXIMAL TIBIA osteotomy. Place hinge at the tibial CORA near the plateau.';
+  }
+  var ov=leaMakeOverlay('CORA / HINGE SUGGESTION');
+  var box=document.createElement('div');
+  box.style.cssText='max-width:460px;width:100%;font-family:monospace;color:#cfe;font-size:13px;line-height:1.6';
+  box.innerHTML='<div style="background:#0a1420;border:1px solid #1a3a5c;border-radius:10px;padding:14px">'+
+    '<div>Current alignment:</div>'+
+    '<div style="margin:6px 0">HKA deviation: <b style="color:'+leaNormColor('HKA',hka)+'">'+(hka!=null?hka.toFixed(1)+'°':'—')+'</b></div>'+
+    (res&&res.mLDFA?'<div>mLDFA: <b style="color:'+leaNormColor('mLDFA',res.mLDFA_val)+'">'+res.mLDFA+'°</b></div>':'')+
+    (res&&res.mMPTA?'<div>mMPTA: <b style="color:'+leaNormColor('mMPTA',res.mMPTA_val)+'">'+res.mMPTA+'°</b></div>':'')+
+    '<div style="margin-top:10px;color:#ffd24d;font-weight:700">Suggestion</div>'+
+    '<div>'+(suggestion||'Place the relevant joint line (FC/TP) to get a segment-specific suggestion.')+'</div>'+
+    '<div style="margin-top:10px;color:#7a98aa;font-size:11px">The CORA is the intersection of the proximal and distal mechanical axes — correcting at the CORA realigns the axis with the smallest wedge and no translation.</div>'+
+    '</div>';
+  ov.appendChild(box);
+};
+
 
 // ── LAYOUT 4: Sync sheet/toolbar with existing logic ──
 
@@ -4233,11 +4498,12 @@ leaDrawResults = function(res, svg, wr, cr, z){
     html+=leaFloatRow('Length',r2.limbMm||'—',sideCol);
     html+=leaFloatRow('Align',r2.vvDir||'—',r2.vvDir==='VALGUS'?'#00e5ff':r2.vvDir==='VARUS'?'#ff6644':'#4ade80');
     if(r2.vvMm) html+=leaFloatRow('MAD',r2.vvMm+'mm',null);
-    if(r2.HKA)  html+=leaFloatRow('HKA', r2.HKA+'°', '#00e5ff');
-    html+=leaFloatRow('mLDFA', r2.mLDFA?r2.mLDFA+'°':'— place FC', '#ff8844');
-    html+=leaFloatRow('mMPTA', r2.mMPTA?r2.mMPTA+'°':'— place TP', '#44ffdd');
-    if(r2.LDTA)  html+=leaFloatRow('LDTA', r2.LDTA+'°', '#ff44aa');
-    if(r2.NSA)   html+=leaFloatRow('NSA',  r2.NSA+'°',  '#88ff44');
+    if(r2.HKA)  html+=leaFloatRow('HKA', r2.HKA+'°', leaNormColor('HKA',r2.HKA_val));
+    html+=leaFloatRow('mLDFA', r2.mLDFA?r2.mLDFA+'°':'— place FC', r2.mLDFA?leaNormColor('mLDFA',r2.mLDFA_val):'#7a98aa');
+    html+=leaFloatRow('mMPTA', r2.mMPTA?r2.mMPTA+'°':'— place TP', r2.mMPTA?leaNormColor('mMPTA',r2.mMPTA_val):'#7a98aa');
+    if(r2.LDTA)  html+=leaFloatRow('LDTA', r2.LDTA+'°', leaNormColor('LDTA',r2.LDTA_val));
+    if(r2.NSA)   html+=leaFloatRow('NSA',  r2.NSA+'°',  leaNormColor('NSA',r2.NSA_val));
+    if(r2.wbl!=null) html+=leaFloatRow('WBL', r2.wbl.toFixed(0)+'%', (r2.wbl>=45&&r2.wbl<=55)?'#44ff88':'#ffcc44');
     if(r2.JLCA)  html+=leaFloatRow('JLCA', r2.JLCA+'°', '#ffdd00');
     if(r2.AMA)   html+=leaFloatRow('AMA',  r2.AMA+'°',  '#ff88ff');
     if(r2.fCoraAngle) html+=leaFloatRow('F-CORA',r2.fCoraAngle+'°','#ffaa00');
