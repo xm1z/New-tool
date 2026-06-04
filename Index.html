@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -4505,7 +4504,7 @@ leaDrawResults = function(res, svg, wr, cr, z){
     if(r2.LDTA)  html+=leaFloatRow('LDTA', r2.LDTA+'°', leaNormColor('LDTA',r2.LDTA_val));
     if(r2.NSA)   html+=leaFloatRow('NSA',  r2.NSA+'°',  leaNormColor('NSA',r2.NSA_val));
     if(r2.wbl!=null) html+=leaFloatRow('WBL', r2.wbl.toFixed(0)+'%', (r2.wbl>=45&&r2.wbl<=55)?'#44ff88':'#ffcc44');
-    if(r2.JLCA)  html+=leaFloatRow('JLCA', r2.JLCA+'°', '#ffdd00');
+    html+=leaFloatRow('JLCA', r2.JLCA?r2.JLCA+'°':'— place FC+TP', r2.JLCA?leaNormColor('JLCA',parseFloat(r2.JLCA)):'#7a98aa');
     if(r2.AMA)   html+=leaFloatRow('AMA',  r2.AMA+'°',  '#ff88ff');
     if(r2.fCoraAngle) html+=leaFloatRow('F-CORA',r2.fCoraAngle+'°','#ffaa00');
     if(r2.tCoraAngle) html+=leaFloatRow('T-CORA',r2.tCoraAngle+'°','#00ffcc');
