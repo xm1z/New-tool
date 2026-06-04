@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -829,6 +830,8 @@
         <div class="slabel">JOINT LINES (2 pts each)</div>
         <button class="lea-btn" id="lea-btn-fc"  onclick="leaActivate('fc')">📐 Distal Femoral Condyles</button>
         <button class="lea-btn" id="lea-btn-tp"  onclick="leaActivate('tp')">📐 Proximal Tibial Plateau</button>
+        <button class="lea-btn" id="lea-btn-at"  onclick="leaActivate('at')">📐 Distal Tibial Plafond (LDTA)</button>
+        <button class="lea-btn" id="lea-btn-fn"  onclick="leaActivate('fn')">📐 Femoral Neck Axis (NSA)</button>
 
         <div id="lea-hint" style="font-size:9px;background:#001020;border:1px solid #002040;border-radius:4px;padding:6px 8px;line-height:1.8;display:none;margin-top:3px;color:#00e5ff"></div>
 
@@ -844,6 +847,8 @@
           <div class="lr-row"><span class="lr-label">HKA angle</span><span class="lr-val" id="lr-hka" style="color:#00e5ff">—</span></div>
           <div class="lr-row"><span class="lr-label">mLDFA</span><span class="lr-val" id="lr-ldfa" style="color:#ff8844">—</span></div>
           <div class="lr-row"><span class="lr-label">mMPTA</span><span class="lr-val" id="lr-mpta" style="color:#44ffdd">—</span></div>
+          <div class="lr-row"><span class="lr-label">LDTA</span><span class="lr-val" id="lr-ldta" style="color:#ff44aa">—</span></div>
+          <div class="lr-row"><span class="lr-label">NSA</span><span class="lr-val" id="lr-nsa" style="color:#88ff44">—</span></div>
           <div class="lr-row"><span class="lr-label">JLCA</span><span class="lr-val" id="lr-jlca" style="color:#ffdd00">—</span></div>
           <div class="lr-row"><span class="lr-label">AMA angle</span><span class="lr-val" id="lr-ama" style="color:#ff88ff">—</span></div>
           <div class="lr-row" id="lr-fcora-row" style="display:none"><span class="lr-label">Femoral CORA</span><span class="lr-val" id="lr-fcora" style="color:#ffaa00">—</span></div>
@@ -884,9 +889,11 @@
       <!-- Osteotomy control bar -->
       <div id="lea-correct-bar" ontouchstart="event.stopPropagation()" ontouchmove="event.stopPropagation()" onpointerdown="event.stopPropagation()" onmousedown="event.stopPropagation()" style="display:none;position:absolute;top:10px;left:50%;transform:translateX(-50%);z-index:120;background:#05080fee;border:1px solid #aa88ff66;border-radius:14px;padding:8px 12px;backdrop-filter:blur(8px);box-shadow:0 4px 20px #000a;font-family:'Courier New',monospace;max-width:94vw">
         <div id="lea-cor-drag" style="font-size:10px;color:#aa88ff;letter-spacing:2px;text-align:center;margin-bottom:6px;font-weight:700;cursor:move;user-select:none">⠿ OSTEOTOMY ⠿</div>
-        <div id="lea-cor-bonesel" style="display:flex;gap:6px;justify-content:center;margin-bottom:6px">
-          <button id="lea-bone-femur" onclick="leaCorSetBone('femur')" style="padding:4px 12px;font-size:9px;font-weight:700;font-family:'Courier New',monospace;border-radius:6px;border:1px solid #aa88ff;background:#1a1030;color:#aa88ff;cursor:pointer;letter-spacing:1px">FEMUR · LDFA</button>
-          <button id="lea-bone-tibia" onclick="leaCorSetBone('tibia')" style="padding:4px 12px;font-size:9px;font-weight:700;font-family:'Courier New',monospace;border-radius:6px;border:1px solid #ff9944;background:#2a1c00;color:#ff9944;cursor:pointer;letter-spacing:1px">TIBIA · MPTA</button>
+        <div id="lea-cor-bonesel" style="display:flex;gap:5px;justify-content:center;margin-bottom:6px;flex-wrap:wrap">
+          <button id="lea-bone-femur" onclick="leaCorSetBone('femur')" style="padding:4px 9px;font-size:8px;font-weight:700;font-family:'Courier New',monospace;border-radius:6px;border:1px solid #aa88ff;background:#1a1030;color:#aa88ff;cursor:pointer;letter-spacing:1px">DIST FEMUR · LDFA</button>
+          <button id="lea-bone-proxfemur" onclick="leaCorSetBone('proxfemur')" style="padding:4px 9px;font-size:8px;font-weight:700;font-family:'Courier New',monospace;border-radius:6px;border:1px solid #88ff44;background:#0a2a00;color:#88ff44;cursor:pointer;letter-spacing:1px">PROX FEMUR · NSA</button>
+          <button id="lea-bone-tibia" onclick="leaCorSetBone('tibia')" style="padding:4px 9px;font-size:8px;font-weight:700;font-family:'Courier New',monospace;border-radius:6px;border:1px solid #ff9944;background:#2a1c00;color:#ff9944;cursor:pointer;letter-spacing:1px">PROX TIBIA · MPTA</button>
+          <button id="lea-bone-distaltibia" onclick="leaCorSetBone('distaltibia')" style="padding:4px 9px;font-size:8px;font-weight:700;font-family:'Courier New',monospace;border-radius:6px;border:1px solid #ff44aa;background:#2a0820;color:#ff44aa;cursor:pointer;letter-spacing:1px">DIST TIBIA · LDTA</button>
         </div>
         <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center">
           <div id="lea-cor-live" style="font-size:11px;font-weight:700;color:#44ffdd;padding:2px 8px;border:1px solid #44ffdd44;border-radius:6px;background:#002a2233">—</div>
@@ -914,6 +921,7 @@
           <button id="lea-cor-limb" onclick="leaCorStartLimb()" style="display:none;padding:5px 12px;font-size:9px;font-weight:700;font-family:'Courier New',monospace;border-radius:6px;border:1px solid #00e5ff;background:#001a2a;color:#00e5ff;cursor:pointer;letter-spacing:1px">✎ OUTLINE LIMB</button>
           <button id="lea-cor-donelimb" onclick="leaCorDoneLimb()" style="display:none;padding:5px 12px;font-size:9px;font-weight:700;font-family:'Courier New',monospace;border-radius:6px;border:1px solid #00e5ff;background:#001a2a;color:#00e5ff;cursor:pointer;letter-spacing:1px">✓ DONE LIMB</button>
           <button id="lea-cor-export" onclick="leaCorExport()" style="display:none;padding:5px 12px;font-size:9px;font-weight:700;font-family:'Courier New',monospace;border-radius:6px;border:1px solid #ffd24d;background:#2a2200;color:#ffd24d;cursor:pointer;letter-spacing:1px">⤓ EXPORT</button>
+          <button id="lea-cor-another" onclick="leaCorAddAnother()" style="display:none;padding:5px 12px;font-size:9px;font-weight:700;font-family:'Courier New',monospace;border-radius:6px;border:1px solid #aa88ff;background:#1a1030;color:#aa88ff;cursor:pointer;letter-spacing:1px">＋ OSTEOTOMY</button>
           <button onclick="leaCorReset()" style="padding:5px 10px;font-size:9px;font-weight:700;font-family:'Courier New',monospace;border-radius:6px;border:1px solid #1a3a5c;background:#0a1420;color:#5a8aaa;cursor:pointer">↺ RESET</button>
           <button onclick="leaCorExit()" style="padding:5px 10px;font-size:9px;font-weight:700;font-family:'Courier New',monospace;border-radius:6px;border:1px solid #ff6644;background:#2a0800;color:#ff6644;cursor:pointer">✕ EXIT</button>
         </div>
@@ -941,6 +949,8 @@
         <div class="ftoolbar-sep" style="height:22px"></div>
         <button class="ftoolbar-btn" id="lft-fc" onclick="leaActivate('fc')"><span class="ftico" style="font-size:14px">📐</span><span class="ftlbl">FC</span></button>
         <button class="ftoolbar-btn" id="lft-tp" onclick="leaActivate('tp')"><span class="ftico" style="font-size:14px">📐</span><span class="ftlbl">TP</span></button>
+        <button class="ftoolbar-btn" id="lft-at" onclick="leaActivate('at')"><span class="ftico" style="font-size:14px">📐</span><span class="ftlbl">AT</span></button>
+        <button class="ftoolbar-btn" id="lft-fn" onclick="leaActivate('fn')"><span class="ftico" style="font-size:14px">📐</span><span class="ftlbl">FN</span></button>
         <div class="ftoolbar-sep" style="height:22px"></div>
         <button class="ftoolbar-btn" id="lft-cal" onclick="leaSetCalMode('circle');leaActivate('cal_circle')"><span class="ftico" style="font-size:14px">⊙</span><span class="ftlbl">CAL</span></button>
         <div class="ftoolbar-sep" style="height:22px"></div>
@@ -986,6 +996,8 @@
           <div class="slabel">JOINT LINES</div>
           <button class="lea-btn" id="lea-btn-fc2" onclick="leaActivate('fc')">📐 Distal Femoral Condyles</button>
           <button class="lea-btn" id="lea-btn-tp2" onclick="leaActivate('tp')" style="margin-top:4px">📐 Proximal Tibial Plateau</button>
+          <button class="lea-btn" id="lea-btn-at2" onclick="leaActivate('at')" style="margin-top:4px">📐 Distal Tibial Plafond (LDTA)</button>
+          <button class="lea-btn" id="lea-btn-fn2" onclick="leaActivate('fn')" style="margin-top:4px">📐 Femoral Neck Axis (NSA)</button>
           <div class="sep"></div>
           <button class="btn-danger" onclick="leaReset()" style="display:block">↺ RESET ALL</button>
           <div id="lea-result2" style="display:none;margin-top:8px">
@@ -2342,8 +2354,8 @@ window.addEventListener('resize',function(){if(favCanvas.width)favLayout();});
 //   If CORA is at joint line → intra-articular
 //   If CORA is >3cm above joint line → extra-articular
 
-var leaPts  = {fh:null,pf:null,fdc:null,kj:null,tpc:null,tdc:null,aj:null,fc1:null,fc2:null,tp1:null,tp2:null,fCoraPt:null,tCoraPt:null};
-var leaPtsL = {fh:null,pf:null,fdc:null,kj:null,tpc:null,tdc:null,aj:null,fc1:null,fc2:null,tp1:null,tp2:null,fCoraPt:null,tCoraPt:null};
+var leaPts  = {fh:null,pf:null,fdc:null,kj:null,tpc:null,tdc:null,aj:null,fc1:null,fc2:null,tp1:null,tp2:null,at1:null,at2:null,fn1:null,fn2:null,fCoraPt:null,tCoraPt:null};
+var leaPtsL = {fh:null,pf:null,fdc:null,kj:null,tpc:null,tdc:null,aj:null,fc1:null,fc2:null,tp1:null,tp2:null,at1:null,at2:null,fn1:null,fn2:null,fCoraPt:null,tCoraPt:null};
 var leaSide = 'R'; // 'R' or 'L'
 function leaActivePts(){ return leaSide==='R'?leaPts:leaPtsL; }
 window.leaSwitchSide=function(side){
@@ -2493,6 +2505,10 @@ function leaDraw(){
   else if(p.fc1 && !corActive) dot(p.fc1,'#ff8844');
   if(p.tp1&&p.tp2 && !corActive){line(p.tp1,p.tp2,'#44ffdd',2,false);dot(p.tp1,'#44ffdd');dot(p.tp2,'#44ffdd');}
   else if(p.tp1 && !corActive) dot(p.tp1,'#44ffdd');
+  if(p.at1&&p.at2 && !corActive){line(p.at1,p.at2,'#ff44aa',2,false);dot(p.at1,'#ff44aa');dot(p.at2,'#ff44aa');}
+  else if(p.at1 && !corActive) dot(p.at1,'#ff44aa');
+  if(p.fn1&&p.fn2 && !corActive){line(p.fn1,p.fn2,'#88ff44',2,false);dot(p.fn1,'#88ff44');dot(p.fn2,'#88ff44');}
+  else if(p.fn1 && !corActive) dot(p.fn1,'#88ff44');
   if(p.fh && !corActive) dot(p.fh,'#4488ff',4);
   if(p.pf && !corActive) dot(p.pf,'#aa88ff');
   if(p.fdc && !corActive)dot(p.fdc,'#aa88ff');
@@ -2546,14 +2562,22 @@ function leaCalcFor(p, forSide){
     res.mMPTA_val = parseFloat(res.mMPTA);
     res.tpMid = leaMid(p.tp1,p.tp2);
   }
-  if(p.fc1&&p.fc2&&p.tp1&&p.tp2){
-    var fcDx2=p.fc2.x-p.fc1.x, fcDy2=p.fc2.y-p.fc1.y;
-    var tpDx2=p.tp2.x-p.tp1.x, tpDy2=p.tp2.y-p.tp1.y;
-    var jlcaAng=angleBetweenVecs(fcDx2,fcDy2,tpDx2,tpDy2);
-    res.JLCA = Math.min(jlcaAng,180-jlcaAng).toFixed(1);
-    res.jlcaIntersect = lineIntersect(p.fc1,p.fc2,p.tp1,p.tp2);
+  if(p.at1&&p.at2&&p.kj&&p.aj){
+    var tmaDx3=p.aj.x-p.kj.x, tmaDy3=p.aj.y-p.kj.y;
+    var atDx=p.at2.x-p.at1.x, atDy=p.at2.y-p.at1.y;
+    var ang3=angleBetweenVecs(tmaDx3,tmaDy3,atDx,atDy);
+    res.LDTA = ang3 > 90 ? (180-ang3).toFixed(1) : ang3.toFixed(1);
+    res.LDTA_val = parseFloat(res.LDTA);
+    res.atMid = leaMid(p.at1,p.at2);
   }
-  // AMA at FDC
+  if(p.fn1&&p.fn2&&p.pf&&p.fdc){
+    var neckDx=p.fn2.x-p.fn1.x, neckDy=p.fn2.y-p.fn1.y;
+    var shaftDx=p.fdc.x-p.pf.x, shaftDy=p.fdc.y-p.pf.y;
+    var nsaAng=angleBetweenVecs(neckDx,neckDy,shaftDx,shaftDy);
+    res.NSA = (nsaAng<90?180-nsaAng:nsaAng).toFixed(1);
+    res.NSA_val = parseFloat(res.NSA);
+    res.fnMid = leaMid(p.fn1,p.fn2);
+  }
   if(p.fh&&p.fdc&&p.pf){
     res.AMA = angleAtVertex(p.fh, p.fdc, p.pf).toFixed(1);
   }
@@ -2609,6 +2633,8 @@ var leaCor = {
   logged:false,  // osteotomy committed (black wedge baked)
   bone:null,
   baseAngle:null,
+  history:[],    // list of completed osteotomies {bone,angle,wedgeBase,before,after}
+  baseImg:null,  // canvas to cut from (xray, or previous osteotomy snapshot)
   drag:null
 };
 var leaCorCanvas = document.getElementById('lea-correct-canvas');
@@ -2630,6 +2656,7 @@ window.leaCorEnter = function(){
   leaCor.phase='hinge';
   leaCor.hinge=null; leaCor.open=null; leaCor.angle=0;
   leaCor.frag=[]; leaCor.limb=[]; leaCor.limbTracing=false; leaCor.limbAngle=0; leaCor.limbDx=0; leaCor.limbDy=0; leaCor.logged=false;
+  leaCor.history=[]; leaCor.baseImg=null;
 
   document.getElementById('lea-correct-bar').style.display='block';
   leaCorRefreshBoneSel();
@@ -2643,19 +2670,23 @@ window.leaCorSetBone = function(b){
   var p=leaActivePts();
   if(b==='femur' && !(p.pf&&p.fdc)){ alert('Place femoral landmarks (PF + FDC) first to correct the femur.'); return; }
   if(b==='tibia' && !(p.tpc&&p.tdc)){ alert('Place tibial landmarks (TPC + TDC) first to correct the tibia.'); return; }
+  if(b==='distaltibia' && !(p.tpc&&p.tdc)){ alert('Place tibial landmarks (TPC + TDC) first to correct the distal tibia.'); return; }
+  if(b==='proxfemur' && !(p.pf&&p.fdc)){ alert('Place femoral landmarks (PF + FDC) first to correct the proximal femur.'); return; }
   leaCor.bone=b;
   if(b==='femur') leaCor.baseAngle=(typeof leaLastRes!=='undefined'&&leaLastRes&&leaLastRes.mLDFA_val!=null)?leaLastRes.mLDFA_val:null;
-  else leaCor.baseAngle=(typeof leaLastRes!=='undefined'&&leaLastRes&&leaLastRes.mMPTA_val!=null)?leaLastRes.mMPTA_val:null;
+  else if(b==='tibia') leaCor.baseAngle=(typeof leaLastRes!=='undefined'&&leaLastRes&&leaLastRes.mMPTA_val!=null)?leaLastRes.mMPTA_val:null;
+  else if(b==='distaltibia') leaCor.baseAngle=(typeof leaLastRes!=='undefined'&&leaLastRes&&leaLastRes.LDTA_val!=null)?leaLastRes.LDTA_val:null;
+  else leaCor.baseAngle=(typeof leaLastRes!=='undefined'&&leaLastRes&&leaLastRes.NSA_val!=null)?leaLastRes.NSA_val:null;
   leaCorRefreshBoneSel();
   leaCorDraw();
 };
+function leaCorBoneTarget(){ return leaCor.bone==='distaltibia'?89:leaCor.bone==='proxfemur'?128:87; }
 function leaCorRefreshBoneSel(){
-  var fb=document.getElementById('lea-bone-femur'), tb=document.getElementById('lea-bone-tibia');
-  if(!fb||!tb) return;
+  var fb=document.getElementById('lea-bone-femur'), tb=document.getElementById('lea-bone-tibia'), db=document.getElementById('lea-bone-distaltibia'), pb=document.getElementById('lea-bone-proxfemur');
   var on='filter:none;opacity:1;outline:2px solid #fff';
   var off='filter:saturate(.5);opacity:.55;outline:none';
-  fb.style.cssText=fb.style.cssText.replace(/;(filter|opacity|outline)[^;]*/g,'')+';'+ (leaCor.bone==='femur'?on:off);
-  tb.style.cssText=tb.style.cssText.replace(/;(filter|opacity|outline)[^;]*/g,'')+';'+ (leaCor.bone==='tibia'?on:off);
+  function set(el,active){ if(el) el.style.cssText=el.style.cssText.replace(/;(filter|opacity|outline)[^;]*/g,'')+';'+(active?on:off); }
+  set(fb, leaCor.bone==='femur'); set(tb, leaCor.bone==='tibia'); set(db, leaCor.bone==='distaltibia'); set(pb, leaCor.bone==='proxfemur');
 }
 
 window.leaCorExit = function(){
@@ -2727,6 +2758,30 @@ window.leaCorLog = function(){
   leaCor.logged=true;
   leaCor.phase='logged';
   leaCorBakeSnapshot();
+  // record this osteotomy in history for the combined export
+  var R=leaCorResults();
+  leaCor.history.push({
+    bone:R.bone, angle:R.wedge, wedgeBase:R.wedgeBase,
+    jointLabel:R.jointLabel, before:R.jointBefore, after:R.jointAfter, hka:R.hka
+  });
+  leaCorUpdateBar(); leaCorDraw();
+};
+
+// Begin ANOTHER osteotomy that cuts the already-corrected image
+window.leaCorAddAnother = function(){
+  // freeze current result as the new base image
+  if(leaCor._snap){
+    if(!leaCor.baseImg) leaCor.baseImg=document.createElement('canvas');
+    leaCor.baseImg.width=leaCor._snap.width; leaCor.baseImg.height=leaCor._snap.height;
+    leaCor.baseImg.getContext('2d').drawImage(leaCor._snap,0,0);
+  }
+  // reset the per-osteotomy state (keep history + baseImg)
+  leaCor.phase='hinge';
+  leaCor.hinge=null; leaCor.open=null; leaCor.angle=0;
+  leaCor.frag=[]; leaCor.limb=[]; leaCor.limbTracing=false; leaCor.limbAngle=0; leaCor.limbDx=0; leaCor.limbDy=0; leaCor.logged=false;
+  var s1=document.getElementById('lea-cor-slider'); if(s1) s1.value=0;
+  var s2=document.getElementById('lea-cor-slider2'); if(s2) s2.value=0;
+  leaCorRefreshBoneSel();
   leaCorUpdateBar(); leaCorDraw();
 };
 
@@ -2742,7 +2797,7 @@ function leaCorBakeSnapshot(){
   sx.setTransform(dpr,0,0,dpr,0,0);   // work in CSS-px coordinates, full res
   sx.clearRect(0,0,W,H);
   sx.imageSmoothingQuality='high';
-  sx.drawImage(leaXray,0,0,W,H);
+  var SRC=leaCor.baseImg||leaXray; sx.drawImage(SRC,0,0,W,H);
   var h=leaCor.hinge;
   var fragPoly = h ? [h].concat(leaCor.frag) : leaCor.frag.slice();
   if(fragPoly.length>=2 && h){
@@ -2753,7 +2808,7 @@ function leaCorBakeSnapshot(){
     sx.beginPath(); sx.moveTo(fragPoly[0].x,fragPoly[0].y);
     for(var j=1;j<fragPoly.length;j++) sx.lineTo(fragPoly[j].x,fragPoly[j].y);
     sx.closePath(); sx.clip();
-    sx.drawImage(leaXray,0,0,W,H); sx.restore();
+    sx.drawImage(SRC,0,0,W,H); sx.restore();
   }
 }
 
@@ -2812,6 +2867,8 @@ function leaCorUpdateBar(){
   if(bonesel) bonesel.style.display=(ph==='hinge'||ph==='fragment')?'flex':'none';
   var exp=document.getElementById('lea-cor-export');
   show(exp, ph==='logged'||ph==='straighten');
+  var another=document.getElementById('lea-cor-another');
+  show(another, ph==='logged'||ph==='straighten');
   show(sl1, ph==='slider');
   show(sl2, ph==='straighten');
   if(done) done.textContent='✓ DONE ('+leaCor.frag.length+')';
@@ -2834,7 +2891,7 @@ window.leaCorClearLimb = function(){ leaCor.limb=[]; leaCor.limbTracing=false; l
 function leaCorResults(){
   var p=leaActivePts();
   var r={};
-  r.bone = leaCor.bone==='femur'?'Femur (mLDFA)':leaCor.bone==='tibia'?'Tibia (mMPTA)':'—';
+  r.bone = leaCor.bone==='femur'?'Distal Femur (mLDFA)':leaCor.bone==='tibia'?'Proximal Tibia (mMPTA)':leaCor.bone==='distaltibia'?'Distal Tibia (LDTA)':leaCor.bone==='proxfemur'?'Proximal Femur (NSA)':'—';
   r.wedge = Math.abs(leaCor.angle).toFixed(1)+'°';
   // wedge base length
   if(leaCor.open && leaCor.hinge){
@@ -2844,9 +2901,10 @@ function leaCorResults(){
   } else r.wedgeBase='—';
   // baseline + corrected joint angle
   if(leaCor.baseAngle!=null){
-    var w=Math.abs(leaCor.angle), target=87;
+    var target=(leaCor.bone==='distaltibia')?89:(leaCor.bone==='proxfemur')?128:87;
+    var w=Math.abs(leaCor.angle);
     var corrected=leaCor.baseAngle+(leaCor.baseAngle<target?w:-w);
-    r.jointLabel = leaCor.bone==='femur'?'mLDFA':'mMPTA';
+    r.jointLabel = leaCor.bone==='femur'?'mLDFA':leaCor.bone==='tibia'?'mMPTA':leaCor.bone==='distaltibia'?'LDTA':'NSA';
     r.jointBefore = leaCor.baseAngle.toFixed(1)+'°';
     r.jointAfter = corrected.toFixed(1)+'°';
   }
@@ -2873,12 +2931,28 @@ window.leaCorExport = function(){
   var R=leaCorResults();
 
   function buildRows(){
-    var rows=[['Segment', R.bone],['Wedge angle', R.wedge],['Wedge base (cortex)', R.wedgeBase]];
-    if(R.jointLabel) rows.push([R.jointLabel+' before→after', R.jointBefore+' → '+R.jointAfter]);
-    if(R.hkaBefore) rows.push(['HKA (before)', R.hkaBefore]);
-    if(R.hka) rows.push(['HKA (corrected)', R.hka]);
-    if(R.ldfaBefore) rows.push(['mLDFA (orig)', R.ldfaBefore]);
-    if(R.mptaBefore) rows.push(['mMPTA (orig)', R.mptaBefore]);
+    var rows=[];
+    var hist=(leaCor.history&&leaCor.history.length)?leaCor.history:null;
+    if(hist){
+      hist.forEach(function(o,i){
+        rows.push(['── Osteotomy '+(i+1)+' ──', o.bone||'—']);
+        rows.push(['   Wedge angle', o.angle||'—']);
+        rows.push(['   Wedge base (cortex)', o.wedgeBase||'—']);
+        if(o.jointLabel) rows.push(['   '+o.jointLabel+' before→after', (o.before||'—')+' → '+(o.after||'—')]);
+        if(o.hka) rows.push(['   HKA (after this cut)', o.hka]);
+      });
+    } else {
+      // not logged yet — show the current in-progress values
+      rows.push(['Segment', R.bone]);
+      rows.push(['Wedge angle', R.wedge]);
+      rows.push(['Wedge base (cortex)', R.wedgeBase]);
+      if(R.jointLabel) rows.push([R.jointLabel+' before→after', R.jointBefore+' → '+R.jointAfter]);
+      if(R.hka) rows.push(['HKA (corrected)', R.hka]);
+    }
+    // original (pre-op) reference angles once, at the bottom
+    if(R.hkaBefore) rows.push(['HKA (pre-op)', R.hkaBefore]);
+    if(R.ldfaBefore) rows.push(['mLDFA (pre-op)', R.ldfaBefore]);
+    if(R.mptaBefore) rows.push(['mMPTA (pre-op)', R.mptaBefore]);
     return rows;
   }
 
@@ -3021,20 +3095,28 @@ function leaCorDraw(){
 
   // fragment polygon (hinge → frag pts) for the pivoting segment
   var fragPoly = h ? [h].concat(leaCor.frag) : leaCor.frag.slice();
+  var SRCIMG = leaCor.baseImg || leaXray;
+
+  // For a SECOND osteotomy, paint the previous result as the working background
+  if(leaCor.baseImg && (ph==='hinge'||ph==='fragment'||ph==='slider')){
+    leaCorCtx.drawImage(leaCor.baseImg,0,0,leaW(),leaH());
+  }
 
   // ───────── FRAGMENT ROTATION (slider / logged): rotate fragment pixels ─────────
   if((ph==='slider'||ph==='logged'||ph==='limb'||ph==='straighten') && leaCor.logged===false && ph==='slider' && fragPoly.length>=2){
     // live preview: black out original, draw rotated fragment
-    leaCtx.save(); pathOn(leaCtx, fragPoly, true); leaCtx.fillStyle='#000'; leaCtx.fill(); leaCtx.restore();
+    if(leaCor.baseImg){ leaCorCtx.save(); pathOn(leaCorCtx, fragPoly, true); leaCorCtx.fillStyle='#000'; leaCorCtx.fill(); leaCorCtx.restore(); }
+    else { leaCtx.save(); pathOn(leaCtx, fragPoly, true); leaCtx.fillStyle='#000'; leaCtx.fill(); leaCtx.restore(); }
     leaCorCtx.save();
     leaCorCtx.translate(h.x,h.y); leaCorCtx.rotate(leaCor.angle*Math.PI/180); leaCorCtx.translate(-h.x,-h.y);
     pathOn(leaCorCtx, fragPoly, true); leaCorCtx.clip();
-    leaCorCtx.drawImage(leaXray,0,0,leaW(),leaH());
+    leaCorCtx.drawImage(SRCIMG,0,0,leaW(),leaH());
     leaCorCtx.restore();
     // black wedge between original edge (h→frag0) and rotated edge
     if(Math.abs(leaCor.angle)>0.05 && leaCor.open){
       var oR=leaCorRot(leaCor.open);
-      leaCtx.save(); leaCtx.beginPath(); leaCtx.moveTo(h.x,h.y); leaCtx.lineTo(leaCor.open.x,leaCor.open.y); leaCtx.lineTo(oR.x,oR.y); leaCtx.closePath(); leaCtx.fillStyle='#000'; leaCtx.fill(); leaCtx.restore();
+      var wctx = leaCor.baseImg ? leaCorCtx : leaCtx;
+      wctx.save(); wctx.beginPath(); wctx.moveTo(h.x,h.y); wctx.lineTo(leaCor.open.x,leaCor.open.y); wctx.lineTo(oR.x,oR.y); wctx.closePath(); wctx.fillStyle='#000'; wctx.fill(); wctx.restore();
     }
   }
 
@@ -3136,6 +3218,14 @@ function leaCorDraw(){
       var tr=rotPair(pAll.tp1,pAll.tp2);
       svLine(svg, tr[0], tr[1], '#44ffdd', 2.5, false, wr,cr,z);
     }
+    if(leaCor.bone==='distaltibia' && pAll.at1 && pAll.at2){
+      var ar=rotPair(pAll.at1,pAll.at2);
+      svLine(svg, ar[0], ar[1], '#ff44aa', 2.5, false, wr,cr,z);
+    }
+    if(leaCor.bone==='proxfemur' && pAll.fn1 && pAll.fn2){
+      var nr=rotPair(pAll.fn1,pAll.fn2);
+      svLine(svg, nr[0], nr[1], '#88ff44', 2.5, false, wr,cr,z);
+    }
   }
 
   // ───────── Ghost straightened mechanical axis + live angles ─────────
@@ -3160,10 +3250,11 @@ function leaCorDraw(){
   var liveEl=document.getElementById('lea-cor-live');
   if(liveEl){
     if(leaCor.baseAngle==null){
-      liveEl.textContent = (leaCor.bone==='femur'?'mLDFA: place condyle line':leaCor.bone==='tibia'?'mMPTA: place plateau line':'—');
+      liveEl.textContent = (leaCor.bone==='femur'?'mLDFA: place condyle line':leaCor.bone==='tibia'?'mMPTA: place plateau line':leaCor.bone==='distaltibia'?'LDTA: place ankle line':leaCor.bone==='proxfemur'?'NSA: place neck line':'—');
       liveEl.style.color='#888';
     } else {
-      var w=Math.abs(leaCor.angle), label=leaCor.bone==='femur'?'mLDFA':'mMPTA', target=87;
+      var target=leaCorBoneTarget();
+      var w=Math.abs(leaCor.angle), label=leaCor.bone==='femur'?'mLDFA':leaCor.bone==='tibia'?'mMPTA':leaCor.bone==='distaltibia'?'LDTA':'NSA';
       var corrected = leaCor.baseAngle + (leaCor.baseAngle<target ? w : -w);
       liveEl.textContent = label+': '+corrected.toFixed(1)+'\u00b0';
       var dd=Math.abs(corrected-target);
@@ -3290,8 +3381,22 @@ function leaCalc(){
     res.mMPTA_val = parseFloat(res.mMPTA);
     res.tpMid = leaMid(p.tp1,p.tp2);
   }
-
-  // JLCA
+  if(p.at1&&p.at2&&p.kj&&p.aj){
+    var tmaDxB=p.aj.x-p.kj.x, tmaDyB=p.aj.y-p.kj.y;
+    var atDxB=p.at2.x-p.at1.x, atDyB=p.at2.y-p.at1.y;
+    var ang3B=angleBetweenVecs(tmaDxB,tmaDyB,atDxB,atDyB);
+    res.LDTA = ang3B > 90 ? (180-ang3B).toFixed(1) : ang3B.toFixed(1);
+    res.LDTA_val = parseFloat(res.LDTA);
+    res.atMid = leaMid(p.at1,p.at2);
+  }
+  if(p.fn1&&p.fn2&&p.pf&&p.fdc){
+    var neckDxB=p.fn2.x-p.fn1.x, neckDyB=p.fn2.y-p.fn1.y;
+    var shaftDxB=p.fdc.x-p.pf.x, shaftDyB=p.fdc.y-p.pf.y;
+    var nsaAngB=angleBetweenVecs(neckDxB,neckDyB,shaftDxB,shaftDyB);
+    res.NSA = (nsaAngB<90?180-nsaAngB:nsaAngB).toFixed(1);
+    res.NSA_val = parseFloat(res.NSA);
+    res.fnMid = leaMid(p.fn1,p.fn2);
+  }
   if(p.fc1&&p.fc2&&p.tp1&&p.tp2){
     var fcDx2=p.fc2.x-p.fc1.x, fcDy2=p.fc2.y-p.fc1.y;
     var tpDx2=p.tp2.x-p.tp1.x, tpDy2=p.tp2.y-p.tp1.y;
@@ -3370,6 +3475,8 @@ function leaDrawResults(res,svg,wr,cr,z){
     }
     document.getElementById('lr-ldfa').textContent=res.mLDFA?res.mLDFA+'°':'—';
     document.getElementById('lr-mpta').textContent=res.mMPTA?res.mMPTA+'°':'—';
+    var lrLdta=document.getElementById('lr-ldta'); if(lrLdta) lrLdta.textContent=res.LDTA?res.LDTA+'°':'—';
+    var lrNsa=document.getElementById('lr-nsa'); if(lrNsa) lrNsa.textContent=res.NSA?res.NSA+'°':'—';
     document.getElementById('lr-jlca').textContent=res.JLCA?res.JLCA+'°':'—';
     // HKA — results panel only
     var lrHka=document.getElementById('lr-hka');
@@ -3409,7 +3516,7 @@ var LEA_MODES={fh:'🔵 Femoral Head Center',pf:'🟣 Piriformis Fossa',fdc:'�
                aj:'🟠 Ankle Joint Center',fc:'📐 Distal Femoral Condyles',tp:'📐 Proximal Tibial Plateau',
                cal:'📏 Calibration Ruler',cal_circle:'⊙ Calibration Circle'};
 var LEA_COLORS={fh:'#4488ff',pf:'#aa88ff',fdc:'#aa88ff',kj:'#ffdd00',tpc:'#ff9944',tdc:'#ff9944',
-                aj:'#ff8844',fc:'#ff8844',tp:'#44ffdd',cal:'#ffdd00',cal_circle:'#ffdd00'};
+                aj:'#ff8844',fc:'#ff8844',tp:'#44ffdd',at:'#ff44aa',fn:'#88ff44',cal:'#ffdd00',cal_circle:'#ffdd00'};
 var LEA_HINTS={
   fh:'Tap center of the femoral head',
   pf:'Tap the piriformis fossa (proximal femoral canal entry)',
@@ -3420,6 +3527,8 @@ var LEA_HINTS={
   aj:'Tap center of the ankle joint',
   fc:['① Tap one end of the distal femoral condyle line','② Tap the other end'],
   tp:['① Tap one end of the tibial plateau','② Tap the other end'],
+  at:['① Tap medial corner of the distal tibial plafond','② Tap the lateral corner'],
+  fn:['① Tap center of the femoral head along the neck','② Tap the base of the femoral neck'],
   cal:['① Tap start of known distance on ruler','② Tap end of ruler distance'],
   cal_circle:'Tap center of calibration circle, then drag edge to set diameter'
 };
@@ -3441,11 +3550,11 @@ function leaUpdateBtns(){
     corBtn.style.display=hasCora?'flex':'none';
   }
   // Reset landmark/joint buttons
-  ['fh','pf','fdc','kj','tpc','tdc','aj','fc','tp'].forEach(function(k){
+  ['fh','pf','fdc','kj','tpc','tdc','aj','fc','tp','at','fn'].forEach(function(k){
     var btn=document.getElementById('lea-btn-'+k);
     if(!btn) return;
     btn.classList.remove('active-lea','done-lea');
-    if(p[k]||(k==='fc'&&p.fc1&&p.fc2)||(k==='tp'&&p.tp1&&p.tp2)){
+    if(p[k]||(k==='fc'&&p.fc1&&p.fc2)||(k==='tp'&&p.tp1&&p.tp2)||(k==='at'&&p.at1&&p.at2)||(k==='fn'&&p.fn1&&p.fn2)){
       btn.classList.add('done-lea');
     }
     btn.textContent=LEA_MODES[k]||k;
@@ -3475,8 +3584,8 @@ function leaUpdateBtns(){
 
 window.leaReset=function(){
   if(leaCor.active) leaCorExit();
-  leaPts={fh:null,pf:null,fdc:null,kj:null,tpc:null,tdc:null,aj:null,fc1:null,fc2:null,tp1:null,tp2:null,fCoraPt:null,tCoraPt:null};
-  leaPtsL={fh:null,pf:null,fdc:null,kj:null,tpc:null,tdc:null,aj:null,fc1:null,fc2:null,tp1:null,tp2:null,fCoraPt:null,tCoraPt:null};
+  leaPts={fh:null,pf:null,fdc:null,kj:null,tpc:null,tdc:null,aj:null,fc1:null,fc2:null,tp1:null,tp2:null,at1:null,at2:null,fn1:null,fn2:null,fCoraPt:null,tCoraPt:null};
+  leaPtsL={fh:null,pf:null,fdc:null,kj:null,tpc:null,tdc:null,aj:null,fc1:null,fc2:null,tp1:null,tp2:null,at1:null,at2:null,fn1:null,fn2:null,fCoraPt:null,tCoraPt:null};
   leaSide='R';
   leaState={mode:null,tmp:null,pxPerMm:null,calMode:'circle',cal:null,calCircle:null};
   leaDrg=null;
@@ -3726,11 +3835,13 @@ function leaDown(e){
     leaApplyRuler();
     return;
   }
-  if(m==='fc'||m==='tp'||m==='cal'){
+  if(m==='fc'||m==='tp'||m==='at'||m==='fn'||m==='cal'){
     if(!leaState.tmp){leaState.tmp=pt; leaUpdateBtns(); leaDraw();}
     else{
       if(m==='fc'){leaPts.fc1=leaState.tmp;leaPts.fc2=pt;}
       else if(m==='tp'){leaPts.tp1=leaState.tmp;leaPts.tp2=pt;}
+      else if(m==='at'){leaPts.at1=leaState.tmp;leaPts.at2=pt;}
+      else if(m==='fn'){leaPts.fn1=leaState.tmp;leaPts.fn2=pt;}
       else if(m==='cal'){leaState.cal={p1:leaState.tmp,p2:pt}; leaApplyRuler();}
       leaState.tmp=null; leaState.mode=null; leaUpdateBtns(); leaDraw();
     }
@@ -3742,6 +3853,8 @@ function leaDown(e){
     {k:'fh',p:leaPts.fh},{k:'pf',p:leaPts.pf},{k:'fdc',p:leaPts.fdc},
     {k:'kj',p:leaPts.kj},{k:'tpc',p:leaPts.tpc},{k:'tdc',p:leaPts.tdc},{k:'aj',p:leaPts.aj},
     {k:'fc1',p:leaPts.fc1},{k:'fc2',p:leaPts.fc2},{k:'tp1',p:leaPts.tp1},{k:'tp2',p:leaPts.tp2},
+    {k:'at1',p:leaPts.at1},{k:'at2',p:leaPts.at2},
+    {k:'fn1',p:leaPts.fn1},{k:'fn2',p:leaPts.fn2},
     {k:'cal_p1',p:leaState.cal?leaState.cal.p1:null},{k:'cal_p2',p:leaState.cal?leaState.cal.p2:null},
     {k:'circle_c',p:leaState.calCircle?{x:leaState.calCircle.cx,y:leaState.calCircle.cy}:null},
     {k:'circle_e',p:leaState.calCircle?{x:leaState.calCircle.cx+leaState.calCircle.r,y:leaState.calCircle.cy}:null},
@@ -3781,6 +3894,9 @@ document.getElementById('lea-upload').addEventListener('change',function(e){
       document.getElementById('lea-upload-txt').textContent='✓ X-ray loaded';
       document.getElementById('lea-upload-lbl').classList.add('done');
       document.getElementById('lea-b-img').classList.add('done');
+      // Auto-close the bottom sheet so the image is visible immediately
+      var lsh=document.getElementById('lea-sheet'); if(lsh) lsh.classList.remove('open');
+      var lbd=document.getElementById('lea-backdrop'); if(lbd) lbd.classList.remove('open');
       leaZ.reset(); leaReset(); leaLayout();
     };
     leaXray.src=ev.target.result;
@@ -3922,10 +4038,10 @@ leaUpdateBtns = function(){
   _origLeaUpdateBtns();
   var m=leaState.mode;
   var _ap=leaActivePts();
-  ['fh','pf','fdc','kj','tpc','tdc','aj','fc','tp'].forEach(function(k){
+  ['fh','pf','fdc','kj','tpc','tdc','aj','fc','tp','at','fn'].forEach(function(k){
     var ftb=document.getElementById('lft-'+k); if(!ftb) return;
     ftb.classList.remove('active-ft','done-ft');
-    var done=_ap[k]||(k==='fc'&&_ap.fc1&&_ap.fc2)||(k==='tp'&&_ap.tp1&&_ap.tp2);
+    var done=_ap[k]||(k==='fc'&&_ap.fc1&&_ap.fc2)||(k==='tp'&&_ap.tp1&&_ap.tp2)||(k==='at'&&_ap.at1&&_ap.at2)||(k==='fn'&&_ap.fn1&&_ap.fn2);
     if(done) ftb.classList.add('done-ft');
     // Also ring the dot icon itself
     var ico=ftb.querySelector('.ftico');
@@ -4012,6 +4128,8 @@ leaDrawResults = function(res, svg, wr, cr, z){
     if(r2.HKA)  html+=leaFloatRow('HKA', r2.HKA+'°', '#00e5ff');
     if(r2.mLDFA) html+=leaFloatRow('mLDFA',r2.mLDFA+'°','#ff8844');
     if(r2.mMPTA) html+=leaFloatRow('mMPTA',r2.mMPTA+'°','#44ffdd');
+    if(r2.LDTA)  html+=leaFloatRow('LDTA', r2.LDTA+'°', '#ff44aa');
+    if(r2.NSA)   html+=leaFloatRow('NSA',  r2.NSA+'°',  '#88ff44');
     if(r2.JLCA)  html+=leaFloatRow('JLCA', r2.JLCA+'°', '#ffdd00');
     if(r2.AMA)   html+=leaFloatRow('AMA',  r2.AMA+'°',  '#ff88ff');
     if(r2.fCoraAngle) html+=leaFloatRow('F-CORA',r2.fCoraAngle+'°','#ffaa00');
