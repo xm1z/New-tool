@@ -2602,6 +2602,13 @@ function leaCalcFor(p, forSide){
   if(p.fh&&p.fdc&&p.pf){
     res.AMA = angleAtVertex(p.fh, p.fdc, p.pf).toFixed(1);
   }
+  if(p.fc1&&p.fc2&&p.tp1&&p.tp2){
+    var fcDxJ=p.fc2.x-p.fc1.x, fcDyJ=p.fc2.y-p.fc1.y;
+    var tpDxJ=p.tp2.x-p.tp1.x, tpDyJ=p.tp2.y-p.tp1.y;
+    var jlcaAngF=angleBetweenVecs(fcDxJ,fcDyJ,tpDxJ,tpDyJ);
+    res.JLCA = Math.min(jlcaAngF,180-jlcaAngF).toFixed(1);
+    res.jlcaIntersect = lineIntersect(p.fc1,p.fc2,p.tp1,p.tp2);
+  }
   // Femoral CORA — supplementary, only if dragged (>0.5°)
   if(p.pf&&p.fdc&&p.fCoraPt){
     var fCoraInt = angleAtVertex(p.pf, p.fCoraPt, p.fdc);
