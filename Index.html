@@ -942,6 +942,7 @@
   </div>
 
     <!-- LEA floating toolbar — two compact rows -->
+    <button id="lea-ui-eye" onclick="leaToggleUI()" title="Hide/show controls" style="display:none;position:absolute;bottom:14px;right:14px;z-index:130;width:42px;height:42px;border-radius:50%;border:1px solid #00e5ff66;background:#05080fdd;color:#00e5ff;font-size:18px;cursor:pointer;backdrop-filter:blur(8px);box-shadow:0 4px 14px #000a">👁</button>
     <div id="lea-ftoolbar" style="display:none;position:absolute;bottom:14px;left:50%;transform:translateX(-50%);z-index:100;flex-direction:column;gap:5px;align-items:center">
       <!-- Row 1: landmarks -->
       <div class="ftoolbar" style="position:static;transform:none;padding:5px 8px;gap:4px;border-radius:20px">
@@ -2899,13 +2900,44 @@ function leaCorBakeSnapshot(){
 // Start freehand whole-limb outline
 window.leaCorStartLimb = function(){
   leaCor.phase='limb'; leaCor.limb=[]; leaCor.limbTracing=false;
+  leaAutoHideUI(true);           // clear the view for tracing
   leaCorUpdateBar(); leaCorDraw();
 };
 window.leaCorDoneLimb = function(){
   if(leaCor.limb.length<3){ alert('Trace the whole limb (femoral head → ankle) first.'); return; }
   leaCor.phase='straighten';
+  leaAutoHideUI(false);          // bring controls back
   leaCorUpdateBar(); leaCorDraw();
 };
+
+// ── UI hide/show (manual eye toggle + auto-hide while tracing) ──
+var leaUIHidden=false, leaUIAutoHidden=false;
+function leaSetUIVisible(vis){
+  var ids=['lea-ftoolbar','lea-result-float','lea-correct-bar'];
+  ids.forEach(function(id){
+    var el=document.getElementById(id);
+    if(!el) return;
+    if(!vis){ if(el.style.display!=='none'){ el.dataset.prevDisp=el.style.display||''; el.style.display='none'; } }
+    else { if(el.dataset.prevDisp!==undefined){ el.style.display=el.dataset.prevDisp; delete el.dataset.prevDisp; } }
+  });
+  // keep the osteotomy bar visible during active osteotomy unless manually hidden
+  if(vis && leaCor && leaCor.active){
+    var bar=document.getElementById('lea-correct-bar'); if(bar) bar.style.display='block';
+  }
+  var eye=document.getElementById('lea-ui-eye');
+  if(eye) eye.textContent = vis ? '👁' : '🙈';
+}
+window.leaToggleUI=function(){
+  leaUIHidden=!leaUIHidden;
+  leaSetUIVisible(!leaUIHidden);
+};
+function leaAutoHideUI(hide){
+  if(hide){
+    if(!leaUIHidden){ leaUIAutoHidden=true; leaSetUIVisible(false); }
+  } else {
+    if(leaUIAutoHidden && !leaUIHidden){ leaUIAutoHidden=false; leaSetUIVisible(true); }
+  }
+}
 // Second slider — rotate the whole-limb outline to straighten
 window.leaCorSlider2 = function(v){
   leaCor.limbAngle=parseFloat(v);
@@ -2979,11 +3011,19 @@ function leaCorResults(){
   var r={};
   r.bone = leaCor.bone==='femur'?'Distal Femur (mLDFA)':leaCor.bone==='tibia'?'Proximal Tibia (mMPTA)':leaCor.bone==='distaltibia'?'Distal Tibia (LDTA)':leaCor.bone==='proxfemur'?'Proximal Femur (NSA)':'—';
   r.wedge = Math.abs(leaCor.angle).toFixed(1)+'°';
-  // wedge base length
-  if(leaCor.open && leaCor.hinge){
-    var oRw=leaCorRot(leaCor.open);
-    var pxLen=leaDist(leaCor.open,oRw);
+  // wedge base length — measured at the FIRST fragment point (frag[0]),
+  // which the user intentionally places on the OUTER CORTEX, directly across
+  // from the hinge. The remaining outline points don't affect this.
+  // gap = 2·R·sin(angle/2), R = hinge→cortex distance.
+  if(leaCor.hinge && leaCor.frag && leaCor.frag.length){
+    var cortex=leaCor.frag[0];
+    var cR=leaCorRot(cortex);
+    var pxLen=leaDist(cortex,cR);
     r.wedgeBase = leaState.pxPerMm ? (pxLen/leaState.pxPerMm).toFixed(1)+' mm' : pxLen.toFixed(0)+' px';
+  } else if(leaCor.open && leaCor.hinge){
+    var oRw=leaCorRot(leaCor.open);
+    var pxLen2=leaDist(leaCor.open,oRw);
+    r.wedgeBase = leaState.pxPerMm ? (pxLen2/leaState.pxPerMm).toFixed(1)+' mm' : pxLen2.toFixed(0)+' px';
   } else r.wedgeBase='—';
   r.lengthen=(leaCor.lengthen||0).toFixed(1)+' mm';
   // baseline + corrected joint angle
@@ -3260,8 +3300,10 @@ function leaCorDraw(){
   var wlEl=document.getElementById('lea-cor-wedgelen');
   var wlWrap=document.getElementById('lea-cor-wedgelen-wrap');
   if((ph==='slider'||ph==='logged') && leaCor.open && h){
-    var oRw=leaCorRot(leaCor.open);
-    var pxLen=leaDist(leaCor.open, oRw);                 // wedge base in canvas px
+    // measure at the FIRST fragment point (placed on the outer cortex)
+    var cortexPt=(leaCor.frag&&leaCor.frag.length)?leaCor.frag[0]:leaCor.open;
+    var oRw=leaCorRot(cortexPt);
+    var pxLen=leaDist(cortexPt, oRw);                 // wedge base (cortex) in canvas px
     var pxPerMm = (leaState && leaState.pxPerMm) ? leaState.pxPerMm : null;
     if(wlWrap) wlWrap.style.display='flex';
     if(wlEl){
@@ -4114,17 +4156,35 @@ function leaNormColor(key,val){
 //  SAVE / LOAD CASE
 // ════════════════════════════════════════════════════════════
 window.leaSaveCase=function(){
+ try{
+  var cor=null;
+  if(leaCor){
+    cor={
+      phase:leaCor.phase, bone:leaCor.bone, baseAngle:leaCor.baseAngle,
+      hinge:leaCor.hinge, open:leaCor.open, angle:leaCor.angle, lengthen:leaCor.lengthen,
+      frag:leaCor.frag, limb:leaCor.limb, limbAngle:leaCor.limbAngle,
+      limbDx:leaCor.limbDx, limbDy:leaCor.limbDy, logged:leaCor.logged,
+      history:leaCor.history||[]
+    };
+  }
   var data={
-    v:1, ts:new Date().toISOString(),
+    v:2, ts:new Date().toISOString(),
     side:leaSide,
     pxPerMm:leaState.pxPerMm,
     ptsR:leaPts, ptsL:leaPtsL,
     cal:leaState.cal, calCircle:leaState.calCircle,
     img:window.leaXraySrc||null,
+    cor:cor,
     history:(leaCor&&leaCor.history)?leaCor.history:[]
   };
   var json=JSON.stringify(data);
-  var url='data:application/json;charset=utf-8,'+encodeURIComponent(json);
+  var url;
+  try{
+    var blob=new Blob([json],{type:'application/json'});
+    url=URL.createObjectURL(blob);
+  }catch(e){
+    url='data:application/json;charset=utf-8,'+encodeURIComponent(json);
+  }
   // show overlay so the user can save/share (sandbox-safe)
   var ov=leaMakeOverlay('SAVE CASE');
   var info=document.createElement('div');
@@ -4136,6 +4196,9 @@ window.leaSaveCase=function(){
   btn.textContent='⬇ DOWNLOAD CASE';
   btn.style.cssText='padding:10px 18px;border-radius:10px;border:1px solid #44ff88;background:#002a14;color:#44ff88;font-weight:700;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;text-decoration:none;margin:6px';
   ov.appendChild(btn);
+ }catch(err){
+  alert('Save failed: '+(err&&err.message?err.message:err));
+ }
 };
 window.leaLoadCase=function(){ document.getElementById('lea-case-input').click(); };
 document.getElementById('lea-case-input').addEventListener('change',function(e){
@@ -4150,8 +4213,40 @@ document.getElementById('lea-case-input').addEventListener('change',function(e){
         leaSide=d.side||'R';
         leaState.pxPerMm=d.pxPerMm||null;
         leaState.cal=d.cal||null; leaState.calCircle=d.calCircle||null;
-        if(leaCor&&d.history) leaCor.history=d.history;
-        leaLayout(); leaDraw(); leaUpdateBtns();
+        // restore osteotomy
+        if(leaCor){
+          if(d.cor){
+            leaCor.phase=d.cor.phase||'hinge';
+            leaCor.bone=d.cor.bone||null;
+            leaCor.baseAngle=(d.cor.baseAngle!=null)?d.cor.baseAngle:null;
+            leaCor.hinge=d.cor.hinge||null;
+            leaCor.open=d.cor.open||null;
+            leaCor.angle=d.cor.angle||0;
+            leaCor.lengthen=d.cor.lengthen||0;
+            leaCor.frag=d.cor.frag||[];
+            leaCor.limb=d.cor.limb||[];
+            leaCor.limbAngle=d.cor.limbAngle||0;
+            leaCor.limbDx=d.cor.limbDx||0; leaCor.limbDy=d.cor.limbDy||0;
+            leaCor.logged=!!d.cor.logged;
+            leaCor.history=d.cor.history||d.history||[];
+            leaCor.baseImg=null;
+          } else {
+            leaCor.history=d.history||[];
+          }
+        }
+        leaLayout();
+        // if an osteotomy was in progress/logged, re-enter cut mode and re-bake the visual
+        var hasOsteo = d.cor && (d.cor.logged || (d.cor.hinge && d.cor.frag && d.cor.frag.length>=2));
+        if(hasOsteo){
+          leaCor.active=true;
+          var bar=document.getElementById('lea-correct-bar'); if(bar) bar.style.display='block';
+          if(typeof leaCorSyncCanvas==='function') leaCorSyncCanvas();
+          if(leaCor.logged && typeof leaCorBakeSnapshot==='function'){ try{ leaCorBakeSnapshot(); }catch(e){} }
+          if(typeof leaCorRefreshBoneSel==='function') leaCorRefreshBoneSel();
+          if(typeof leaCorUpdateBar==='function') leaCorUpdateBar();
+          if(typeof leaCorDraw==='function') leaCorDraw();
+        }
+        leaDraw(); leaUpdateBtns();
         alert('Case loaded.');
       }
       if(d.img){
@@ -4375,6 +4470,8 @@ window.switchMode = function(mode){
     var el = document.getElementById(tbMap[k]);
     if(el) el.style.display = (k===mode) ? 'flex' : 'none';
   });
+  var eye=document.getElementById('lea-ui-eye');
+  if(eye) eye.style.display=(mode==='lea')?'block':'none';
   // Show only the float card for the active screen
   document.getElementById('a-result-float').style.display  = 'none';
   document.getElementById('tttg-result-float').style.display = 'none';
@@ -4703,3 +4800,4 @@ self.addEventListener('fetch', e => {
 </script>
 </body>
 </html>
+
