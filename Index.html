@@ -2386,7 +2386,7 @@ window.leaSwitchSide=function(side){
   [lb,lb2].forEach(function(b){if(b){b.style.background=side==='L'?'#002a1a':'#0a1420';b.style.color=side==='L'?'#4ade80':'#5a8aaa';b.style.borderColor=side==='L'?'#4ade80':'#1a3a5c';}});
   leaUpdateBtns(); leaDraw(); if(leaState.calCircle) leaUpdateCircleDiv();
 };
-var leaState = {mode:null, tmp:null, pxPerMm:null, calMode:'circle', cal:null, calCircle:null};
+var leaState = {mode:null, tmp:null, pxPerMm:null, calMode:'circle', cal:null, calCircle:null, fhCircle:null};
 // Set default calibration to circle mode on load
 document.addEventListener('DOMContentLoaded',function(){ leaSetCalMode('circle'); });
 var leaDrg = null;
@@ -2527,7 +2527,23 @@ function leaDraw(){
   else if(p.at1 && !corActive) dot(p.at1,'#ff44aa');
   if(p.fn1&&p.fn2 && !corActive){line(p.fn1,p.fn2,'#88ff44',2,false);dot(p.fn1,'#88ff44');dot(p.fn2,'#88ff44');}
   else if(p.fn1 && !corActive) dot(p.fn1,'#88ff44');
-  if(p.fh && !corActive) dot(p.fh,'#4488ff',4);
+  if(p.fh && !corActive){
+    if(leaState.fhCircle){
+      var fhc=leaState.fhCircle;
+      var sc=c2s(fhc.cx,fhc.cy,wr,cr,z);
+      // the fitted circle (scales with zoom — anatomical size)
+      svg.appendChild(svEl('circle',{cx:sc.x,cy:sc.y,r:fhc.r*z,fill:'none',stroke:'#4488ff','stroke-width':'2',opacity:'0.9'}));
+      // crosshair through center
+      svg.appendChild(svEl('line',{x1:sc.x-8,y1:sc.y,x2:sc.x+8,y2:sc.y,stroke:'#4488ff','stroke-width':'1.5'}));
+      svg.appendChild(svEl('line',{x1:sc.x,y1:sc.y-8,x2:sc.x,y2:sc.y+8,stroke:'#4488ff','stroke-width':'1.5'}));
+      // edge drag handle
+      var se=c2s(fhc.cx+fhc.r,fhc.cy,wr,cr,z);
+      svg.appendChild(svEl('circle',{cx:se.x,cy:se.y,r:6,fill:'#4488ff',stroke:'#fff','stroke-width':'1.5'}));
+      // (center is marked by the crosshair above — no separate dot)
+    } else {
+      dot(p.fh,'#4488ff',4);
+    }
+  }
   if(p.pf && !corActive) dot(p.pf,'#aa88ff');
   if(p.fdc && !corActive)dot(p.fdc,'#aa88ff');
   if(p.kj && !corActive) dot(p.kj,'#ffdd00',4);
@@ -3698,7 +3714,7 @@ var LEA_MODES={fh:'🔵 Femoral Head Center',pf:'🟣 Piriformis Fossa',fdc:'�
 var LEA_COLORS={fh:'#4488ff',pf:'#aa88ff',fdc:'#aa88ff',kj:'#ffdd00',tpc:'#ff9944',tdc:'#ff9944',
                 aj:'#ff8844',fc:'#ff8844',tp:'#44ffdd',at:'#ff44aa',fn:'#88ff44',cal:'#ffdd00',cal_circle:'#ffdd00'};
 var LEA_HINTS={
-  fh:'Tap center of the femoral head',
+  fh:'Tap the femoral head — a circle appears. Drag its edge to fit the head; center = mechanical axis point',
   pf:'Tap the piriformis fossa (proximal femoral canal entry)',
   fdc:'Tap center of the distal femoral canal (intramedullary canal center distally)',
   kj:'Tap center of the knee joint',
@@ -3767,7 +3783,7 @@ window.leaReset=function(){
   leaPts={fh:null,pf:null,fdc:null,kj:null,tpc:null,tdc:null,aj:null,fc1:null,fc2:null,tp1:null,tp2:null,at1:null,at2:null,fn1:null,fn2:null,fCoraPt:null,tCoraPt:null};
   leaPtsL={fh:null,pf:null,fdc:null,kj:null,tpc:null,tdc:null,aj:null,fc1:null,fc2:null,tp1:null,tp2:null,at1:null,at2:null,fn1:null,fn2:null,fCoraPt:null,tCoraPt:null};
   leaSide='R';
-  leaState={mode:null,tmp:null,pxPerMm:null,calMode:'circle',cal:null,calCircle:null};
+  leaState={mode:null,tmp:null,pxPerMm:null,calMode:'circle',cal:null,calCircle:null,fhCircle:null};
   leaDrg=null;
   document.getElementById('lea-result').style.display='none';
   document.getElementById('lea-cora-box').style.display='none';
@@ -4044,7 +4060,18 @@ function leaDown(e){
   var leaPts=leaActivePts(); // always use the active side
 
   // Placement modes
-  if(m==='fh'||m==='pf'||m==='fdc'||m==='kj'||m==='tpc'||m==='tdc'||m==='aj'){
+  if(m==='fh'){
+    // Femoral head: place a circle (like calibration). Center = FH point.
+    // Try auto-detecting the round head; fall back to a default circle.
+    var fdet=null; try{ fdet=detectBallOn(leaCtx, leaCanvas, pt.x, pt.y); }catch(e){}
+    var fr = fdet ? fdet.r : 40;
+    var fcx = fdet ? fdet.cx : pt.x;
+    var fcy = fdet ? fdet.cy : pt.y;
+    leaState.fhCircle={cx:fcx, cy:fcy, r:fr};
+    leaPts.fh={x:fcx, y:fcy};
+    leaState.mode=null; leaUpdateBtns(); leaDraw(); return;
+  }
+  if(m==='pf'||m==='fdc'||m==='kj'||m==='tpc'||m==='tdc'||m==='aj'){
     leaPts[m]=pt;
     // Reset CORA midpoints when parent landmarks change so they re-auto-place
     if(m==='pf'||m==='fdc') leaPts.fCoraPt=null;
@@ -4084,6 +4111,8 @@ function leaDown(e){
     {k:'cal_p1',p:leaState.cal?leaState.cal.p1:null},{k:'cal_p2',p:leaState.cal?leaState.cal.p2:null},
     {k:'circle_c',p:leaState.calCircle?{x:leaState.calCircle.cx,y:leaState.calCircle.cy}:null},
     {k:'circle_e',p:leaState.calCircle?{x:leaState.calCircle.cx+leaState.calCircle.r,y:leaState.calCircle.cy}:null},
+    {k:'fhc_c',p:leaState.fhCircle?{x:leaState.fhCircle.cx,y:leaState.fhCircle.cy}:null},
+    {k:'fhc_e',p:leaState.fhCircle?{x:leaState.fhCircle.cx+leaState.fhCircle.r,y:leaState.fhCircle.cy}:null},
     {k:'fCoraPt',p:leaPts.fCoraPt},{k:'tCoraPt',p:leaPts.tCoraPt}
   ];
   for(var i=0;i<hits.length;i++){
@@ -4100,6 +4129,8 @@ function leaMove(e){
   if(leaDrg==='cal_p1'){leaState.cal.p1=pt;leaApplyRuler();}
   else if(leaDrg==='cal_p2'){leaState.cal.p2=pt;leaApplyRuler();}
   else if(leaDrg==='circle_c'){leaState.calCircle.cx=pt.x;leaState.calCircle.cy=pt.y;leaUpdateCircleDiv();leaApplyRuler();}
+  else if(leaDrg==='fhc_c'){ leaState.fhCircle.cx=pt.x; leaState.fhCircle.cy=pt.y; leaPts.fh={x:pt.x,y:pt.y}; }
+  else if(leaDrg==='fhc_e'){ leaState.fhCircle.r=Math.max(6, leaDist({x:leaState.fhCircle.cx,y:leaState.fhCircle.cy}, pt)); }
   else leaPts[leaDrg]=pt;
   var srcM=e.touches?e.touches[0]:e; leaShowLoupe(srcM.clientX,srcM.clientY);
   leaDraw();
@@ -4172,7 +4203,7 @@ window.leaSaveCase=function(){
     side:leaSide,
     pxPerMm:leaState.pxPerMm,
     ptsR:leaPts, ptsL:leaPtsL,
-    cal:leaState.cal, calCircle:leaState.calCircle,
+    cal:leaState.cal, calCircle:leaState.calCircle, fhCircle:leaState.fhCircle,
     img:window.leaXraySrc||null,
     cor:cor,
     history:(leaCor&&leaCor.history)?leaCor.history:[]
@@ -4212,7 +4243,7 @@ document.getElementById('lea-case-input').addEventListener('change',function(e){
         if(d.ptsL) leaPtsL=d.ptsL;
         leaSide=d.side||'R';
         leaState.pxPerMm=d.pxPerMm||null;
-        leaState.cal=d.cal||null; leaState.calCircle=d.calCircle||null;
+        leaState.cal=d.cal||null; leaState.calCircle=d.calCircle||null; leaState.fhCircle=d.fhCircle||null;
         // restore osteotomy
         if(leaCor){
           if(d.cor){
@@ -4800,4 +4831,3 @@ self.addEventListener('fetch', e => {
 </script>
 </body>
 </html>
-
